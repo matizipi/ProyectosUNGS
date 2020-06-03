@@ -21,6 +21,8 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 	private JTextField _txtInput;
 	private JButton _btnInput;
 	
+	private JButton _btnVolver;
+	
 	/* Alphabet set. */
 	private JScrollPane _spAlphabet;
 	private DefaultTableModel _dtmAlphabet;
@@ -54,6 +56,13 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 				, 70
 				, fldH );
 		this._contentPanel.add( this._btnInput );
+	
+		this._btnVolver = new JButton( "<-" );
+		this._btnVolver.setBounds( this._frameW - spY - 50
+				, spY
+				, 50
+				, fldH);
+		this._contentPanel.add( this._btnVolver );
 		
 		/* Set main tables. */
 		this._maintablesY = this._txtInput.getY() + this._txtInput.getHeight() + spY;
@@ -87,7 +96,7 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 		this._spTf = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spTf.setBounds( this._spState.getX() + this._spState.getWidth() + spX
 				, this._maintablesY
-				, frameW - this._spState.getX() - this._spState.getWidth() - spX
+				, this._frameW - this._spState.getX() - this._spState.getWidth() - spX
 				, this._maintablesH );
 		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spTf );
@@ -101,15 +110,15 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 		this._spLog = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spLog.setBounds( spX
 				, this._maintablesY + this._maintablesH + spY
-				, frameW - spX
-				, frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
+				, this._frameW - spX
+				, this._frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spLog );
 		
 		this._dtmLog = new DefaultTableModel( null, LOG_TITLE );
 		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( frameW - spX - 75 - spX );
+		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spLog.setViewportView( this._tblLog );
 	}
@@ -122,6 +131,10 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 		return this._btnInput;
 	}
 
+	public JButton getBtnVolver() {
+		return this._btnVolver;
+	}
+	
 	public JScrollPane getSpAlphabet() {
 		return _spAlphabet;
 	}

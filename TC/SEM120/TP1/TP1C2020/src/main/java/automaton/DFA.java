@@ -4,8 +4,10 @@ import java.util.List;
 
 import automaton.components.StateA;
 import automaton.components.alphabet.Alphabet;
+import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
 import automaton.dfn.components.TransactionFunctionDFA;
+import helper.Msg;
 
 public class DFA extends Automaton {
 	
@@ -46,6 +48,60 @@ public class DFA extends Automaton {
 		}
 		
 		return table;
+	}
+	
+	@Override
+	public boolean accept(String input) {
+		
+		this._lstMsg.clear();
+		
+		Input inp = new Input( input );
+		
+		if ( this._coAlphabet.accept( inp ) == false ) {
+			this._lstMsg.addAll( this._coAlphabet.getMsgs() );
+			return false;
+		}
+		
+		this._lstMsg.add( new Msg( Msg.INFO, this, "Los simbolos del input pertenecen al alfabeto." ) );
+		
+		return this.acceptInputFrom( this._coStartState, inp );
+	}
+	
+	public boolean acceptInputFrom( StateA state, Input input ) {
+		
+		boolean tfSucces = false;
+		Simbol[] symbolsOfInput = input.getSimbolsOfInput();
+		StateA stt = state;
+		
+		/* For each symbol of input. */
+		for( int i = 0; i < symbolsOfInput.length; i++ ) {
+			tfSucces = false;
+			/* For each transaction function. */
+			for( TransactionFunctionDFA tf: this._lstTfs ) {
+				/* Ask for next state. */
+				if( tf.hasParameters( stt, symbolsOfInput[i] ) ) {
+					tfSucces = true;
+					stt = tf.nextState();
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Realiza: " + tf.toString() ) );
+					break;
+				}
+			}
+			/* Ask if did some transaction function. */
+			if( tfSucces == false ) {
+				this._lstMsg.add( new Msg( Msg.ERROR, this, "No existe función de transacción"
+						+ " para el estado: " + stt.getName()
+						+ " y el simbolo: " + symbolsOfInput[i].getSimbol() ) );
+				return false;
+			}
+		}
+		/* Ask if the final state is final. */
+		if( stt.isFinalState() == true ) {
+			this._lstMsg.add( new Msg( Msg.INFO, this, "Input aceptado." ) );
+			return true;
+		} else {
+			this._lstMsg.add( new Msg( Msg.INFO, this, "Input no aceptado." ) );
+			return false;
+		}
 	}
 	
 ////	public DFA(NFA nfa) {

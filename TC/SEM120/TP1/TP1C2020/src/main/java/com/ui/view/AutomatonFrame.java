@@ -6,14 +6,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public abstract class AutomatonFrame extends JFrame {
+public abstract class AutomatonFrame extends NFrame {
 	
 	protected JPanel _contentPanel;
-	protected static int frameW = 802;/* 810 - 8 */
-	protected static int frameH = 505;/* 550 - 45 */
 	
-	protected static int realframeW = frameW + 8;
-	protected static int realframeH = frameH + 45;
+	protected int _realframeW = 810;
+	protected int _realframeH = 550;
+	
+	protected int _frameW = this._realframeW - this._xOsDifference;
+	protected int _frameH = this._realframeH - this._yOsDifference;
 	
 	protected static int spX = 7;
 	protected static int spY = 5;
@@ -28,7 +29,7 @@ public abstract class AutomatonFrame extends JFrame {
 	public AutomatonFrame() {
 		this._imgBackground = new ImageIcon(BACKGROUND);
 		
-		this.setBounds( 0, 0, realframeW, realframeH );
+		this.setBounds( 0, 0, this._realframeW, this._realframeH );
 		this.setLocationRelativeTo( null );
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		

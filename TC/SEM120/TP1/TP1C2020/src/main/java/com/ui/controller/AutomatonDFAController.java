@@ -26,12 +26,17 @@ public class AutomatonDFAController implements ControllerImpl {
 	
 	private void addListener() {
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnVolver().addActionListener( this );
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnInput() ) {
-			
+			this.processInput();
+		} else if ( arg0.getSource() == this._frame.getBtnVolver() ) {
+			AutomatonNFAController ctr = new AutomatonNFAController();
+			this.finish();
+			ctr.start();
 		}
 	}
 
@@ -49,9 +54,23 @@ public class AutomatonDFAController implements ControllerImpl {
 		this._frame.setVisible( false );
 	}
 
-	private void loadAutomatonInView() {
+	private void processInput() {
 		
-//		List< Msg > msgs = new ArrayList< Msg >();
+		String input = this._frame.getTxtInput().getText().toString();
+		
+		System.out.println(input);
+		
+		if ( this._a.accept( input ) == true ) {
+			this.printMessages( this._a.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " aceptado [OK].") );
+		} else {
+			this.printMessages( this._a.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " no aceptado [FAIL].") );
+		}
+		
+	}
+	
+	private void loadAutomatonInView() {
 		
 		if ( this._a.isCorrectly() == true ) {
 			this.loadAlphabet();
@@ -130,9 +149,13 @@ public class AutomatonDFAController implements ControllerImpl {
 	
 	private void printMessages( List< Msg > msgs ) {
 		
+		for( Msg m: msgs ) {
+			this.printMessage( m );
+		}
+		
 	}
 	
-	private void printMessages( Msg msg ) {
+	private void printMessage( Msg msg ) {
 		
 		DefaultTableModel dtm = this._frame.getDtmLog();
 		

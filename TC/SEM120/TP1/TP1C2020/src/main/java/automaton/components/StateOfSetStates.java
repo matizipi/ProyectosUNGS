@@ -3,6 +3,8 @@ package automaton.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import helper.LogWriter;
+
 public class StateOfSetStates extends StateA {
 
 	private List< StateA > _lstState;
@@ -18,6 +20,10 @@ public class StateOfSetStates extends StateA {
 	}
 
 	public void addState( StateA state ) {
+		if ( state.isFinalState() ) {
+			this.finalState = true;
+		}
+		
 		this._lstState.add( state );
 	}
 	
@@ -27,6 +33,11 @@ public class StateOfSetStates extends StateA {
 		
 		for ( StateA s01: states ) {
 			exists = false;
+			
+			if ( s01.isFinalState() ) {
+				this.finalState = true;
+			}
+			
 			for ( StateA s02: this._lstState ) {
 				if ( s01.equals( s02 ) )
 					exists = true;

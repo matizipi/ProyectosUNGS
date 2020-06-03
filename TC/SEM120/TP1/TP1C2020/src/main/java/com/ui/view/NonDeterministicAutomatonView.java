@@ -18,8 +18,8 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 	public static String[] TF_TITLE = new String[] { "Estado" };
 	public static String[] LOG_TITLE = new String[] { "Tipo", "Descipción" };
 	
-	private int maintablesY = 0;
-	private int maintablesH = 300;
+	private int _maintablesY = 0;
+	private int _maintablesH = 300;
 	
 	private JTextField _txtFilePath;
 	private JButton _btnLoadFile;
@@ -53,6 +53,8 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 		this._txtFilePath.setColumns( 10 );
 		this._txtFilePath.setBounds( spX, spY, 300, 27 );
 		this._contentPanel.add( this._txtFilePath );
+		
+		this._txtFilePath.setText("C:/Users/user/Desktop/Nicolas/02-Proyecto/01-Informatic/07-UNGS/Teoria_de_la_Computaci�n/eclips-workspace/TP1C2020/src/main/resources/exampleAutomaton.txt");
 		
 		/* Set load properties. */
 		this._btnLoadFile = new JButton( "Cargar" );
@@ -91,13 +93,13 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 		this._contentPanel.add( this._btnInput );
 		
 		/* Set main tables. */
-		this.maintablesY = this._txtInput.getY() + this._txtFilePath.getHeight() + spY;
+		this._maintablesY = this._txtInput.getY() + this._txtFilePath.getHeight() + spY;
 		/* Set alphabet table. */
 		this._spAlphabet = new JScrollPane();
 		this._spAlphabet.setBounds( spX
-				, maintablesY
+				, this._maintablesY
 				, 80
-				, maintablesH );
+				, this._maintablesH );
 		this._spAlphabet.setBorder( BorderFactory.createTitledBorder( null, "Alfabeto", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spAlphabet );
 
@@ -108,9 +110,9 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 		/* Set state table. */
 		this._spStates = new JScrollPane();
 		this._spStates.setBounds( this._spAlphabet.getX() + this._spAlphabet.getWidth() + spX
-				, maintablesY
+				, this._maintablesY
 				, 180
-				, maintablesH );
+				, this._maintablesH );
 		this._spStates.setBorder( BorderFactory.createTitledBorder( null, "Estados", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spStates );
 		
@@ -121,9 +123,9 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 		/* Set transaction function. */
 		this._spTransactionFunction = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spTransactionFunction.setBounds( /*180*/this._spStates.getX() + this._spStates.getWidth() + spX
-				, maintablesY
-				, frameW - this._spStates.getX() - this._spStates.getWidth() - spX
-				, maintablesH );
+				, this._maintablesY
+				, this._frameW - this._spStates.getX() - this._spStates.getWidth() - spX
+				, this._maintablesH );
 		this._spTransactionFunction.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spTransactionFunction );
 		
@@ -135,16 +137,16 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 		/* Table log. */
 		this._spLog = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spLog.setBounds( spX
-				, maintablesY + maintablesH + spY
-				, frameW - spX
-				, frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
+				, this._maintablesY + this._maintablesH + spY
+				, this._frameW - spX
+				, this._frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spLog );
 		
 		this._dtmLog = new DefaultTableModel( null, LOG_TITLE );
 		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( frameW - spX - 75 - spX );
+		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spLog.setViewportView( this._tblLog );
 		

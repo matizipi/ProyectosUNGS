@@ -134,6 +134,7 @@ public class AutomatonConverter {
 			
 			/* Get each of state in the list. */
 			stateInDFA = lstSetStates.get( lstIterator );
+			LogWriter.writeLog( this, 0, stateInDFA.getName() + ":" + stateInDFA.isFinalState() );
 			
 			/* Get each symbol into the alphabet. */
 			for ( Simbol smb: alphabet.getSimbols() ) {
@@ -141,6 +142,11 @@ public class AutomatonConverter {
 				/* Get state of set of state from tfs in NFA. */
 				stateFromNFA = new StateOfSetStates( states.size() + 1 );
 				stateFromNFA.addStates( this.stateFromTfsNfa( stateInDFA, smb, nfa ) );
+				
+				LogWriter.writeLog( this, 0, "state: " + stateFromNFA.getName() );
+				for( StateA test: stateFromNFA.getStates() ) {
+					LogWriter.writeLog( this, 0, "\t State: " + test.getName() + " is final: " + test.isFinalState() );
+				}
 				
 				/* Compare if stateFromNFA exists in DFA states. */
 				existsStateInAutomaton = false;
@@ -157,8 +163,12 @@ public class AutomatonConverter {
 				
 				/* If the state not exists in DFA, this process will add the state. */
 				if ( existsStateInAutomaton == false ) {
-					lstSetStates.add( stateFromNFA );
-					states.add( stateFromNFA.toStateA() );	
+					lstSetStates.add( stateFromNFA );					
+					states.add( stateFromNFA.toStateA() );
+					/* Verify of the state is final. */
+					if ( stateFromNFA.isFinalState() ) {
+						fnlStates.add( stateFromNFA.toStateA() );
+					}
 				}
 				
 				/* Add the new transaction function. */

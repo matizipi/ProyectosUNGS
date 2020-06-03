@@ -89,6 +89,8 @@ public abstract class Automaton {
 	
 	public abstract String[][] getTfTable();
 	
+	abstract public boolean accept(String input);
+	
 	public boolean isCorrectly() {
 		return this._bStartState&&this._bFnlStates;
 	}
