@@ -16,14 +16,5 @@ public class Main {
 		MainController mc = new MainController();
 		
 		mc.start();
-		
-		//Start read automaton file.
-//		File f = new File("src/main/resources/exampleAutomaton2.txt");
-//		
-//		AutomatonConverter ac = new AutomatonConverter();
-//		
-//		NFA nfa = ac.newNFAFromFile( f );
-//		
-//		DFA dfa = ac.DFAFromNFA( nfa );
 	}
 }

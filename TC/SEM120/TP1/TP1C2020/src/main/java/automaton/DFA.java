@@ -51,22 +51,6 @@ public class DFA extends Automaton {
 	}
 	
 	@Override
-	public boolean accept(String input) {
-		
-		this._lstMsg.clear();
-		
-		Input inp = new Input( input );
-		
-		if ( this._coAlphabet.accept( inp ) == false ) {
-			this._lstMsg.addAll( this._coAlphabet.getMsgs() );
-			return false;
-		}
-		
-		this._lstMsg.add( new Msg( Msg.INFO, this, "Los simbolos del input pertenecen al alfabeto." ) );
-		
-		return this.acceptInputFrom( this._coStartState, inp );
-	}
-	
 	public boolean acceptInputFrom( StateA state, Input input ) {
 		
 		boolean tfSucces = false;

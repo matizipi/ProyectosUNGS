@@ -1,26 +1,33 @@
 package com.ui.controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import com.ui.view.NonDeterministicAutomatonView;
+import com.ui.view.AutomatonNFView;
+import com.ui.view.validation.AutomatonNFAValidation;
 
 import automaton.AutomatonConverter;
 import automaton.NFA;
 import automaton.components.StateA;
+import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
+import helper.Msg;
 
 public class AutomatonNFAController implements ControllerImpl {
 
-	private NonDeterministicAutomatonView _frame;
+	private AutomatonNFView _frame;
+	private AutomatonNFAValidation _validation;
 	private AutomatonConverter _ac = new AutomatonConverter();
 	private NFA _a = null;
 	
 	public AutomatonNFAController() {
-		this._frame = new NonDeterministicAutomatonView();
+		this._frame = new AutomatonNFView();
 		this.addListener();
+		this._validation = new AutomatonNFAValidation( this._frame );
 	}
 	
 	private void addListener() {
@@ -76,7 +83,7 @@ public class AutomatonNFAController implements ControllerImpl {
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );
-		dtm.setColumnIdentifiers( NonDeterministicAutomatonView.ALPHABET_TITLE );
+		dtm.setColumnIdentifiers( AutomatonNFView.ALPHABET_TITLE );
 		
 		for( Simbol smb: this._a.getAlphabet().getSimbols() ) {
 			Object[] fila = { smb.getSimbol() };
@@ -92,7 +99,7 @@ public class AutomatonNFAController implements ControllerImpl {
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );
-		dtm.setColumnIdentifiers( NonDeterministicAutomatonView.STATE_TITLE );
+		dtm.setColumnIdentifiers( AutomatonNFView.STATE_TITLE );
 		
 		for( StateA stt: this._a.getStates() ) {
 			Object[] fila = { stt.getName(), stt.isStartState()?"Yes":"No", stt.isFinalState()?"Yes":"No" };
@@ -109,7 +116,7 @@ public class AutomatonNFAController implements ControllerImpl {
 		
 		String[][] tfTable = this._a.getTfTable();
 		String[] title = this._a.getTfTable()[0];
-		title[0] = NonDeterministicAutomatonView.TF_TITLE[0];
+		title[0] = AutomatonNFView.TF_TITLE[0];
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );
@@ -137,8 +144,42 @@ public class AutomatonNFAController implements ControllerImpl {
 	
 	private void processInput() {
 		
+		if( this._validation.isInputCorrect() == false ) {
+			return;
+		}
+		
+		Input input = new Input( this._frame.getTxtInput().getText() );
+		
+		if( this._a.accept( input ) ) {
+			this.printMessages( this._a.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " aceptado [OK].") );
+		} else {
+			this.printMessages( this._a.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " no aceptado [FAIL].") );
+		}
+		
+		System.out.println("-----------------------");
+	}
+	
+	private void printMessages( List< Msg > msgs ) {
+		
+		for( Msg m: msgs ) {
+			this.printMessage( m );
+		}
+		
+	}
+	
+	private void printMessage( Msg msg ) {
+		
 		DefaultTableModel dtm = this._frame.getDtmLog();
 		
-		dtm.addRow( new String[] { "[INFO ]", "Correcto." } );
+		String[] row = new String[ 2 ];
+		
+		row[ 0 ] = msg.getType();
+		row[ 1 ] = msg.getDate() + msg.getObject() + " - " + msg.getMsg();
+		
+		dtm.addRow( row );
+		
+		this._frame.getTblLog().setModel( dtm );
 	}
 }

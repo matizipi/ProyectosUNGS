@@ -8,9 +8,11 @@ import java.util.Map;
 import automaton.components.StateA;
 import automaton.components.TransactionFunction;
 import automaton.components.alphabet.Alphabet;
+import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
 import automaton.dfn.components.TransactionFunctionDFA;
 import automaton.nfa.components.TransactionFunctionNFA;
+import helper.LogWriter;
 
 public class NFA extends Automaton {
 
@@ -75,9 +77,16 @@ public class NFA extends Automaton {
 		
 		if ( this._mapTf.get(parametersFormat) == null ) {
 			
-			/* return state "Q_", that represent no state. */
+			///* return state "Q_", that represent no state. */
+			/* Return the same state of parameters because the input don´t change the state. */
 			List< StateA > lst = new ArrayList< StateA >();
-			lst.add( new StateA( "" ) );
+			//lst.add( new StateA( "" ) );
+			for( StateA stt: this._coLstFnlState ) {
+				if ( state.equals(stt) ) {
+					state.FinalState( true );
+				}
+			}
+			lst.add( state );
 			return lst;
 			
 		} else {
@@ -86,9 +95,20 @@ public class NFA extends Automaton {
 	}
 	
 	@Override
-	public boolean accept(String input) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean acceptInputFrom(StateA state, Input input) {
+		
+		LogWriter.writeLog(this, 0, "Start acceptInputFrom process");
+		
+		ThreadNFA thNFA = new ThreadNFA( this, state, input, "Thread_1" );
+		thNFA.start();
+		
+		while( thNFA.isAlive() ) {
+			LogWriter.writeLog(this, 0, "Automaton esperando repuesta." );
+		}
+		
+		LogWriter.writeLog( this, 0, "Automaton ya tiene respuesta.");
+		
+		return thNFA.getResult();
 	}
 
 	public List< TransactionFunctionNFA > getTfs() {

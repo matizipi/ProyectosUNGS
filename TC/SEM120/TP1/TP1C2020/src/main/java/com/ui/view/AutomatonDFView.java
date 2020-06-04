@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class DeterministicFiniteAutomatonView extends AutomatonFrame {
+public class AutomatonDFView extends AutomatonFrame {
 
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
 	public static String[] STATE_TITLE = new String[] { "Estado", "Inicial", "Final" };
@@ -43,7 +43,7 @@ public class DeterministicFiniteAutomatonView extends AutomatonFrame {
 	private DefaultTableModel _dtmLog;
 	private JTable _tblLog;
 	
-	public DeterministicFiniteAutomatonView() {
+	public AutomatonDFView() {
 		
 		this._txtInput = new JTextField();
 		this._txtInput.setColumns( 10 );

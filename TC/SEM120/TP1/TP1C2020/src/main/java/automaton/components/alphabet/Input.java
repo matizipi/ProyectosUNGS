@@ -1,8 +1,11 @@
 package automaton.components.alphabet;
 
+import helper.LogWriter;
+
 public class Input {
 	
-	Simbol[] _coInput;
+	private Simbol[] _coInput;
+	private int _pivot;
 	
 	public Input( String input ) {
 		
@@ -11,13 +14,45 @@ public class Input {
 		for( int i = 0; i < input.length(); i++ ) {
 			this._coInput[ i ] = new Simbol( input.charAt( i ) );
 		}
+		
+		this._pivot = 0;
 	}
 	
 	public Input(Simbol[] in) {
 		this._coInput = in;
 	}
 
+	private Input( Simbol[] in, int pivot ) {
+		this._coInput = in;
+		this._pivot = pivot;
+	}
+	
+	public boolean hasNextSymbol() {
+		return this._coInput.length>this._pivot?true:false;
+	}
+	
+	public Simbol readSymbol() {
+		int pivotAux = this._pivot;
+		this._pivot++;
+		return this._coInput[ pivotAux ];
+	}
+	
+	public void resetRead() {
+		this._pivot = 0;
+	}
+	
+	public Input copy() {
+		
+		Input inp = new Input( this.getSimbolsOfInput(), this._pivot);
+		
+		return inp;
+	}
+	
 	public Simbol[] getSimbolsOfInput() {
 		return this._coInput;
+	}
+	
+	public int getPivot() {
+		return this._pivot;
 	}
 }

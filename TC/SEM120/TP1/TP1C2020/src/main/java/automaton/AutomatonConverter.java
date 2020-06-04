@@ -194,13 +194,13 @@ public class AutomatonConverter {
 	 * <b> Return set of states from transaction function in no deterministic finite automata. </b>**/
 	private List< StateA > stateFromTfsNfa(StateOfSetStates state, Simbol symbol, NFA nfa) {
 		
-		List< StateA > states = new ArrayList< StateA >();
+		List< StateA > lstState = new ArrayList< StateA >();
 		
 		/* Add to states each next state in each transaction function to state and symbol. */
 		for ( StateA st: state.getStates() ) {
-			states.addAll( nfa.doTransactionFunctionTo( st, symbol ) );
+			lstState.addAll( nfa.doTransactionFunctionTo( st, symbol ) );
 		}
 		
-		return states;
+		return lstState;
 	}
 }

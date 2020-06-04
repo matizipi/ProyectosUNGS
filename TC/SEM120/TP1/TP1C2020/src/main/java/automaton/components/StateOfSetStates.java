@@ -3,8 +3,6 @@ package automaton.components;
 import java.util.ArrayList;
 import java.util.List;
 
-import helper.LogWriter;
-
 public class StateOfSetStates extends StateA {
 
 	private List< StateA > _lstState;

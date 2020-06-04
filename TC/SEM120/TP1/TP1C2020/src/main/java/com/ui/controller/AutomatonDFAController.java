@@ -5,21 +5,22 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import com.ui.view.DeterministicFiniteAutomatonView;
+import com.ui.view.AutomatonDFView;
 
 import automaton.DFA;
 import automaton.components.StateA;
 import automaton.components.alphabet.Alphabet;
+import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
 import helper.Msg;
 
 public class AutomatonDFAController implements ControllerImpl {
 
-	private DeterministicFiniteAutomatonView _frame;
+	private AutomatonDFView _frame;
 	private DFA _a;
 	
 	public AutomatonDFAController() {
-		this._frame = new DeterministicFiniteAutomatonView();
+		this._frame = new AutomatonDFView();
 		
 		this.addListener();
 	}
@@ -56,9 +57,7 @@ public class AutomatonDFAController implements ControllerImpl {
 
 	private void processInput() {
 		
-		String input = this._frame.getTxtInput().getText().toString();
-		
-		System.out.println(input);
+		Input input = new Input( this._frame.getTxtInput().getText().toString() );
 		
 		if ( this._a.accept( input ) == true ) {
 			this.printMessages( this._a.getMsgs() );
@@ -92,7 +91,7 @@ public class AutomatonDFAController implements ControllerImpl {
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );
-		dtm.setColumnIdentifiers( DeterministicFiniteAutomatonView.ALPHABET_TITLE );
+		dtm.setColumnIdentifiers( AutomatonDFView.ALPHABET_TITLE );
 		
 		String[] line;
 		for( Simbol smb: alp.getSimbols() ) {
@@ -109,7 +108,7 @@ public class AutomatonDFAController implements ControllerImpl {
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );
-		dtm.setColumnIdentifiers( DeterministicFiniteAutomatonView.STATE_TITLE );
+		dtm.setColumnIdentifiers( AutomatonDFView.STATE_TITLE );
 		
 		String[] line;
 		for( StateA stt: this._a.getStates() ) {
@@ -128,7 +127,7 @@ public class AutomatonDFAController implements ControllerImpl {
 		
 		String[][] tableTf = this._a.getTfTable();
 		String[] titles = tableTf[0];
-		titles[ 0 ] = DeterministicFiniteAutomatonView.TF_TITLE[ 0 ];
+		titles[ 0 ] = AutomatonDFView.TF_TITLE[ 0 ];
 		
 		dtm.setRowCount( 0 );
 		dtm.setColumnCount( 0 );

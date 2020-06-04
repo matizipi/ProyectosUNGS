@@ -37,8 +37,6 @@ public class MainFrame extends NFrame {
 		
 		this._imgBackground = new ImageIcon( IMGPATH );
 		
-		System.out.println( this.getHeight() - this.fldH - spY );
-		
 		this._lblSo = new JLabel();
 		this._lblSo.setText( System.getProperty("os.name").toString() );
 		this._lblSo.setBounds( this.getWidth() - this._xOsDifference - spX - 70

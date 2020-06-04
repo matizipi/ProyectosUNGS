@@ -5,6 +5,7 @@ import java.util.List;
 
 import automaton.components.StateA;
 import automaton.components.alphabet.Alphabet;
+import automaton.components.alphabet.Input;
 import helper.LogWriter;
 import helper.Msg;
 
@@ -87,9 +88,23 @@ public abstract class Automaton {
 		}
 	}
 	
+	public boolean accept( Input input ) {
+	
+		this._lstMsg.clear();
+		
+		if ( this._coAlphabet.accept( input ) == false ) {
+			this._lstMsg.addAll( this._coAlphabet.getMsgs() );
+			return false;
+		}
+		
+		this._lstMsg.add( new Msg( Msg.INFO, this, "Los simbolos del input pertenecen al alfabeto." ) );
+		
+		return this.acceptInputFrom( this._coStartState, input );
+	}
+	
 	public abstract String[][] getTfTable();
 	
-	abstract public boolean accept(String input);
+	public abstract boolean acceptInputFrom(StateA state, Input input);
 	
 	public boolean isCorrectly() {
 		return this._bStartState&&this._bFnlStates;

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.ui.view.AutomatonFrame;
 
-public class NonDeterministicAutomatonView extends AutomatonFrame {
+public class AutomatonNFView extends AutomatonFrame {
 	
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
 	public static String[] STATE_TITLE = new String[] { "Estado", "Inicial", "Final" };
@@ -45,7 +45,7 @@ public class NonDeterministicAutomatonView extends AutomatonFrame {
 	private DefaultTableModel _dtmLog;
 	private JTable _tblLog;
 	
-	public NonDeterministicAutomatonView() {
+	public AutomatonNFView() {
 		super();
 		
 		/* Set properties to file path. */
