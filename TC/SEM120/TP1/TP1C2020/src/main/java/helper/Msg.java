@@ -1,6 +1,5 @@
 package helper;
 
-import java.awt.Point;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +13,7 @@ public class Msg {
 	private String _date;
 	private String _msg;
 	
-	public Msg( int msgType, Object oClass, String msg ) {
+	public Msg( int msgType, Object object, String msg ) {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat( "dd/MM/yyy HH:mm:ss" );
 		Date date = new Date();
@@ -28,7 +27,11 @@ public class Msg {
 			default: this._type = "";
 		}
 		
-		this._object = "[" + oClass.getClass().getSimpleName() + "]";
+		if ( object == null ) {
+			this._object = "";
+		} else {
+			this._object = "[" + object.getClass().getSimpleName() + "]";
+		}
 		this._msg = msg;
 	}
 	

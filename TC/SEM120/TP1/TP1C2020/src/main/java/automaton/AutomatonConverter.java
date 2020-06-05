@@ -12,10 +12,16 @@ import automaton.components.alphabet.Alphabet;
 import automaton.components.alphabet.Simbol;
 import automaton.dfn.components.TransactionFunctionDFA;
 import helper.LogWriter;
+import helper.Msg;
 
 public class AutomatonConverter {
 	
 //	private ConverterSummary _cs;
+	List< Msg > _lstMsg;
+	
+	public AutomatonConverter() {
+		this._lstMsg = new ArrayList< Msg >();
+	}
 	
 	public NFA newNFAFromFile( File file ) {
 		
@@ -34,17 +40,21 @@ public class AutomatonConverter {
 		
 		try {
 			
+			this._lstMsg.add( new Msg( Msg.INFO, this, "Comenzando a leer automata desde archivo." ) ) ;
 			br = new BufferedReader( new FileReader( file ) );
 			
 			String line = br.readLine();
 			int numberOfLine = 1;
 			
 			while( line != null ) {
+			
+				this._lstMsg.add( new Msg( Msg.INFO, this, "Leyendo linea: " + numberOfLine ) );
 				
 				/* Read the alphabet. */
 				if ( numberOfLine == 1 ) {
 					alphabet = Alphabet.generateFrom(line);
-					LogWriter.writeLog( this, LogWriter.INFO, "Proceso alphabet finish [OK]");
+					/*LogWriter.writeLog( this, LogWriter.INFO, "Proceso alphabet finish [OK]");*/
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Alfabeto leido [OK]." ) );
 				}
 				
 				/* Read quantity of states. */
@@ -53,7 +63,8 @@ public class AutomatonConverter {
 					
 					lstState = StateA.generateListStatesFromInt( qtyOfStates );
 					
-					LogWriter.writeLog( this, LogWriter.INFO, "Proceso generate NFA states finish [OK]" );
+					/* LogWriter.writeLog( this, LogWriter.INFO, "Proceso generate NFA states finish [OK]" ); */
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Estado generados [OK]." ) );
 					
 					for ( StateA s: lstState ) {
 						if ( s.isStartState() ) {
@@ -61,19 +72,22 @@ public class AutomatonConverter {
 							break;
 						}
 					}
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Estado inicial: " + startState.getName() ) );
 				}
 				
 				/* Read final states. */
 				if ( numberOfLine == 3 ) {
 					lstFnlState = StateA.generateListStatesFromLine(line);
 					
-					LogWriter.writeLog( this, LogWriter.INFO, "Carga lista stados finales [OK]" );
+					/* LogWriter.writeLog( this, LogWriter.INFO, "Carga lista stados finales [OK]" ); */
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Carga estados finales [OK]." ) );
 				}
 				
 				/* Read transaction functions. */
 				if ( numberOfLine > 3 ) {
 					TransactionFunctionDFA tfAux = new TransactionFunctionDFA( line );
 					lstTfs.add(tfAux);
+					this._lstMsg.add( new Msg( Msg.INFO, this, "Creada la funcion de transacción: " + tfAux.toString() ) );
 				}				
 				
 				/* Continue with next line */
@@ -82,12 +96,15 @@ public class AutomatonConverter {
 			}
 			
 			br.close();
+			this._lstMsg.add( new Msg( Msg.INFO, this, "Archivo leido." ) );
 			
 		} catch( Exception e ) {
 			e.printStackTrace();
 		}
 		
+		this._lstMsg.add( new Msg( Msg.INFO, this, "Creando automata." ) );
 		a = new NFA(alphabet, lstState, startState, lstFnlState, lstTfs);
+		this._lstMsg.addAll( a.getMsgs() );
 		
 		return a;
 	}
@@ -202,5 +219,14 @@ public class AutomatonConverter {
 		}
 		
 		return lstState;
+	}
+
+	public List<Msg> getMessages() {
+		List<Msg> lst = new ArrayList< Msg >();
+		lst.addAll( this._lstMsg );
+		
+		this._lstMsg.clear();
+				
+		return lst;
 	}
 }

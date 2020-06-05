@@ -19,9 +19,7 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		
 		String type;
 		
-		if( row % 2 != 0 ) {
-			c.setBackground( Color.LIGHT_GRAY );
-		}
+		c.setBackground( row % 2 == 0 ? Color.WHITE/*getBackground()*/ : new Color( 240, 240, 240 ) );
 		
 		int columnCheck = column;
 		
@@ -32,14 +30,14 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		type = table.getValueAt(row, columnCheck).toString();
 		
 		if ( type.equals( Msg.getType( Msg.INFO ) ) ) {
-			c.setForeground( Color.GREEN );
-//			c.setFont( new Font( "Dialog", Font.BOLD, 12 ) );
-			System.out.println( c.getFont().toString() );
+			c.setForeground( new Color( 119, 185, 94 ) );
 		}
 		
 		if( type.equals( Msg.getType( Msg.ERROR ) ) ) {
 			c.setForeground( Color.RED );
 		}
+		
+		c.setFont( new Font( "Tahoma", Font.PLAIN, 12 ) );
 		
 		return c;
 	}

@@ -1,9 +1,5 @@
 package com.ui.view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,13 +7,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.ui.view.AutomatonFrame;
 import com.ui.view.adaptation.LogTableCellRenderer;
-
-import helper.Msg;
+import com.ui.view.adaptation.CommonTableCellRenderer;
+import com.ui.view.adaptation.CustomTableModel;
 
 public class AutomatonNFView extends AutomatonFrame {
 	
@@ -95,13 +90,14 @@ public class AutomatonNFView extends AutomatonFrame {
 		
 		this._btnInput = new JButton( "Test" );
 		this._btnInput.setBounds( 210
-				, /*35*/this._txtFilePath.getY() + this._txtFilePath.getHeight() + spY
-				, 50
+				, this._txtFilePath.getY() + this._txtFilePath.getHeight() + spY
+				, 70
 				, 27 );
 		this._contentPanel.add( this._btnInput );
 		
 		/* Set main tables. */
 		this._maintablesY = this._txtInput.getY() + this._txtFilePath.getHeight() + spY;
+		
 		/* Set alphabet table. */
 		this._spAlphabet = new JScrollPane();
 		this._spAlphabet.setBounds( spX
@@ -109,10 +105,12 @@ public class AutomatonNFView extends AutomatonFrame {
 				, 80
 				, this._maintablesH );
 		this._spAlphabet.setBorder( BorderFactory.createTitledBorder( null, "Alfabeto", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spAlphabet.setOpaque( false );
 		this._contentPanel.add( this._spAlphabet );
 
-		this._dtmAlphabet = new DefaultTableModel( null, ALPHABET_TITLE );
+		this._dtmAlphabet = new CustomTableModel( null, ALPHABET_TITLE );
 		this._tblAlphabet = new JTable( this._dtmAlphabet );
+		this._tblAlphabet.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
 		this._spAlphabet.setViewportView( this._tblAlphabet );
 		
 		/* Set state table. */
@@ -122,10 +120,12 @@ public class AutomatonNFView extends AutomatonFrame {
 				, 180
 				, this._maintablesH );
 		this._spStates.setBorder( BorderFactory.createTitledBorder( null, "Estados", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spStates.setOpaque( false );
 		this._contentPanel.add( this._spStates );
 		
-		this._dtmStates = new DefaultTableModel( null, STATE_TITLE );
+		this._dtmStates = new CustomTableModel( null, STATE_TITLE );
 		this._tblStates = new JTable( this._dtmStates );
+		this._tblStates.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
 		this._spStates.setViewportView( this._tblStates );
 		
 		/* Set transaction function. */
@@ -135,11 +135,13 @@ public class AutomatonNFView extends AutomatonFrame {
 				, this._frameW - this._spStates.getX() - this._spStates.getWidth() - spX
 				, this._maintablesH );
 		this._spTransactionFunction.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spTransactionFunction.setOpaque( false );
 		this._contentPanel.add( this._spTransactionFunction );
 		
-		this._dtmTransactionFunction = new DefaultTableModel( null, TF_TITLE );
+		this._dtmTransactionFunction = new CustomTableModel( null, TF_TITLE );
 		this._tblTransactionFunction = new JTable( this._dtmTransactionFunction );
-		this._tblTransactionFunction.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+		this._tblTransactionFunction.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
+//		this._tblTransactionFunction.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spTransactionFunction.setViewportView( this._tblTransactionFunction );
 		
 		/* Table log. */
@@ -149,32 +151,14 @@ public class AutomatonNFView extends AutomatonFrame {
 				, this._frameW - spX
 				, this._frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spLog.setOpaque( false );
 		this._contentPanel.add( this._spLog );
 		
-		this._dtmLog = new DefaultTableModel( new String[][] { {"[INFO ]", ""}, {"[ERROR]", "ddd"} }, LOG_TITLE );
-		this._tblLog = new JTable();
-		this._tblLog.setModel( new DefaultTableModel( new String[][] { {"[INFO ]", ""}, {"[ERROR]", "ddd"} }, LOG_TITLE ){
-            Class[] types = new Class[] {
-                String.class, String.class
-            };
-
-//            boolean[] editable = new boolean[] {
-//                false, false  
-//            };
-
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-//            @Override
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                return editable[columnIndex];
-//            }
-        });
+		this._dtmLog = new CustomTableModel( null, LOG_TITLE );
+		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.setDefaultRenderer( String.class,  new LogTableCellRenderer() );
-		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
+//		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
+//		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spLog.setViewportView( this._tblLog );
 		
@@ -250,29 +234,5 @@ public class AutomatonNFView extends AutomatonFrame {
 	
 	public JTable getTblLog() {
 		return this._tblLog;
-	}
-	
-	public static class LTableCellRenderer extends DefaultTableCellRenderer {
-		
-		@Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column)
-        {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected,
-                    hasFocus, row, column);
-
-            String versionVal = (String)table.getValueAt(row, column).toString();
-//
-//            if(versionVal.contains("]")) {
-//                //set to red bold font
-                c.setForeground(Color.RED);
-                c.setFont(new Font("Dialog", Font.BOLD, 12));
-//            } else {
-//                //stay at default
-//                c.setForeground(Color.BLACK);
-//                c.setFont(new Font("Dialog", Font.PLAIN, 12));
-//            }
-            return c;
-        }
 	}
 }

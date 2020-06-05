@@ -5,8 +5,10 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 
+import com.common.log.Log;
 import com.ui.view.AutomatonNFView;
 import com.ui.view.validation.AutomatonNFAValidation;
 
@@ -49,6 +51,8 @@ public class AutomatonNFAController implements ControllerImpl {
 
 	@Override
 	public void start() {
+		this.showFirstComponent();
+		
 		this._frame.setVisible( true );
 		if ( this._a != null ) {
 			this.loadAutomtonIntoView();
@@ -60,10 +64,30 @@ public class AutomatonNFAController implements ControllerImpl {
 		this._frame.setVisible( false );
 	}
 	
-	private void loadFile() {
+	private void showFirstComponent() {
+		this._frame.getBtnConvertToDFA().setVisible( false );
+		this._frame.getLblInput().setVisible( false );
+		this._frame.getTxtInput().setVisible( false );
+		this._frame.getBtnInput().setVisible( false );
+		this._frame.getSpAlphabet().setVisible( false );
+		this._frame.getSpStates().setVisible( false );
+		this._frame.getSpTransactionFunction().setVisible( false );
+		this._frame.getSpLog().setVisible( false );
+	}
+	
+	private void loadFile() {		
 		String sFile = this._frame.getTxtLoadFile().getText();
+		
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Cargado archivo: " + sFile ) );
+		
 		File file = new File( sFile );
-		this._a = _ac.newNFAFromFile( file );
+		
+		if ( file.exists() ) {
+			this._a = this._ac.newNFAFromFile( file );
+			this.printMessages( this._ac.getMessages() );
+		} else {
+			this.printMessage( new Msg( Msg.ERROR, this, "El archivo especificado no existe." ) );
+		}
 		
 		this.loadAutomtonIntoView();
 	}
@@ -75,6 +99,8 @@ public class AutomatonNFAController implements ControllerImpl {
 		this.loadTableState();
 		
 		this.loadTableTf();
+		
+		this.showAllComponents();
 	}
 	
 	private void loadTableAlphabet() {
@@ -135,6 +161,17 @@ public class AutomatonNFAController implements ControllerImpl {
 		this._frame.getTblTransactionFunction().setModel( dtm );		
 	}
 	
+	private void showAllComponents() {
+		this._frame.getBtnConvertToDFA().setVisible( true );
+		this._frame.getLblInput().setVisible( true );
+		this._frame.getTxtInput().setVisible( true );
+		this._frame.getBtnInput().setVisible( true );
+		this._frame.getSpAlphabet().setVisible( true );
+		this._frame.getSpStates().setVisible( true );
+		this._frame.getSpTransactionFunction().setVisible( true );
+		this._frame.getSpLog().setVisible( true );
+	}
+	
 	private void convertToDFA() {
 		AutomatonDFAController ctr = new AutomatonDFAController();
 		ctr.setDFA( this._ac.DFAFromNFA( this._a ) );
@@ -157,8 +194,6 @@ public class AutomatonNFAController implements ControllerImpl {
 			this.printMessages( this._a.getMsgs() );
 			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " no aceptado [FAIL].") );
 		}
-		
-		System.out.println("-----------------------");
 	}
 	
 	private void printMessages( List< Msg > msgs ) {
@@ -170,6 +205,8 @@ public class AutomatonNFAController implements ControllerImpl {
 	}
 	
 	private void printMessage( Msg msg ) {
+
+		Log.WriteFileLog( msg );
 		
 		DefaultTableModel dtm = this._frame.getDtmLog();
 		
@@ -181,5 +218,11 @@ public class AutomatonNFAController implements ControllerImpl {
 		dtm.addRow( row );
 		
 		this._frame.getTblLog().setModel( dtm );
+
+		this._frame.getTblLog().getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
+		this._frame.getTblLog().getColumnModel().getColumn( 1 ).setPreferredWidth( this._frame.getWidth() - 130 );
+		
+		JScrollBar jsb = this._frame.getSpLog().getVerticalScrollBar();
+		jsb.setValue( jsb.getMaximum() );
 	}
 }
