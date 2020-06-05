@@ -1,5 +1,6 @@
 package helper;
 
+import java.awt.Point;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -53,5 +54,20 @@ public class Msg {
 	
 	public String getMsg() {
 		return this._msg;
+	}
+
+	public static String getType( int type ) {
+		
+		String t = "";
+		
+		switch ( type ) {
+			case 0: t = "[INFO ]";
+				break;
+			case 1: t = "[ERROR]";
+				break;
+			default: t = "";
+		}
+		
+		return t;
 	}
 }

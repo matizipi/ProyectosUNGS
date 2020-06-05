@@ -1,5 +1,9 @@
 package com.ui.view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -7,9 +11,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.ui.view.AutomatonFrame;
+import com.ui.view.adaptation.LogTableCellRenderer;
+
+import helper.Msg;
 
 public class AutomatonNFView extends AutomatonFrame {
 	
@@ -143,8 +151,28 @@ public class AutomatonNFView extends AutomatonFrame {
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spLog );
 		
-		this._dtmLog = new DefaultTableModel( null, LOG_TITLE );
-		this._tblLog = new JTable( this._dtmLog );
+		this._dtmLog = new DefaultTableModel( new String[][] { {"[INFO ]", ""}, {"[ERROR]", "ddd"} }, LOG_TITLE );
+		this._tblLog = new JTable();
+		this._tblLog.setModel( new DefaultTableModel( new String[][] { {"[INFO ]", ""}, {"[ERROR]", "ddd"} }, LOG_TITLE ){
+            Class[] types = new Class[] {
+                String.class, String.class
+            };
+
+//            boolean[] editable = new boolean[] {
+//                false, false  
+//            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+//            @Override
+//            public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                return editable[columnIndex];
+//            }
+        });
+		this._tblLog.setDefaultRenderer( String.class,  new LogTableCellRenderer() );
 		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
 		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
@@ -222,5 +250,29 @@ public class AutomatonNFView extends AutomatonFrame {
 	
 	public JTable getTblLog() {
 		return this._tblLog;
+	}
+	
+	public static class LTableCellRenderer extends DefaultTableCellRenderer {
+		
+		@Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected,
+                    hasFocus, row, column);
+
+            String versionVal = (String)table.getValueAt(row, column).toString();
+//
+//            if(versionVal.contains("]")) {
+//                //set to red bold font
+                c.setForeground(Color.RED);
+                c.setFont(new Font("Dialog", Font.BOLD, 12));
+//            } else {
+//                //stay at default
+//                c.setForeground(Color.BLACK);
+//                c.setFont(new Font("Dialog", Font.PLAIN, 12));
+//            }
+            return c;
+        }
 	}
 }
