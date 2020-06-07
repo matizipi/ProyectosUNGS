@@ -105,6 +105,7 @@ public class AutomatonConverter {
 		this._lstMsg.add( new Msg( Msg.INFO, this, "Creando automata." ) );
 		a = new NFA(alphabet, lstState, startState, lstFnlState, lstTfs);
 		this._lstMsg.addAll( a.getMsgs() );
+		a.clearMessages();
 		
 		return a;
 	}

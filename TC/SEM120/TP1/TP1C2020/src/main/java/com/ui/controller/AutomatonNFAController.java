@@ -94,11 +94,15 @@ public class AutomatonNFAController implements ControllerImpl {
 	
 	private void loadAutomtonIntoView() {
 		
+		this.printMessage( new Msg( Msg.INFO, this, "Comienza carga de alfabeto." ) );
 		this.loadTableAlphabet();
 		
+		this.printMessage( new Msg( Msg.INFO, this, "Comienza carga de estados."));
 		this.loadTableState();
 		
+		this.printMessage( new Msg( Msg.INFO, this, "Comienza carga de funciones de transacción." ) );
 		this.loadTableTf();
+		
 		
 		this.showAllComponents();
 	}

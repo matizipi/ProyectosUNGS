@@ -19,7 +19,7 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		
 		String type;
 		
-		c.setBackground( row % 2 == 0 ? Color.WHITE/*getBackground()*/ : new Color( 240, 240, 240 ) );
+		c.setBackground( row % 2 == 0 ? Color.WHITE/*getBackground()*/ : new Color( 220, 220, 220 ) );
 		
 		int columnCheck = column;
 		
@@ -30,7 +30,8 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		type = table.getValueAt(row, columnCheck).toString();
 		
 		if ( type.equals( Msg.getType( Msg.INFO ) ) ) {
-			c.setForeground( new Color( 119, 185, 94 ) );
+			//c.setForeground( new Color( 119, 185, 94 ) );
+			c.setForeground( new Color( 50, 150, 50 ) );
 		}
 		
 		if( type.equals( Msg.getType( Msg.ERROR ) ) ) {

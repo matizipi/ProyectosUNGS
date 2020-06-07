@@ -35,10 +35,8 @@ public abstract class Automaton {
 		
 		if ( this._bStartState == true && this._bFnlStates == true ) {
 			this._lstMsg.add( new Msg( Msg.INFO, this, "Automaton [OK]." ) );
-			LogWriter.writeLog( this,  LogWriter.INFO, "Automaton [OK]." );
 		} else {
-			this._lstMsg.add( new Msg( Msg.INFO, this, "Creación del Automata [FAIL]." ) );
-			LogWriter.writeLog( this,  LogWriter.ERROR, "ERRORES." );
+			this._lstMsg.add( new Msg( Msg.INFO, this, "Creaci&0535n del Automata [FAIL]." ) );
 		}
 	}
 	
@@ -108,6 +106,10 @@ public abstract class Automaton {
 	
 	public boolean isCorrectly() {
 		return this._bStartState&&this._bFnlStates;
+	}
+	
+	public void clearMessages() {
+		this._lstMsg.clear();
 	}
 	
 	public Alphabet getAlphabet() {
