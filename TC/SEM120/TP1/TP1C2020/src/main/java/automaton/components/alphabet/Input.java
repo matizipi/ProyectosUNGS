@@ -1,7 +1,5 @@
 package automaton.components.alphabet;
 
-import helper.LogWriter;
-
 public class Input {
 	
 	private Simbol[] _coInput;
@@ -54,5 +52,17 @@ public class Input {
 	
 	public int getPivot() {
 		return this._pivot;
+	}
+	
+	@Override
+	public String toString() {
+		
+		String str = "";
+		
+		for( Simbol sbm : this._coInput ) {
+			str += sbm.getSimbol();
+		}
+		
+		return str;
 	}
 }

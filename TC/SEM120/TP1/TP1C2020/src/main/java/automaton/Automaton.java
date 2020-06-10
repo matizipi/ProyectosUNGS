@@ -95,7 +95,7 @@ public abstract class Automaton {
 			return false;
 		}
 		
-		this._lstMsg.add( new Msg( Msg.INFO, this, "Los simbolos del input pertenecen al alfabeto." ) );
+//		this._lstMsg.add( new Msg( Msg.INFO, this, "Los simbolos del input pertenecen al alfabeto." ) );
 		
 		return this.acceptInputFrom( this._coStartState, input );
 	}

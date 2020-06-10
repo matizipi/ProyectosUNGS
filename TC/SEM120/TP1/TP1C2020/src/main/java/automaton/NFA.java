@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.common.log.Log;
+
 import automaton.components.StateA;
 import automaton.components.TransactionFunction;
 import automaton.components.alphabet.Alphabet;
@@ -12,7 +14,7 @@ import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
 import automaton.dfn.components.TransactionFunctionDFA;
 import automaton.nfa.components.TransactionFunctionNFA;
-import helper.LogWriter;
+import helper.Msg;
 
 public class NFA extends Automaton {
 
@@ -77,7 +79,6 @@ public class NFA extends Automaton {
 		
 		if ( this._mapTf.get(parametersFormat) == null ) {
 			
-			///* return state "Q_", that represent no state. */
 			/* Return the same state of parameters because the input don´t change the state. */
 			List< StateA > lst = new ArrayList< StateA >();
 			//lst.add( new StateA( "" ) );
@@ -97,18 +98,28 @@ public class NFA extends Automaton {
 	@Override
 	public boolean acceptInputFrom(StateA state, Input input) {
 		
-		LogWriter.writeLog(this, 0, "Start acceptInputFrom process");
+		Msg msg = new Msg( Msg.INFO, this, "Comienza el proceso [accepInputFrom]" );
+		Log.WriteFileLog( msg );
+		this._lstMsg.add( msg );
 		
 		ThreadNFA thNFA = new ThreadNFA( this, state, input, "Thread_1" );
 		thNFA.start();
 		
 		while( thNFA.isAlive() ) {
-			LogWriter.writeLog(this, 0, "Automaton esperando repuesta." );
+			Log.WriteFileLog( new Msg( Msg.INFO, this, "Automata esperando repuesta." ) );
+			try {
+				Thread.sleep( 100 );
+			} catch (Exception e) {
+				Log.WriteFileLog( new Msg( Msg.ERROR, this, "Error en sleep." ) );
+			}
 		}
 		
-		LogWriter.writeLog( this, 0, "Automaton ya tiene respuesta.");
-		
-		return thNFA.getResult();
+		if( thNFA.getResult() == true ) {
+			this._lstMsg.add( new Msg( Msg.INFO, this, "El automata acepto la siguiente secuencia: " + thNFA.getStringAcceptStates() ) );
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public List< TransactionFunctionNFA > getTfs() {

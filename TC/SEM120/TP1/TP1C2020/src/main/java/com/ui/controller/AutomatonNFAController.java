@@ -186,6 +186,7 @@ public class AutomatonNFAController implements ControllerImpl {
 	private void processInput() {
 		
 		if( this._validation.isInputCorrect() == false ) {
+			this.printMessage( new Msg( Msg.ERROR, this, "El input no cumple con formato que se espera recibir." ) );
 			return;
 		}
 		
@@ -193,10 +194,10 @@ public class AutomatonNFAController implements ControllerImpl {
 		
 		if( this._a.accept( input ) ) {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " aceptado [OK].") );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input.toString() + " aceptado [OK].") );
 		} else {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " no aceptado [FAIL].") );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input.toString() + " no aceptado [FAIL].") );
 		}
 	}
 	

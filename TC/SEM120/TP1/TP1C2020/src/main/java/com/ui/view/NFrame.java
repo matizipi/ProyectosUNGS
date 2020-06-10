@@ -7,9 +7,9 @@ public abstract class NFrame extends JFrame {
 	protected int _xOsDifference;
 	protected int _yOsDifference;
 	
-	protected static int spX = 7;
-	protected static int spY = 5;
-	protected static int fldH = 27;
+	protected int spX = 7;
+	protected int spY = 5;
+	protected int fldH = 27;
 	
 	public NFrame() {
 		String str = System.getProperty("os.name").toString().toUpperCase();

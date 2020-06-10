@@ -1,11 +1,14 @@
 package automaton;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.common.log.Log;
 
 import automaton.components.StateA;
 import automaton.components.alphabet.Input;
 import automaton.components.alphabet.Simbol;
-import helper.LogWriter;
+import helper.Msg;
 
 public class ThreadNFA extends Thread {
 	
@@ -16,14 +19,16 @@ public class ThreadNFA extends Thread {
 	private StateA _coState;
 	private Input _coInp;
 	private boolean _accept = false;
+	private List< StateA > _lstAcceptState = null;
 	
 	public ThreadNFA( NFA automaton, StateA state, Input inp, String name ) {
-		LogWriter.writeLog( this, 0, name + ": Thread creado." + " Con parametros " + state.getName());
+		Log.WriteFileLog( new Msg( Msg.INFO, this, name + ": Thread creado." + " Con parametros " + state.getName() ) );
 		this._threadName = name;
 		this._automaton = automaton;
 		this._coState = state;
 		/* Copy the input for no modify the pivot for each threads. */
 		this._coInp = inp.copy();
+		this._lstAcceptState = new ArrayList<StateA>();
 	}
 	
 	public boolean getResult() {
@@ -32,14 +37,14 @@ public class ThreadNFA extends Thread {
 	
 	public void run() {
 				
-		LogWriter.writeLog( this, 0, this._threadName + ": Running. Pivot: " + this._coInp.getPivot() );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": Running. Pivot: " + this._coInp.getPivot() ) );
 		/* Process the input, if the input has symbols to read. */
 		if( this._coInp.hasNextSymbol() ) {
 			
 			/* Get the symbol to process. */
 			Simbol smbl = this._coInp.readSymbol();
 			
-			LogWriter.writeLog( this, 0, this._threadName + ": Read " + smbl.getSimbol() );
+			Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": Read " + smbl.getSimbol() ) );
 			/* Get list of next states for this state and this symbol. */
 			List< StateA > lstState = this._automaton.doTransactionFunctionTo( this._coState, smbl );
 			
@@ -49,7 +54,7 @@ public class ThreadNFA extends Thread {
 			int i = 0;
 			/* Make a new thread and run it, for each state in list of next states. */
 			for( StateA stt : lstState ) {
-				LogWriter.writeLog( this, 0, this._threadName + ": Crea " + this._threadName + "." + i);
+				Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": Crea " + this._threadName + "." + i ) );
 				threads[i] = new ThreadNFA( this._automaton, stt, this._coInp, this._threadName + "." + i);
 				threads[i].start();
 				
@@ -72,25 +77,30 @@ public class ThreadNFA extends Thread {
 						waitingfor += threads[i].getThNFAName() + ", ";
 					}
 				}
-				LogWriter.writeLog( this, 0, this._threadName + " is waiting: " + waitingfor);
+				Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + " is waiting: " + waitingfor ) );
 			}
 			
 			/* Ask if any thread accept the input. */
 			for( i = 0; i < threads.length; i++ ) {
 				if( threads[i].accept() ) {
-					LogWriter.writeLog(this, 0, this._threadName + ": Acepta por " + threads[i].getThNFAName());
+					Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": Acepta por " + threads[i].getThNFAName() ) );
 					this._accept = true;
+					if ( this._lstAcceptState.isEmpty() ) {
+						this._lstAcceptState.add( this._coState );
+						this._lstAcceptState.addAll( threads[i].getAcceptStates() );
+					}
 				}
 			}
 			
 		} else {
 			if ( this._coState.isFinalState() ) {
-				LogWriter.writeLog( this, 0, this._threadName + ": acepta.");
+				Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": acepta." ) );
+				this._lstAcceptState.add( this._coState );
 				this._accept = true;
 			}
 		}
 		
-		LogWriter.writeLog( this, 0, this._threadName + ": thread exiting" );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": thread exiting" ) );
 	}
 	
 //	public void start () {
@@ -107,5 +117,20 @@ public class ThreadNFA extends Thread {
 	
 	public String getThNFAName() {
 		return this._threadName;
+	}
+	
+	public List< StateA > getAcceptStates() {
+		return this._lstAcceptState;
+	}
+	
+	public String getStringAcceptStates() {
+		
+		String str = "";
+		
+		for( StateA state: this._lstAcceptState ) {
+			str += state.getName() + ", ";
+		}
+		
+		return str.substring( 0, str.length() - 2 );
 	}
 }

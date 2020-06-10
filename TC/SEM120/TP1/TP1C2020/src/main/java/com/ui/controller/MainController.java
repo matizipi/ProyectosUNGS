@@ -18,12 +18,15 @@ public class MainController implements ControllerImpl {
 	
 	private void addListeners() {
 		this._frame.getBtnAutomatonSolution().addActionListener( this );
+		this._frame.getBtnParser().addActionListener( this );
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnAutomatonSolution() ) {
-			this.transferAutomatonAccions();
+			this.transferAutomatonActions();
+		} else if( arg0.getSource() == this._frame.getBtnParser() ) {
+			this.transferParsersActions();
 		}
 	}
 
@@ -37,10 +40,17 @@ public class MainController implements ControllerImpl {
 		this._frame.setVisible( false );
 	}
 	
-	private void transferAutomatonAccions() {
+	private void transferAutomatonActions() {
 		this.finish();
 		AutomatonNFAController aNfa = new AutomatonNFAController();
-		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingreso a menú de manipulación de automatas." ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de manipulación de automatas." ) );
 		aNfa.start();
+	}
+	
+	private void transferParsersActions() {
+		this.finish();
+		ParserController pCtr = new ParserController();
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de parsers." ) );
+		pCtr.start();
 	}
 }

@@ -16,9 +16,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		Log.WriteFileLog( new Msg( Msg.INFO, null, " Arranca apición TP. " ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, null, "Arranca apición TP. " ) );
 		
-		Log.WriteFileLog( new Msg( Msg.INFO, null, " Crea control principal " ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, null, "Crea control principal " ) );
 		MainController mc = new MainController();
 		
 		Log.WriteFileLog( new Msg( Msg.INFO, null, "Arranca aplicación" ) );

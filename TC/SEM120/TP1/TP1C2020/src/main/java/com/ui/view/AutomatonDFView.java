@@ -8,6 +8,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.ui.view.adaptation.CommonTableCellRenderer;
+import com.ui.view.adaptation.CustomTableModel;
+import com.ui.view.adaptation.LogTableCellRenderer;
+
 public class AutomatonDFView extends AutomatonFrame {
 
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
@@ -45,6 +49,7 @@ public class AutomatonDFView extends AutomatonFrame {
 	
 	public AutomatonDFView() {
 		
+		/* Input components. */
 		this._txtInput = new JTextField();
 		this._txtInput.setColumns( 10 );
 		this._txtInput.setBounds( spX, spY, 200, fldH );
@@ -75,8 +80,9 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spAlphabet.setBorder( BorderFactory.createTitledBorder( null, "Alfabeto", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spAlphabet );
 
-		this._dtmAlphabet = new DefaultTableModel( null, ALPHABET_TITLE );
+		this._dtmAlphabet = new CustomTableModel( null, ALPHABET_TITLE );
 		this._tblAlphabet = new JTable( this._dtmAlphabet );
+		this._tblAlphabet.setDefaultRenderer( String.class , new CommonTableCellRenderer() );
 		this._spAlphabet.setViewportView( this._tblAlphabet );
 		
 		/* Set state table. */
@@ -88,8 +94,9 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spState.setBorder( BorderFactory.createTitledBorder( null, "Estados", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spState );
 		
-		this._dtmState = new DefaultTableModel( null, STATE_TITLE );
+		this._dtmState = new CustomTableModel( null, STATE_TITLE );
 		this._tblState = new JTable( this._dtmState );
+		this._tblState.setDefaultRenderer( String.class, new CommonTableCellRenderer() );
 		this._spState.setViewportView( this._tblState );
 		
 		/* Set transaction function. */
@@ -101,8 +108,9 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spTf );
 		
-		this._dtmTf = new DefaultTableModel( null, TF_TITLE );
+		this._dtmTf = new CustomTableModel( null, TF_TITLE );
 		this._tblTf = new JTable( this._dtmTf );
+		this._tblTf.setDefaultRenderer( String.class, new CommonTableCellRenderer() );
 		this._tblTf.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spTf.setViewportView( this._tblTf );
 		
@@ -115,8 +123,9 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spLog );
 		
-		this._dtmLog = new DefaultTableModel( null, LOG_TITLE );
+		this._dtmLog = new CustomTableModel( null, LOG_TITLE );
 		this._tblLog = new JTable( this._dtmLog );
+		this._tblLog.setDefaultRenderer( String.class, new LogTableCellRenderer() );
 		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
 		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );

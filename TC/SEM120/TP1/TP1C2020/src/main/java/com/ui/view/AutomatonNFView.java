@@ -51,6 +51,8 @@ public class AutomatonNFView extends AutomatonFrame {
 	public AutomatonNFView() {
 		super();
 		
+		this.setTitle( " .: Automata no deterministico finito :. " );
+		
 		/* Set properties to file path. */
 		this._txtFilePath = new JTextField();
 		this._txtFilePath.setColumns( 10 );
