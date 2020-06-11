@@ -2,10 +2,9 @@ package main;
 
 import javax.swing.UIManager;
 
-import com.common.log.Log;
-import com.ui.controller.MainController;
-
-import helper.Msg;
+import com.app.common.Msg;
+import com.app.common.log.Log;
+import com.app.ui.controller.MainController;
 
 public class Main {
 	public static void main(String[] arg01) {
