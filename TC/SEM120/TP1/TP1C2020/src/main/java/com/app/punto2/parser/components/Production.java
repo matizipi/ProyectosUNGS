@@ -9,5 +9,24 @@ public class Production {
 		this._var = var;
 		this._producction = right;
 	}
+
+	public ProductionComponent[] getRigth() {
+		return this._producction;
+	}
+
+	public Variable getLeft() {
+		return this._var;
+	}
 	
+	@Override
+	public String toString() {
+		
+		String s = this._var.toString() + " -> ";
+		
+		for( int i = 0; i < this._producction.length; i++ ) {
+			s += this._producction[i].toString() + " ";
+		}
+		
+		return s;
+	}
 }

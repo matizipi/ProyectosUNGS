@@ -227,40 +227,48 @@ public class ObjectConverter {
 		return lstState;
 	}
 
-	public ParserTopDownNoRecursive parserTopDownNoRecursiveFromFile(File file) {
+	public ParserTopDownNoRecursive parserTopDownNoRecursiveFromFile( File file, String charEmpty ) {
 		
+		/* Create list to productions */
 		List< Production > lstProd = new ArrayList< Production >();
-			
+		
 		BufferedReader br;
 		
 		try {
-			
 			this._lstMsg.add( new Msg( Msg.INFO, this, "Comienza la lectura del parser." ) );
+			/* Read File. */
 			br = new BufferedReader( new FileReader( file ) );
 			
 			String line;
-			
 			Variable leftVar;
-			ProductionComponent[] rigth;
+			ProductionComponent[] right;
 			Production prd;
 			
+			/* Read file line to line. */
 			while( ( line = br.readLine() ) != null ) {
 				
 				this._lstMsg.add( new Msg( Msg.INFO, this, "Leyendo linea: " + line ) );
+				/* Split the production in left and right part. */
 				String[] production = line.replaceAll( " ", "").split( "->" ); 
 				
+				/* Left part(variable). */
 				leftVar = new Variable( production[0] );
+				Log.WriteFileLog( new Msg( Msg.INFO, this, leftVar.toString()));
 				
-				rigth = ProductionComponent.arrayPrdCompFromString( production[1] );
+				/* Right part(production). */
+				right = ProductionComponent.arrayPrdCompFromString( production[1] );
 				
-				prd = new Production( leftVar, rigth );
+				prd = new Production( leftVar, right );
+				
+				lstProd.add( prd );
 			}
 			
 		} catch( Exception e ) {
-			Log.WriteFileLog( new Msg( Msg.ERROR, this, "Problemas con la lectura del parser." ) );
+			this._lstMsg.add( new Msg( Msg.ERROR, this, "Problemas con la lectura del parser." ) );
+			this._lstMsg.add( new Msg( Msg.ERROR, this, Msg.getMessage( e ) ) );
 		}
 		
-		ParserTopDownNoRecursive parse = new ParserTopDownNoRecursive( lstProd );
+		ParserTopDownNoRecursive parse = new ParserTopDownNoRecursive( lstProd, charEmpty );
 		
 		return parse;
 	}

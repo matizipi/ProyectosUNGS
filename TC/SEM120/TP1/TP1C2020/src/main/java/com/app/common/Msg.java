@@ -73,4 +73,15 @@ public class Msg {
 		
 		return t;
 	}
+
+	public static String getMessage( Exception exc ) {
+		
+		String msg = exc.toString() + "\n";
+		
+		for( int i = 0; i < exc.getStackTrace().length; i++ ) {
+			msg += exc.getStackTrace()[i].toString() + "\n";
+		}
+		
+		return msg;
+	}
 }

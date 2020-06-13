@@ -1,32 +1,53 @@
 package com.app.punto2.parser.components;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.app.common.Msg;
-import com.app.common.log.Log;
-
 public abstract class ProductionComponent {
 
 	public ProductionComponent() {
 	}
-
+	
+	public abstract boolean isTerminal();
+	
 	public static ProductionComponent[] arrayPrdCompFromString(String string) {
 		
-		List< ProductionComponent > lstPrd = new ArrayList<ProductionComponent>();
+		int length = 0;
+		int a = 0;
 		
-		for( int i = 0; i < string.length(); i++ ) {
-			if ( string.charAt( i ) == 'X' ) {
-				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "i: " + i + " - " + string.substring( i , string.indexOf( "}" , i ) + 1 ) ) );
-				lstPrd.add( new Variable( string.substring( i , string.indexOf( "}" , i ) +1 ) ) );
-				i += string.substring( i , string.indexOf( "}" , i ) ).length();
-				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "i: " + i ) );
+		while( a < string.length() ) {
+//			Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "a0: " + a ) );
+			if( string.charAt( a ) == 'X' ) {
+				a += ( string.indexOf( "}", a) - a ) + 1;
+//				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "a1: " + a ) );
 			} else {
-				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "i: " + i + " - " + String.valueOf( string.charAt( i ) ) ) );
-				lstPrd.add( new Terminal( String.valueOf( string.charAt( i ) ) ) );
+				a++;
+//				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "a2: " + a ) );
+			}
+			length++;
+		}
+		
+		ProductionComponent[] array = new ProductionComponent[ length ];
+//		Log.WriteFileLog( new Msg( Msg.INFO, null, "largo: " + array.length ) );
+		
+		int stringIterator = 0;
+		
+		for( int i = 0; i < array.length; i++ ) {
+			if ( string.charAt( stringIterator ) == 'X' ) {
+//				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "posicion " + i + ": " + stringIterator + " - " + string.substring( stringIterator , string.indexOf( "}" , stringIterator ) + 1 ) ) );
+				array[i] = new Variable( string.substring( stringIterator , string.indexOf( "}" , stringIterator ) + 1 ) );
+				stringIterator += string.substring( stringIterator , string.indexOf( "}" , stringIterator ) + 1 ).length();
+//				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "posiscion " + i + " stringIterator: " + stringIterator ) );
+			} else {
+//				Log.WriteFileLog( new Msg( Msg.INFO, ProductionComponent.class, "posiscion " + i + " stringiterator: " + stringIterator + " - " + String.valueOf( string.charAt( stringIterator ) ) ) );
+				array[i] = new Terminal( String.valueOf( string.charAt( stringIterator ) ) );
+				stringIterator++;
 			}
 		}
 		
-		return (ProductionComponent[]) lstPrd.toArray();
+		return array;
 	}
+	
+	@Override
+	abstract public String toString();
+	
+	@Override
+	abstract public boolean equals( Object obj );
 }
