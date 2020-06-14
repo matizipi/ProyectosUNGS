@@ -12,12 +12,13 @@ public class Msg {
 	private String _object;
 	private String _date;
 	private String _msg;
+
+	private SimpleDateFormat formatter = new SimpleDateFormat( "dd/MM/yyy HH:mm:ss" );
 	
 	public Msg( int msgType, Object object, String msg ) {
 		
-		SimpleDateFormat formatter = new SimpleDateFormat( "dd/MM/yyy HH:mm:ss" );
 		Date date = new Date();
-		this._date = "[" + formatter.format( date ) + "]";
+		this._date = "[" + this.formatter.format( date ) + "]";
 		
 		switch (msgType) {
 			case 0: this._type = "[INFO ]";

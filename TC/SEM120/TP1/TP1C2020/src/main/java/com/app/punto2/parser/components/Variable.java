@@ -9,13 +9,18 @@ public class Variable extends ProductionComponent {
 	}
 	
 	@Override
-	public String toString() {
-		return this._id;
-	}
-
-	@Override
 	public boolean isTerminal() {
 		return false;
+	}
+	
+	@Override
+	public boolean isInitSymbol() {
+		return ( this._id.toString().equals( "X_{1}" ) );
+	}
+	
+	@Override
+	public String toString() {
+		return this._id;
 	}
 
 	@Override
@@ -26,5 +31,13 @@ public class Variable extends ProductionComponent {
 			return false;
 		
 		return this._id.equals( obj.toString() )?true:false;
+	}
+
+	public boolean isInitial() {
+		if( this._id.equals( "X_{1}" ) ) {
+			return true;
+		}
+		
+		return false;
 	}
 }

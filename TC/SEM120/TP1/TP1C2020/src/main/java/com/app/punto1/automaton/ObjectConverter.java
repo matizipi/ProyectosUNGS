@@ -270,6 +270,8 @@ public class ObjectConverter {
 		
 		ParserTopDownNoRecursive parse = new ParserTopDownNoRecursive( lstProd, charEmpty );
 		
+		this._lstMsg.addAll( parse.getMsgs() );
+		
 		return parse;
 	}
 	

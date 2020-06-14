@@ -35,7 +35,24 @@ public class First {
 		return s;
 	}
 
-	public Object getFirstOf() {
+	public Object getleft() {
 		return this._from;
+	}
+
+	public List< ProductionComponent > getRight() {
+		return this._lstFirst;
+	}
+
+	public List< ProductionComponent > getRightExcept( Terminal terminal ) {
+		
+		List< ProductionComponent > lstProduction = new ArrayList< ProductionComponent >();
+		
+		for( ProductionComponent prdComp: this._lstFirst ) {
+			if( prdComp.equals( terminal ) == false ) {
+				lstProduction.add( prdComp );
+			}
+		}
+		
+		return lstProduction;
 	}
 }

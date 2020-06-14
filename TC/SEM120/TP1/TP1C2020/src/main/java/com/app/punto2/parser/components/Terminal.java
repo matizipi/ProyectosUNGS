@@ -14,6 +14,11 @@ public class Terminal extends ProductionComponent {
 	}
 
 	@Override
+	public boolean isInitSymbol() {
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		return this._value;
 	}

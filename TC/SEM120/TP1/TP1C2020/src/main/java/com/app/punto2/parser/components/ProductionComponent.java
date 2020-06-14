@@ -5,8 +5,6 @@ public abstract class ProductionComponent {
 	public ProductionComponent() {
 	}
 	
-	public abstract boolean isTerminal();
-	
 	public static ProductionComponent[] arrayPrdCompFromString(String string) {
 		
 		int length = 0;
@@ -45,9 +43,17 @@ public abstract class ProductionComponent {
 		return array;
 	}
 	
+	public static ProductionComponent getFinalComponent() {
+		return new Terminal( "$" );
+	}
+	
+	abstract public boolean isTerminal();
+	
+	abstract public boolean isInitSymbol();
+	
 	@Override
 	abstract public String toString();
 	
 	@Override
-	abstract public boolean equals( Object obj );
+	abstract public boolean equals( Object obj );	
 }
