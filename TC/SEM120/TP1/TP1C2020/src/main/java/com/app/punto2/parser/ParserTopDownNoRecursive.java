@@ -339,6 +339,14 @@ public class ParserTopDownNoRecursive extends Parser {
 		return true;
 	}
 	
+	public First[] getArrayFirsts() {
+		return this._mapFirst.values().toArray( new First[0] );
+	}
+	
+	public Follow[] getArrayFollows() {
+		return this._mapFollow.values().toArray( new Follow[0] );
+	}
+	
 	public List<Msg> getMsgs() {
 		return this._lstMsgs;
 	}

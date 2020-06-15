@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class MainFrame extends NFrame {
 	
-	private static String IMGPATH = "src/main/resources/MainBackground01.png";
+	private static String IMGPATH = "src/main/resources/img/MainBackground01.png";
 	
 	private JPanel _contentPanel;
 	
