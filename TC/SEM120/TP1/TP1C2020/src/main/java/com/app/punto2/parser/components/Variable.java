@@ -2,6 +2,8 @@ package com.app.punto2.parser.components;
 
 public class Variable extends ProductionComponent {
 	
+	private static String initVariable = "X_{1}";
+	
 	private String _id;
 	
 	public Variable( String variable ) {
@@ -34,10 +36,14 @@ public class Variable extends ProductionComponent {
 	}
 
 	public boolean isInitial() {
-		if( this._id.equals( "X_{1}" ) ) {
+		if( this._id.equals( initVariable ) ) {
 			return true;
 		}
 		
 		return false;
+	}
+
+	public static ProductionComponent getInitialComponent() {
+		return new Variable( initVariable );
 	}
 }

@@ -55,5 +55,5 @@ public abstract class ProductionComponent {
 	abstract public String toString();
 	
 	@Override
-	abstract public boolean equals( Object obj );	
+	abstract public boolean equals( Object obj );
 }

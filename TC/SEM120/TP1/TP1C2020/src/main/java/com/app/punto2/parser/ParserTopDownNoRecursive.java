@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import com.app.common.Msg;
 import com.app.punto2.parser.components.First;
@@ -20,9 +21,7 @@ public class ParserTopDownNoRecursive extends Parser {
 	private List< ProductionComponent > _lstTerminal;
 	private List< ProductionComponent > _lstVariable;
 	private Map< String, First > _mapFirst;
-//	private List< First > _lstFirst;
 	private Map< String, Follow > _mapFollow;
-//	private List< Follow > _lstFollow;
 	private Map< String, Production > _mapParsingTable;
 	
 	private List< Msg > _lstMsgs = new ArrayList< Msg >();
@@ -41,25 +40,25 @@ public class ParserTopDownNoRecursive extends Parser {
 		
 		/* Load terminals and variables. */
 		this.loadTerminalsAndVariables();
-//		this._lstTerminal.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
-//		this._lstMsgs.add( new Msg( Msg.INFO, this, "----------" ) );
-//		this._lstVariable.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
+		this._lstTerminal.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
+		this._lstMsgs.add( new Msg( Msg.INFO, this, "----------" ) );
+		this._lstVariable.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
 		
 		
 		/* Create firsts. */
 		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de firsts." ) );
 		this.firsts();
-//		this._mapFirst.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+		this._mapFirst.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
 		
 		/* Create follows. */
 		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de follows." ) );
 		this.follows();
-//		this._mapFollow.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+		this._mapFollow.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
 		
 		/* Create table of parsing. */
 		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de tabla de parsing." ) );
 		this.parsingTable();
-//		this._mapParsingTable.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, K.toString() + ": " + V.toString() ) ) );
+		this._mapParsingTable.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, K.toString() + ": " + V.toString() ) ) );
 	}
 	
 	private void loadTerminalsAndVariables() {
@@ -99,7 +98,6 @@ public class ParserTopDownNoRecursive extends Parser {
 		
 		First first;
 		List< ProductionComponent > terminals;
-//		this._lstFirst = new ArrayList< First >();		
 		
 		/* First. */
 		for( Production prd: this._lstProduction ) {
@@ -116,7 +114,6 @@ public class ParserTopDownNoRecursive extends Parser {
 					first = new First( arrayRight[i] );
 					first.addTerminal( arrayRight[i] );
 					/* Add first to first list. */
-//					this._lstFirst.add( first );
 					this.addToFirstMap( first );
 				}
 			}
@@ -134,22 +131,13 @@ public class ParserTopDownNoRecursive extends Parser {
 				this.getFirstTo( left, terminals );
 				first.addTerminals( terminals );
 				
-//				this._lstFirst.add( first );
 				this.addToFirstMap( first );
 			}
 		}
 	}
 
 	private boolean existsFirstTo( Variable var ) {
-		
-//		for( First first: this._lstFirst ) {
-//			if( var.equals( first.getFirstOf() ) == true )  {
-//				return true;
-//			}
-//		}
-//		
-//		return false;
-		
+				
 		First mapFirst = this._mapFirst.get( var.toString() );
 		
 		if( mapFirst == null ) {
@@ -191,12 +179,7 @@ public class ParserTopDownNoRecursive extends Parser {
 		
 		/* For each production look for the follows. */
 		for( Production prd: this._lstProduction ) {
-			
 			this.followsOf( prd );
-			
-//			if( prd.getLeft().isInitial() == true ) {
-//				
-//			}
 		}
 	}
 	
@@ -207,7 +190,6 @@ public class ParserTopDownNoRecursive extends Parser {
 		/* For each component in right part. */
 		for( int i = 0; i < pc.length; i++ ) {
 			
-			//this.followOf( prd.getLeft(), pc, i );
 			if( pc[i].isTerminal() == false ) {
 				this.followOf( pc[i] );
 			}
@@ -216,7 +198,6 @@ public class ParserTopDownNoRecursive extends Parser {
 		
 	private void followOf( ProductionComponent prdComp ) {
 		
-//		this._lstMsgs.add( new Msg( Msg.INFO, this, prdComp.toString() ) );
 		Follow fllw = this._mapFollow.get( prdComp.toString() );
 		
 		if( fllw == null ) {
@@ -232,26 +213,20 @@ public class ParserTopDownNoRecursive extends Parser {
 			
 			/* Recorro las producciones. */
 			for( Production prd: this._lstProduction ) {
-//				this._lstMsgs.add( new Msg( Msg.INFO, this, "for: " + prd.toString() ) );
 				ProductionComponent[] arrayProdComp = prd.getRigth();
 				
 				/* por cada componente de la parte derecha. */
 				for( int i = 0; i < arrayProdComp.length; i++ ) {
-//					this._lstMsgs.add( new Msg( Msg.INFO, this, "for: " + arrayProdComp[i].toString() ) );
 					/* Si es el mismo simbolo pregunto si existe un siguiente. */
 					if( arrayProdComp[i].equals( prdComp ) ) {
-//						this._lstMsgs.add( new Msg( Msg.INFO, this, "if: " + prdComp.toString() ) );
 						indexFollow = i + 1;
 						
 						/* Si tiene siguiente y el siguiente es distinto del lado izquierdo. */
 						if( indexFollow < arrayProdComp.length && ( arrayProdComp[ indexFollow ].equals( prd.getLeft() ) ) == false ) {
-//							this._lstMsgs.add( new Msg( Msg.INFO, this, "if:" + arrayProdComp[ indexFollow ].toString() + " equal " + prd.getLeft().toString() ) );
 							String key = arrayProdComp[ indexFollow ].toString();
 							First first = this._mapFirst.get( key );
 							newFollow.addTerminals( first.getRightExcept( this._empty ) );
-//							this._lstMsgs.add( new Msg( Msg.INFO, this, "addFirst(" + first.getleft().toString() + "):" + first.getRight().toString() ) );
 						} else {
-//							this._lstMsgs.add( new Msg( Msg.INFO, this, "telse: " + prd.getLeft().toString() ) );
 							this.followOf( prd.getLeft() );
 							ProductionComponent llll = prd.getLeft();
 							String key = llll.toString();
@@ -299,6 +274,69 @@ public class ParserTopDownNoRecursive extends Parser {
 				}	
 			}
 		}
+	}
+	
+	public boolean AcceptString( String string ) {
+		
+		this._lstMsgs.clear();
+		
+		Stack< ProductionComponent > stack = new Stack< ProductionComponent >();
+		stack.push( ProductionComponent.getFinalComponent() );
+		stack.push( Variable.getInitialComponent() );
+		
+		String withFinalSymbol = string + "$";
+		ProductionComponent[] w = new ProductionComponent[ withFinalSymbol.length() ];
+		
+		for( int i = 0; i < withFinalSymbol.length(); i++) {
+			w[i] = new Terminal( String.valueOf( withFinalSymbol.charAt(i) ) );
+		}
+		
+		this._lstMsgs.add( new Msg( Msg.INFO, this, "w para analizar: " + withFinalSymbol ) );
+		
+		ProductionComponent stckComp = stack.lastElement();
+		int wIndex = 0;
+		
+		System.out.println( "Pila\t|\tEntrada|\tProducción" );
+		
+		String format = "%s\t|\t%s|\t%s";
+		Production production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
+		
+		System.out.println( stckComp.toString() + " :: " + ProductionComponent.getFinalComponent().toString() );
+		
+		while( ( stckComp.equals( ProductionComponent.getFinalComponent() ) ) == false ) {
+			
+			String key = stckComp.toString() + "|" + w[ wIndex ].toString();
+			production = this._mapParsingTable.get( key );
+			
+			if( w[ wIndex ].equals( stckComp ) ) {
+				production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
+				System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+				stack.pop();
+				stckComp = stack.lastElement();
+				wIndex++;
+			} else if( stckComp.isTerminal() ) {
+				this._lstMsgs.add( new Msg( Msg.ERROR, this, "Terminal en la pila que no corresponde a la tabla de parsing: " + stckComp.toString() ) );
+				return false;
+			} else if( production == null ) {
+				this._lstMsgs.add( new Msg( Msg.ERROR, this, "Producción no encontrada en la tabla de parsing: M[" + stack.lastElement().toString() + "," + w[ wIndex ] + "]" ) );
+				return false;
+			} else if( production != null ) {
+				System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+				stack.pop();
+				
+				ProductionComponent[] right = production.getRigth();
+				for( int j = right.length - 1; j >= 0; j-- ) {
+					if( right[j].equals( this._empty ) == false ) {
+						stack.push( right[j] );
+					}
+				}
+				stckComp = stack.lastElement();
+				
+			}
+		}
+		
+		System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+		return true;
 	}
 	
 	public List<Msg> getMsgs() {

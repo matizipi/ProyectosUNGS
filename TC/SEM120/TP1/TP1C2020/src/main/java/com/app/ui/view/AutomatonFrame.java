@@ -16,7 +16,7 @@ public abstract class AutomatonFrame extends NFrame {
 	protected int _frameW = this._realframeW - this._xOsDifference;
 	protected int _frameH = this._realframeH - this._yOsDifference;
 	
-	private static String BACKGROUND = "src/main/resources/AutomatonBackground.png";
+	private static String BACKGROUND = "src/main/resources/img/AutomatonBackground.png";
 	
 	private ImageIcon _imgBackground;
 	private JLabel _background;

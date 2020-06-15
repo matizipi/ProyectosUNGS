@@ -20,6 +20,9 @@ public class ParserView extends NFrame {
 	private JLabel _lblFile;
 	private JTextField _txtFile;
 	private JButton _btnFile;
+
+	/* Return */
+	private JButton _btnReturn;
 	
 	/* Input to accept. */
 	private JLabel _lblInput;
@@ -70,6 +73,8 @@ public class ParserView extends NFrame {
 				, 90
 				, this.fldH );
 		this._contentPanel.add( this._btnFile );
+		
+		/* Return button. */
 		
 		/* Input to process. */
 		this._lblInput = new JLabel( "Input: " );

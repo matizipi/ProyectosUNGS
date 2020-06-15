@@ -30,6 +30,8 @@ public class ParserController extends Controller {
 	public void actionPerformed(ActionEvent arg0) {
 		if( arg0.getSource() == this._frame.getBtnFile() ) {
 			this.importFile();
+		} else if( arg0.getSource() == this._frame.getBtnInput() ) {
+			this.testInput();
 		}
 	}
 
@@ -82,6 +84,19 @@ public class ParserController extends Controller {
 	
 	private void loadParserTable() {
 		
+	}
+	
+	private void testInput() {
+		
+		String input = this._frame.getTxtInput().getText();
+		
+		if( this._parser.AcceptString( input ) ) {
+			this.printMessages( this._parser.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input aceptado." ) );
+		} else {
+			this.printMessages( this._parser.getMsgs() );
+			this.printMessage( new Msg( Msg.INFO, this, "input no aceptado." ) );
+		}
 	}
 	
 	private void printMessages( List< Msg > msgs ) {
