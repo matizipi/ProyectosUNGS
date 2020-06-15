@@ -75,6 +75,11 @@ public class ParserView extends NFrame {
 		this._contentPanel.add( this._btnFile );
 		
 		/* Return button. */
+		this._btnReturn = new JButton( "Volver" );
+		this._btnReturn.setBounds( 
+				, y
+				, width
+				, height);
 		
 		/* Input to process. */
 		this._lblInput = new JLabel( "Input: " );
