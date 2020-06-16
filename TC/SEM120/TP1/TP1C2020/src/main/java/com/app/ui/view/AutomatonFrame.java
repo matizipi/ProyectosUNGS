@@ -10,8 +10,8 @@ public abstract class AutomatonFrame extends NFrame {
 	
 	protected JPanel _contentPanel;
 	
-	protected int _realframeW = 810;
-	protected int _realframeH = 550;
+	protected int _realframeW = 1000;
+	protected int _realframeH = 600;
 	
 	protected int _frameW = this._realframeW - this._xOsDifference;
 	protected int _frameH = this._realframeH - this._yOsDifference;

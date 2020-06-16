@@ -40,16 +40,16 @@ public class MainController implements ControllerImpl {
 	}
 	
 	private void transferAutomatonActions() {
-		this.finish();
 		AutomatonNFAController aNfa = new AutomatonNFAController();
-		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de manipulación de automatas." ) );
+		this.finish();
 		aNfa.start();
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de automatas." ) );
 	}
 	
 	private void transferParsersActions() {
-		this.finish();
 		ParserController pCtr = new ParserController();
-		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de parsers." ) );
+		this.finish();
 		pCtr.start();
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de parsers." ) );
 	}
 }

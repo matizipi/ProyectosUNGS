@@ -36,11 +36,11 @@ public class Msg {
 		this._msg = msg;
 	}
 	
-//	public String[] getMsg() {
-//		return new String[] { this._date, this._type, this._object, this._msg };
-//	}
-	
 	public String printMsg() {
+		return this._date + this._type + this._object + " -> " + this._msg;
+	}
+	
+	public String printMsgWithOutClass() {
 		return this._date + this._type + this._object + " -> " + this._msg;
 	}
 

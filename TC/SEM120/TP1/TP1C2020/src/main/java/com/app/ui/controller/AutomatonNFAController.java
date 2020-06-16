@@ -34,6 +34,7 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 	private void addListener() {
 		this._frame.getBtnLoadFile().addActionListener( this );
 		this._frame.getBtnConvertToDFA().addActionListener( this );
+		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnInput().addActionListener( this );
 	}
 	
@@ -41,9 +42,13 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnLoadFile() ) {
 			this.loadFile();
-		} else if ( arg0.getSource() == this._frame.getBtnConvertToDFA() ) {
+		} else if( arg0.getSource() == this._frame.getBtnConvertToDFA() ) {
 			this.convertToDFA();
-		} else if ( arg0.getSource() == this._frame.getBtnInput() ) {
+		} else if( arg0.getSource() == this._frame.getBtnReturn() ) {
+			MainController ctr = new MainController();
+			this.finish();
+			ctr.start();
+		} else if( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.processInput();
 		}
 	}
@@ -77,11 +82,12 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 	private void loadFile() {		
 		String sFile = this._frame.getTxtLoadFile().getText();
 		
-		Log.WriteFileLog( new Msg( Msg.INFO, this, "Cargado archivo: " + sFile ) );
+		this.printMessage( new Msg( Msg.INFO, this, "Cargado archivo: " + sFile ) );
 		
 		File file = new File( sFile );
 		
 		if ( file.exists() ) {
+			this.showAllComponents();
 			this._a = this._ac.newNFAFromFile( file );
 			this.printMessages( this._ac.getMessages() );
 		} else {
@@ -101,9 +107,6 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		
 		this.printMessage( new Msg( Msg.INFO, this, "Comienza carga de funciones de transacción." ) );
 		this.loadTableTf();
-		
-		
-		this.showAllComponents();
 	}
 	
 	private void loadTableAlphabet() {
@@ -200,14 +203,6 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		}
 	}
 	
-	private void printMessages( List< Msg > msgs ) {
-		
-		for( Msg m: msgs ) {
-			this.printMessage( m );
-		}
-		
-	}
-	
 	private void printMessage( Msg msg ) {
 		this.printLog( msg );
 		
@@ -216,7 +211,7 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		String[] row = new String[ 2 ];
 		
 		row[ 0 ] = msg.getType();
-		row[ 1 ] = msg.getDate() + msg.getObject() + " - " + msg.getMsg();
+		row[ 1 ] = msg.getDate() /* + msg.getObject()*/ + " - " + msg.getMsg();
 		
 		dtm.addRow( row );
 		
@@ -226,6 +221,14 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		this._frame.getTblLog().getColumnModel().getColumn( 1 ).setPreferredWidth( this._frame.getWidth() - 130 );
 		
 		JScrollBar jsb = this._frame.getSpLog().getVerticalScrollBar();
-		jsb.setValue( jsb.getMaximum() );
+		this._frame.getSpLog().getVerticalScrollBar().setValue( jsb.getMaximum() + 1 );
+	}
+	
+	private void printMessages( List< Msg > msgs ) {
+		
+		for( Msg m: msgs ) {
+			this.printMessage( m );
+		}
+		
 	}
 }

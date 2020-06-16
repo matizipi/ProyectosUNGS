@@ -26,15 +26,20 @@ public class AutomatonDFAController implements ControllerImpl {
 	
 	private void addListener() {
 		this._frame.getBtnInput().addActionListener( this );
-		this._frame.getBtnVolver().addActionListener( this );
+		this._frame.getBtnReturn().addActionListener( this );
+		this._frame.getBtnReturnToMainMenu().addActionListener( this );
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.processInput();
-		} else if ( arg0.getSource() == this._frame.getBtnVolver() ) {
+		} else if ( arg0.getSource() == this._frame.getBtnReturn() ) {
 			AutomatonNFAController ctr = new AutomatonNFAController();
+			this.finish();
+			ctr.start();
+		} else if( arg0.getSource() == this._frame.getBtnReturnToMainMenu() ) {
+			MainController ctr = new MainController();
 			this.finish();
 			ctr.start();
 		}

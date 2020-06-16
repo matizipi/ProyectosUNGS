@@ -12,6 +12,7 @@ import com.app.punto1.automaton.ObjectConverter;
 import com.app.punto2.parser.ParserTopDownNoRecursive;
 import com.app.punto2.parser.components.First;
 import com.app.punto2.parser.components.Follow;
+import com.app.punto2.parser.components.Production;
 import com.app.ui.view.AutomatonNFView;
 import com.app.ui.view.ParserView;
 
@@ -31,6 +32,7 @@ public class ParserController extends Controller {
 		this._frame.getBtnFile().addActionListener( this );
 		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnParse().addActionListener( this );
 	}
 
 	@Override
@@ -41,6 +43,8 @@ public class ParserController extends Controller {
 			this.returnMainMenu();
 		} else if( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.testInput();
+		} else if( arg0.getSource() == this._frame.getBtnParse() ) {
+			this.showValidateTable();
 		}
 	}
 
@@ -65,10 +69,14 @@ public class ParserController extends Controller {
 		this._frame.getLblInput().setVisible( b );
 		this._frame.getTxtInput().setVisible( b );
 		this._frame.getBtnInput().setVisible( b );
+		this._frame.getBtnParse().setVisible( false );
 		this._frame.getSpFirst().setVisible( b );
 		this._frame.getSpFollow().setVisible( b );
 		this._frame.getSpParsingTable().setVisible( b );
 		this._frame.getSpLog().setVisible( b );
+		
+		this._frame.getTblLog().getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
+		this._frame.getTblLog().getColumnModel().getColumn( 1 ).setPreferredWidth( this._frame.getSpLog().getWidth() - 70 );
 		
 		if( b == true) {
 			this.loadFirstTable();
@@ -144,7 +152,19 @@ public class ParserController extends Controller {
 	}
 	
 	private void loadParserTable() {
+		String[][] parsingTable = this._parser.getParsingTable();
 		
+		DefaultTableModel dtm = this._frame.getDtmParsingTable();
+		
+		dtm.setRowCount( 0 );
+		dtm.setColumnCount( 0 );
+		dtm.setColumnIdentifiers( parsingTable[0] );
+		
+		for( int i = 1; i < parsingTable.length; i++ ) {
+			dtm.addRow( parsingTable[i] );
+		}
+		
+		this._frame.getTblParsingTable().setModel( dtm );
 	}
 	
 	private void returnMainMenu() {
@@ -160,11 +180,19 @@ public class ParserController extends Controller {
 		
 		if( this._parser.AcceptString( input ) ) {
 			this.printMessages( this._parser.getMsgs() );
+			this._frame.getBtnParse().setVisible( true );
 			this.printMessage( new Msg( Msg.INFO, this, "input aceptado." ) );
 		} else {
 			this.printMessages( this._parser.getMsgs() );
+			this._frame.getBtnParse().setVisible( false );
 			this.printMessage( new Msg( Msg.INFO, this, "input no aceptado." ) );
 		}
+	}
+	
+	private void showValidateTable() {
+		String[][] table = this._parser.getValidationProcessTable();
+		parserTableValidationController ctr = new parserTableValidationController( this._frame, table );
+		ctr.start();
 	}
 	
 	private void printMessages( List< Msg > msgs ) {

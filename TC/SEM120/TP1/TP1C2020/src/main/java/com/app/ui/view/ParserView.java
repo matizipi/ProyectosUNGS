@@ -42,6 +42,9 @@ public class ParserView extends NFrame {
 	private JTextField _txtInput;
 	private JButton _btnInput;
 	
+	/* Button validation table */
+	private JButton _btnParse;
+	
 	/* Tables first and follow. */
 	public static String[] FIRST_TITLE = new String[] {"First"};
 	private JScrollPane _spFirst;
@@ -92,7 +95,7 @@ public class ParserView extends NFrame {
 		this._lblFile = new JLabel( "File:" );
 		this._lblFile.setBounds( this.spX
 				, this.spY
-				, this._lblFile.getText().length() * 5
+				, 50
 				, this.fldH );
 		this._contentPanel.add( this._lblFile );
 		
@@ -101,7 +104,7 @@ public class ParserView extends NFrame {
 		this._txtFile.setColumns( 10 );
 		this._txtFile.setBounds( this._lblFile.getX() + this._lblFile.getWidth() + this.spX
 				, this.spY
-				, 250
+				, 650
 				, this.fldH );
 		this._contentPanel.add( this._txtFile );
 		
@@ -127,7 +130,7 @@ public class ParserView extends NFrame {
 		this._lblInput = new JLabel( "Input: " );
 		this._lblInput.setBounds( this.spX
 				, this._lblFile.getY() + this.fldH + this.spY
-				, this._lblInput.getText().length() * 5
+				, 50
 				, this.fldH );
 		this._contentPanel.add( this._lblInput );
 		
@@ -147,6 +150,16 @@ public class ParserView extends NFrame {
 				, 80
 				, this.fldH );
 		this._contentPanel.add( this._btnInput );
+		
+		
+		/* Button to show table of validation. */
+		this._btnParse = new JButton();
+		this._btnParse.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+				, this._lblFile.getY() + this.fldH + this.spY
+				, this.fldH
+				, this.fldH);
+		this._btnParse.setIcon( null );
+		this._contentPanel.add( this._btnParse );
 		
 		
 		/* Tables of firsts and follows. */
@@ -215,23 +228,23 @@ public class ParserView extends NFrame {
 	}
 
 	public JPanel getContentPanel() {
-		return _contentPanel;
+		return this._contentPanel;
 	}
 
 	public ImageIcon getImgBackground() {
-		return _imgBackground;
+		return this._imgBackground;
 	}
 
 	public JLabel getLblFile() {
-		return _lblFile;
+		return this._lblFile;
 	}
 
 	public JTextField getTxtFile() {
-		return _txtFile;
+		return this._txtFile;
 	}
 
 	public JButton getBtnFile() {
-		return _btnFile;
+		return this._btnFile;
 	}
 
 	public JButton getBtnReturn() {
@@ -239,15 +252,19 @@ public class ParserView extends NFrame {
 	}
 	
 	public JLabel getLblInput() {
-		return _lblInput;
+		return this._lblInput;
 	}
 
 	public JTextField getTxtInput() {
-		return _txtInput;
+		return this._txtInput;
 	}
 
 	public JButton getBtnInput() {
-		return _btnInput;
+		return this._btnInput;
+	}
+	
+	public JButton getBtnParse() {
+		return this._btnParse;
 	}
 	
 	public JScrollPane getSpFirst() {

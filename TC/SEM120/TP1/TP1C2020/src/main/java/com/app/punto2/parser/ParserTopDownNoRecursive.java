@@ -23,6 +23,7 @@ public class ParserTopDownNoRecursive extends Parser {
 	private Map< String, First > _mapFirst;
 	private Map< String, Follow > _mapFollow;
 	private Map< String, Production > _mapParsingTable;
+	private List< String[] > _processTable;
 	
 	private List< Msg > _lstMsgs = new ArrayList< Msg >();
 	
@@ -37,6 +38,8 @@ public class ParserTopDownNoRecursive extends Parser {
 		this._mapFollow = new HashMap< String, Follow >();
 		/* Create map to parsing table. */
 		this._mapParsingTable = new HashMap< String, Production >();
+		/* Initial process table */
+		this._processTable = new ArrayList< String[] >();
 		
 		/* Load terminals and variables. */
 		this.loadTerminalsAndVariables();
@@ -296,12 +299,8 @@ public class ParserTopDownNoRecursive extends Parser {
 		ProductionComponent stckComp = stack.lastElement();
 		int wIndex = 0;
 		
-		System.out.println( "Pila\t|\tEntrada|\tProducción" );
-		
-		String format = "%s\t|\t%s|\t%s";
+		String[] processRow = new String[3];
 		Production production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
-		
-		System.out.println( stckComp.toString() + " :: " + ProductionComponent.getFinalComponent().toString() );
 		
 		while( ( stckComp.equals( ProductionComponent.getFinalComponent() ) ) == false ) {
 			
@@ -310,7 +309,7 @@ public class ParserTopDownNoRecursive extends Parser {
 			
 			if( w[ wIndex ].equals( stckComp ) ) {
 				production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
-				System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+				processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() };
 				stack.pop();
 				stckComp = stack.lastElement();
 				wIndex++;
@@ -321,7 +320,7 @@ public class ParserTopDownNoRecursive extends Parser {
 				this._lstMsgs.add( new Msg( Msg.ERROR, this, "Producción no encontrada en la tabla de parsing: M[" + stack.lastElement().toString() + "," + w[ wIndex ] + "]" ) );
 				return false;
 			} else if( production != null ) {
-				System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+				processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() };
 				stack.pop();
 				
 				ProductionComponent[] right = production.getRigth();
@@ -333,9 +332,13 @@ public class ParserTopDownNoRecursive extends Parser {
 				stckComp = stack.lastElement();
 				
 			}
+			
+			this._processTable.add( processRow );
 		}
 		
-		System.out.println( String.format( format, stack.toString(), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() ) );
+		processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() };
+		this._processTable.add( processRow );
+		
 		return true;
 	}
 	
@@ -349,5 +352,42 @@ public class ParserTopDownNoRecursive extends Parser {
 	
 	public List<Msg> getMsgs() {
 		return this._lstMsgs;
+	}
+
+	public String[][] getParsingTable() {
+		
+		String[][] prdTbl = new String[ this._lstVariable.size() + 1 ][ this._lstTerminal.size() + 1 ];
+		
+		prdTbl[0][0] = "";
+		
+		for( int i = 0; i < this._lstTerminal.size(); i++ ) {
+			prdTbl[0][ i + 1 ] = this._lstTerminal.get( i ).toString();
+		}
+		
+		int index;
+		Production prd;
+		String value;
+		
+		for( int i = 0; i < this._lstVariable.size(); i++ ) {
+			index = i + 1;
+			prdTbl[ index ][0] = this._lstVariable.get( i ).toString();
+			
+			for( int j = 0; j < this._lstTerminal.size(); j++ ) {
+				prd = this._mapParsingTable.get( prdTbl[ index ][0] + "|" + prdTbl[0][ j + 1 ] );
+				if( prd == null ) {
+					value = "";
+				} else {
+					value = prd.toString();
+				}
+				
+				prdTbl[ index ][ j + 1 ] = value;
+			}
+		}
+		
+		return prdTbl;
+	}
+
+	public String[][] getValidationProcessTable() {
+		return this._processTable.toArray( new String[0][] );
 	}
 }

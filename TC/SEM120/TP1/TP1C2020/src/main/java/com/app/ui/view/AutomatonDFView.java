@@ -25,7 +25,9 @@ public class AutomatonDFView extends AutomatonFrame {
 	private JTextField _txtInput;
 	private JButton _btnInput;
 	
-	private JButton _btnVolver;
+	private JButton _btnReturn;
+	
+	private JButton _btnReturnMainMenu;
 	
 	/* Alphabet set. */
 	private JScrollPane _spAlphabet;
@@ -55,19 +57,30 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._txtInput.setBounds( spX, spY, 200, fldH );
 		this._contentPanel.add( this._txtInput );
 		
+		
 		this._btnInput = new JButton( "Test" );
 		this._btnInput.setBounds( this._txtInput.getX() + this._txtInput.getWidth() + spX
 				, spY
 				, 70
 				, fldH );
 		this._contentPanel.add( this._btnInput );
-	
-		this._btnVolver = new JButton( "<-" );
-		this._btnVolver.setBounds( this._frameW - spY - 50
+		
+		
+		this._btnReturnMainMenu = new JButton( "Volver al Menu Principal" );
+		this._btnReturnMainMenu.setBounds( this._frameW - spY - 200
+				, this.spY
+				, 200
+				, this.fldH );
+		this._contentPanel.add( this._btnReturnMainMenu );
+		
+		
+		this._btnReturn = new JButton( "Volver" );
+		this._btnReturn.setBounds( this._btnReturnMainMenu.getX() - spY - 50
 				, spY
 				, 50
 				, fldH);
-		this._contentPanel.add( this._btnVolver );
+		this._contentPanel.add( this._btnReturn );
+		
 		
 		/* Set main tables. */
 		this._maintablesY = this._txtInput.getY() + this._txtInput.getHeight() + spY;
@@ -79,11 +92,13 @@ public class AutomatonDFView extends AutomatonFrame {
 				, this._maintablesH );
 		this._spAlphabet.setBorder( BorderFactory.createTitledBorder( null, "Alfabeto", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._contentPanel.add( this._spAlphabet );
-
+		
+		
 		this._dtmAlphabet = new CustomTableModel( null, ALPHABET_TITLE );
 		this._tblAlphabet = new JTable( this._dtmAlphabet );
 		this._tblAlphabet.setDefaultRenderer( String.class , new CommonTableCellRenderer() );
 		this._spAlphabet.setViewportView( this._tblAlphabet );
+		
 		
 		/* Set state table. */
 		this._spState = new JScrollPane();
@@ -92,12 +107,15 @@ public class AutomatonDFView extends AutomatonFrame {
 				, 180
 				, this._maintablesH );
 		this._spState.setBorder( BorderFactory.createTitledBorder( null, "Estados", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spState.setOpaque( false );
 		this._contentPanel.add( this._spState );
+		
 		
 		this._dtmState = new CustomTableModel( null, STATE_TITLE );
 		this._tblState = new JTable( this._dtmState );
 		this._tblState.setDefaultRenderer( String.class, new CommonTableCellRenderer() );
 		this._spState.setViewportView( this._tblState );
+		
 		
 		/* Set transaction function. */
 		this._spTf = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
@@ -106,13 +124,16 @@ public class AutomatonDFView extends AutomatonFrame {
 				, this._frameW - this._spState.getX() - this._spState.getWidth() - spX
 				, this._maintablesH );
 		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spTf.setOpaque( false );
 		this._contentPanel.add( this._spTf );
+		
 		
 		this._dtmTf = new CustomTableModel( null, TF_TITLE );
 		this._tblTf = new JTable( this._dtmTf );
 		this._tblTf.setDefaultRenderer( String.class, new CommonTableCellRenderer() );
 		this._tblTf.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spTf.setViewportView( this._tblTf );
+		
 		
 		/* Table log. */
 		this._spLog = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
@@ -121,7 +142,9 @@ public class AutomatonDFView extends AutomatonFrame {
 				, this._frameW - spX
 				, this._frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spLog.setOpaque( false );
 		this._contentPanel.add( this._spLog );
+		
 		
 		this._dtmLog = new CustomTableModel( null, LOG_TITLE );
 		this._tblLog = new JTable( this._dtmLog );
@@ -140,8 +163,12 @@ public class AutomatonDFView extends AutomatonFrame {
 		return this._btnInput;
 	}
 
-	public JButton getBtnVolver() {
-		return this._btnVolver;
+	public JButton getBtnReturn() {
+		return this._btnReturn;
+	}
+	
+	public JButton getBtnReturnToMainMenu() {
+		return this._btnReturnMainMenu;
 	}
 	
 	public JScrollPane getSpAlphabet() {

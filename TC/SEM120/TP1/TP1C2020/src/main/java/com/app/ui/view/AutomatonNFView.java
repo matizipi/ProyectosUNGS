@@ -24,9 +24,12 @@ public class AutomatonNFView extends AutomatonFrame {
 	private int _maintablesY = 0;
 	private int _maintablesH = 300;
 	
+	private JLabel _lblPath;
 	private JTextField _txtFilePath;
 	private JButton _btnLoadFile;
 	private JButton _btnConvertToDFA;
+	
+	private JButton _btnReturn;
 	
 	private JLabel _lblInput;
 	private JTextField _txtInput;
@@ -53,26 +56,51 @@ public class AutomatonNFView extends AutomatonFrame {
 		
 		this.setTitle( " .: Automata no deterministico finito :. " );
 		
+		
+		this._lblPath = new JLabel( "Archivo: " );
+		this._lblPath.setBounds( this.spX
+				, this.spY
+				, 45
+				, this.fldH );
+		this._contentPanel.add( this._lblPath );
+		
+		
 		/* Set properties to file path. */
 		this._txtFilePath = new JTextField();
 		this._txtFilePath.setColumns( 10 );
-		this._txtFilePath.setBounds( spX, spY, 300, 27 );
+		this._txtFilePath.setBounds( this._lblPath.getX() + this._lblPath.getWidth() + this.spX
+				, spY
+				, 640
+				, this.fldH );
 		this._contentPanel.add( this._txtFilePath );
 		
-		this._txtFilePath.setText("C:/Users/user/Desktop/Nicolas/02-Proyecto/01-Informatic/07-UNGS/Teoria_de_la_Computación/eclips-workspace/TP1C2020/src/main/resources/exampleAutomaton.txt");
 		
 		/* Set load properties. */
 		this._btnLoadFile = new JButton( "Cargar" );
 		this._btnLoadFile.setBounds( this._txtFilePath.getX() + this._txtFilePath.getWidth() + spX
 				, spY
-				, 150
+				, 70
 				, 27);
 		this._contentPanel.add( this._btnLoadFile );
 
+		
 		/* Convert button */
 		this._btnConvertToDFA = new JButton( "Convertir a AFD" );
-		this._btnConvertToDFA.setBounds( this._btnLoadFile.getX() + this._btnLoadFile.getWidth() + spX, spY, 150, 27);
+		this._btnConvertToDFA.setBounds( this._btnLoadFile.getX() + this._btnLoadFile.getWidth() + spX
+				, spY
+				, 110
+				, 27);
 		this._contentPanel.add( this._btnConvertToDFA );
+		
+		
+		/* Button to return to previous view. */
+		this._btnReturn = new JButton( "Volver" );
+		this._btnReturn.setBounds( this._frameW - this.spX - 70
+				, this.spY
+				, 70
+				, this.fldH );
+		this._contentPanel.add( this._btnReturn );
+		
 		
 		/* Set input set fields. */
 		this._lblInput = new JLabel( "Input: " );
@@ -82,23 +110,27 @@ public class AutomatonNFView extends AutomatonFrame {
 				, 27 );
 		this._contentPanel.add( this._lblInput );
 		
+		
 		this._txtInput = new JTextField();
 		this._txtInput.setColumns( 10 );
-		this._txtInput.setBounds( 55
-				, /*35*/ this._txtFilePath.getY() + this._txtFilePath.getHeight() + spY
+		this._txtInput.setBounds( this._lblInput.getX() + this._lblInput.getWidth() + this.spX
+				, this._txtFilePath.getY() + this._txtFilePath.getHeight() + spY
 				, 150
 				, 27 );
 		this._contentPanel.add( this._txtInput );
 		
+		
 		this._btnInput = new JButton( "Test" );
-		this._btnInput.setBounds( 210
+		this._btnInput.setBounds( this._txtInput.getX() + this._txtInput.getWidth() + this.spX
 				, this._txtFilePath.getY() + this._txtFilePath.getHeight() + spY
 				, 70
 				, 27 );
 		this._contentPanel.add( this._btnInput );
 		
+		
 		/* Set main tables. */
 		this._maintablesY = this._txtInput.getY() + this._txtFilePath.getHeight() + spY;
+		
 		
 		/* Set alphabet table. */
 		this._spAlphabet = new JScrollPane();
@@ -110,10 +142,12 @@ public class AutomatonNFView extends AutomatonFrame {
 		this._spAlphabet.setOpaque( false );
 		this._contentPanel.add( this._spAlphabet );
 
+		
 		this._dtmAlphabet = new CustomTableModel( null, ALPHABET_TITLE );
 		this._tblAlphabet = new JTable( this._dtmAlphabet );
 		this._tblAlphabet.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
 		this._spAlphabet.setViewportView( this._tblAlphabet );
+		
 		
 		/* Set state table. */
 		this._spStates = new JScrollPane();
@@ -125,14 +159,16 @@ public class AutomatonNFView extends AutomatonFrame {
 		this._spStates.setOpaque( false );
 		this._contentPanel.add( this._spStates );
 		
+		
 		this._dtmStates = new CustomTableModel( null, STATE_TITLE );
 		this._tblStates = new JTable( this._dtmStates );
 		this._tblStates.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
 		this._spStates.setViewportView( this._tblStates );
 		
+		
 		/* Set transaction function. */
 		this._spTransactionFunction = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		this._spTransactionFunction.setBounds( /*180*/this._spStates.getX() + this._spStates.getWidth() + spX
+		this._spTransactionFunction.setBounds( this._spStates.getX() + this._spStates.getWidth() + spX
 				, this._maintablesY
 				, this._frameW - this._spStates.getX() - this._spStates.getWidth() - spX
 				, this._maintablesH );
@@ -140,11 +176,13 @@ public class AutomatonNFView extends AutomatonFrame {
 		this._spTransactionFunction.setOpaque( false );
 		this._contentPanel.add( this._spTransactionFunction );
 		
+		
 		this._dtmTransactionFunction = new CustomTableModel( null, TF_TITLE );
 		this._tblTransactionFunction = new JTable( this._dtmTransactionFunction );
 		this._tblTransactionFunction.setDefaultRenderer( String.class,  new CommonTableCellRenderer() );
 //		this._tblTransactionFunction.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spTransactionFunction.setViewportView( this._tblTransactionFunction );
+		
 		
 		/* Table log. */
 		this._spLog = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
@@ -156,74 +194,78 @@ public class AutomatonNFView extends AutomatonFrame {
 		this._spLog.setOpaque( false );
 		this._contentPanel.add( this._spLog );
 		
+		
 		this._dtmLog = new CustomTableModel( null, LOG_TITLE );
 		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.setDefaultRenderer( String.class,  new LogTableCellRenderer() );
-//		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-//		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
+		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
+		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spLog.setViewportView( this._tblLog );
-		
 	}
 
 	public JTextField getTxtLoadFile() {
-		return _txtFilePath;
+		return this._txtFilePath;
 	}
 
 	public JButton getBtnLoadFile() {
-		return _btnLoadFile;
+		return this._btnLoadFile;
 	}
 	
 	public JButton getBtnConvertToDFA() {
 		return this._btnConvertToDFA;
 	}
+	
+	public JButton getBtnReturn() {
+		return this._btnReturn;
+	}
 
 	public JLabel getLblInput() {
-		return _lblInput;
+		return this._lblInput;
 	}
 
 	public JTextField getTxtInput() {
-		return _txtInput;
+		return this._txtInput;
 	}
 
 	public JButton getBtnInput() {
-		return _btnInput;
+		return this._btnInput;
 	}
 
 	public JScrollPane getSpAlphabet() {
-		return _spAlphabet;
+		return this._spAlphabet;
 	}
 
 	public DefaultTableModel getDtmAlphabet() {
-		return _dtmAlphabet;
+		return this._dtmAlphabet;
 	}
 
 	public JTable getTblAlphabet() {
-		return _tblAlphabet;
+		return this._tblAlphabet;
 	}
 
 	public JScrollPane getSpStates() {
-		return _spStates;
+		return this._spStates;
 	}
 
 	public DefaultTableModel getDtmStates() {
-		return _dtmStates;
+		return this._dtmStates;
 	}
 
 	public JTable getTblStates() {
-		return _tblStates;
+		return this._tblStates;
 	}
 
 	public JScrollPane getSpTransactionFunction() {
-		return _spTransactionFunction;
+		return this._spTransactionFunction;
 	}
 
 	public DefaultTableModel getDtmTransactionFunction() {
-		return _dtmTransactionFunction;
+		return this._dtmTransactionFunction;
 	}
 
 	public JTable getTblTransactionFunction() {
-		return _tblTransactionFunction;
+		return this._tblTransactionFunction;
 	}
 	
 	public JScrollPane getSpLog() {

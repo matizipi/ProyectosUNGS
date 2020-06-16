@@ -37,7 +37,7 @@ public class Log {
 
 			BufferedWriter bf = new BufferedWriter(fw);
 
-			bf.write(msg.printMsg());
+			bf.write( msg.printMsg() );
 			bf.newLine();
 
 			bf.close();
