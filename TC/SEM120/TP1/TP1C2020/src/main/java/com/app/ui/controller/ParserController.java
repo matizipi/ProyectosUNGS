@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 import com.app.common.Msg;
-import com.app.punto1.automaton.ObjectConverter;
+import com.app.helper.ObjectConverter;
 import com.app.punto2.parser.ParserTopDownNoRecursive;
 import com.app.punto2.parser.components.First;
 import com.app.punto2.parser.components.Follow;

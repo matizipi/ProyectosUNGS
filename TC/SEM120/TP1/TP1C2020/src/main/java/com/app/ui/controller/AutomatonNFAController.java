@@ -10,8 +10,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.app.common.Msg;
 import com.app.common.log.Log;
+import com.app.helper.ObjectConverter;
 import com.app.punto1.automaton.NFA;
-import com.app.punto1.automaton.ObjectConverter;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Input;
 import com.app.punto1.automaton.components.alphabet.Simbol;
