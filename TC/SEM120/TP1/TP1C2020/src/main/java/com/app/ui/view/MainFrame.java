@@ -9,6 +9,11 @@ import javax.swing.border.EmptyBorder;
 
 public class MainFrame extends NFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static String IMGPATH = "src/main/resources/img/MainBackground01.png";
 	
 	private JPanel _contentPanel;

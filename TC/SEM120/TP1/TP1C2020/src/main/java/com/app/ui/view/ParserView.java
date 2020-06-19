@@ -19,6 +19,11 @@ import com.app.ui.view.adaptation.LogTableCellRenderer;
 
 public class ParserView extends NFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JPanel _contentPanel;
 	
 	private static String IMGPATH = "";

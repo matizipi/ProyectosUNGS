@@ -8,6 +8,11 @@ import javax.swing.border.EmptyBorder;
 
 public abstract class AutomatonFrame extends NFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected JPanel _contentPanel;
 	
 	protected int _realframeW = 1000;

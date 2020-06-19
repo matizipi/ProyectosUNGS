@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 
 public abstract class CustomDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected int _xOsDifference;
 	protected int _yOsDifference;
 	

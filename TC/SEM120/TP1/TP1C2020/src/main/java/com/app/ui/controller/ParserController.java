@@ -12,8 +12,6 @@ import com.app.helper.ObjectConverter;
 import com.app.punto2.parser.ParserTopDownNoRecursive;
 import com.app.punto2.parser.components.First;
 import com.app.punto2.parser.components.Follow;
-import com.app.punto2.parser.components.Production;
-import com.app.ui.view.AutomatonNFView;
 import com.app.ui.view.ParserView;
 
 public class ParserController extends Controller {

@@ -2,17 +2,20 @@ package com.app.punto1.automaton.dfn.components;
 
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.TransactionFunction;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 
+/** No deterministic finite automaton transaction function **/
 public class TransactionFunctionDFA extends TransactionFunction {
 	
 	protected StateA _nextState;
 	
-	public TransactionFunctionDFA(StateA initState, Simbol symbol, StateA nextState) {
+	/** Constructor of transaction function. **/
+	public TransactionFunctionDFA(StateA initState, Symbol symbol, StateA nextState) {
 		super( initState, symbol );
 		this._nextState = nextState;
 	}
 	
+	/** Constructor from text line. **/
 	public TransactionFunctionDFA(String line) {
 		super( line.split("->")[0] );
 		String functionBody[] = line.replaceAll(" ", "").split( "->" );
@@ -20,14 +23,15 @@ public class TransactionFunctionDFA extends TransactionFunction {
 		this._nextState = new StateA( functionBody[1] );
 	}
 	
-	public boolean hasNextState(StateA sa, Simbol s) {
+	/** Return if the function have results. **/
+	public boolean hasNextState(StateA sa, Symbol s) {
 		if ( this._stateParameter.equals(sa) && this._symbol.equals(s) ) {
 			return true;
 		}
 		
 		return false;
 	}
-	
+	/* Comentado */
 //	public boolean hasNextState(StateDFAFromNFA state, Simbol s) {
 //		
 //		boolean hasNext = false;
@@ -41,6 +45,7 @@ public class TransactionFunctionDFA extends TransactionFunction {
 //		return hasNext;
 //	}
 	
+	/** Get result state. **/
 	public StateA nextState() {
 		return this._nextState;
 	}

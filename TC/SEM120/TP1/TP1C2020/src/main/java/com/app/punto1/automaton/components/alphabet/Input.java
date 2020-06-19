@@ -2,25 +2,25 @@ package com.app.punto1.automaton.components.alphabet;
 
 public class Input {
 	
-	private Simbol[] _coInput;
+	private Symbol[] _coInput;
 	private int _pivot;
 	
 	public Input( String input ) {
 		
-		this._coInput = new Simbol[ input.length() ];
+		this._coInput = new Symbol[ input.length() ];
 		
 		for( int i = 0; i < input.length(); i++ ) {
-			this._coInput[ i ] = new Simbol( input.charAt( i ) );
+			this._coInput[ i ] = new Symbol( input.charAt( i ) );
 		}
 		
 		this._pivot = 0;
 	}
 	
-	public Input(Simbol[] in) {
+	public Input(Symbol[] in) {
 		this._coInput = in;
 	}
 
-	private Input( Simbol[] in, int pivot ) {
+	private Input( Symbol[] in, int pivot ) {
 		this._coInput = in;
 		this._pivot = pivot;
 	}
@@ -29,7 +29,7 @@ public class Input {
 		return this._coInput.length>this._pivot?true:false;
 	}
 	
-	public Simbol readSymbol() {
+	public Symbol readSymbol() {
 		int pivotAux = this._pivot;
 		this._pivot++;
 		return this._coInput[ pivotAux ];
@@ -46,7 +46,7 @@ public class Input {
 		return inp;
 	}
 	
-	public Simbol[] getSimbolsOfInput() {
+	public Symbol[] getSimbolsOfInput() {
 		return this._coInput;
 	}
 	
@@ -59,7 +59,7 @@ public class Input {
 		
 		String str = "";
 		
-		for( Simbol sbm : this._coInput ) {
+		for( Symbol sbm : this._coInput ) {
 			str += sbm.getSimbol();
 		}
 		

@@ -5,21 +5,21 @@ import java.util.List;
 
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.TransactionFunction;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.punto1.automaton.dfn.components.TransactionFunctionDFA;
 
 public class TransactionFunctionNFA extends TransactionFunction {
 	
 	private List<StateA> _lstNextState;
 	
-	public TransactionFunctionNFA(StateA initState, Simbol symbol, StateA nextState) {
+	public TransactionFunctionNFA(StateA initState, Symbol symbol, StateA nextState) {
 		super( initState, symbol );
 				
 		this._lstNextState = new ArrayList<StateA>();
 		this._lstNextState.add( nextState );
 	}
 	
-	public TransactionFunctionNFA(TransactionFunctionDFA tf) {
+	public TransactionFunctionNFA( TransactionFunctionDFA tf ) {
 		super( tf.getStateParameter(), tf.getInput() );
 
 		this._lstNextState = new ArrayList<StateA>();
@@ -43,7 +43,7 @@ public class TransactionFunctionNFA extends TransactionFunction {
 //		return true;
 //	}
 	
-	public boolean hasNextStateFor( Simbol s ) {
+	public boolean hasNextStateFor( Symbol s ) {
 		return ( this._symbol.equals( s ) && this._lstNextState.isEmpty() == false )?true:false;
 	}
 	

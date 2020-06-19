@@ -11,7 +11,7 @@ import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.TransactionFunction;
 import com.app.punto1.automaton.components.alphabet.Alphabet;
 import com.app.punto1.automaton.components.alphabet.Input;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.punto1.automaton.dfn.components.TransactionFunctionDFA;
 import com.app.punto1.automaton.nfa.components.TransactionFunctionNFA;
 
@@ -72,7 +72,7 @@ public class NFA extends Automaton {
 		
 	}
 	
-	public List<StateA> doTransactionFunctionTo(StateA state, Simbol symbol) {
+	public List<StateA> doTransactionFunctionTo(StateA state, Symbol symbol) {
 		
 		String parametersFormat = TransactionFunction.generateParameterStringFormat(state, symbol);
 		

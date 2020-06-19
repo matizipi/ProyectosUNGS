@@ -13,7 +13,7 @@ import com.app.punto1.automaton.NFA;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.StateOfSetStates;
 import com.app.punto1.automaton.components.alphabet.Alphabet;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.punto1.automaton.dfn.components.TransactionFunctionDFA;
 import com.app.punto2.parser.ParserTopDownNoRecursive;
 import com.app.punto2.parser.components.Production;
@@ -38,42 +38,49 @@ public class ObjectConverter {
 		List< StateA > lstFnlState = null;
 		List< TransactionFunctionDFA > lstTfs = new ArrayList< TransactionFunctionDFA >();
 		
+		/* New no deterministic finite automaton. */
 		NFA a;
 		
-		//this._mapTf = new HashMap<String, TransactionFunctionNFA>();
-		//this._lstTf = new ArrayList<TransactionFunctionDFA>();
+		/* Reader of file. */
 		BufferedReader br;
 		
 		try {
 			
+			/* Set the file to read. */
 			this._lstMsg.add( new Msg( Msg.INFO, this, "Comenzando a leer automata desde archivo." ) ) ;
 			br = new BufferedReader( new FileReader( file ) );
 			
-			String line = br.readLine();
+			//String line = br.readLine();
+			/* index of line to read the information. */
+			String line;
 			int numberOfLine = 1;
 			
-			while( line != null ) {
+			while( ( line = br.readLine() ) != null ) {
 			
 				this._lstMsg.add( new Msg( Msg.INFO, this, "Leyendo linea: " + numberOfLine ) );
 				
 				/* Read the alphabet. */
 				if ( numberOfLine == 1 ) {
+					/* The alphabet read the information and convert the line in object alphabet. */
 					alphabet = Alphabet.generateFrom(line);
-					/*LogWriter.writeLog( this, LogWriter.INFO, "Proceso alphabet finish [OK]");*/
 					this._lstMsg.add( new Msg( Msg.INFO, this, "Alfabeto leido [OK]." ) );
 				}
 				
 				/* Read quantity of states. */
 				if ( numberOfLine == 2 ) {
+					/* Parse the string to number of states (State "Q_0" is always the initial state). */
 					int qtyOfStates = Integer.parseInt( line.replaceAll( " ", "" ) );
 					
+					/* Generate the states from number. */
 					lstState = StateA.generateListStatesFromInt( qtyOfStates );
 					
 					/* LogWriter.writeLog( this, LogWriter.INFO, "Proceso generate NFA states finish [OK]" ); */
 					this._lstMsg.add( new Msg( Msg.INFO, this, "Estado generados [OK]." ) );
 					
+					/* Search the start state and obtain this state. */
 					for ( StateA s: lstState ) {
 						if ( s.isStartState() ) {
+							this._lstMsg.add( new Msg( Msg.INFO, this, "Estado inicial: " + s.getName() ) );
 							startState = s;
 							break;
 						}
@@ -97,7 +104,7 @@ public class ObjectConverter {
 				}				
 				
 				/* Continue with next line */
-				line = br.readLine();
+//				line = br.readLine();
 				numberOfLine++;
 			}
 			
@@ -105,10 +112,12 @@ public class ObjectConverter {
 			this._lstMsg.add( new Msg( Msg.INFO, this, "Archivo leido." ) );
 			
 		} catch( Exception e ) {
+			this._lstMsg.add( new Msg( Msg.ERROR, this, "Error al intenar generar el automata finito no deterministico" + Msg.getMessage( e ) ) );
 			e.printStackTrace();
 		}
 		
 		this._lstMsg.add( new Msg( Msg.INFO, this, "Creando automata." ) );
+		/* Get a new no deterministic finite automaton. */
 		a = new NFA(alphabet, lstState, startState, lstFnlState, lstTfs);
 		this._lstMsg.addAll( a.getMsgs() );
 		a.clearMessages();
@@ -161,7 +170,7 @@ public class ObjectConverter {
 			LogWriter.writeLog( this, 0, stateInDFA.getName() + ":" + stateInDFA.isFinalState() );
 			
 			/* Get each symbol into the alphabet. */
-			for ( Simbol smb: alphabet.getSimbols() ) {
+			for ( Symbol smb: alphabet.getSimbols() ) {
 				
 				/* Get state of set of state from tfs in NFA. */
 				stateFromNFA = new StateOfSetStates( states.size() + 1 );
@@ -216,7 +225,7 @@ public class ObjectConverter {
 	
 	/**
 	 * <b> Return set of states from transaction function in no deterministic finite automata. </b>**/
-	private List< StateA > stateFromTfsNfa(StateOfSetStates state, Simbol symbol, NFA nfa) {
+	private List< StateA > stateFromTfsNfa(StateOfSetStates state, Symbol symbol, NFA nfa) {
 		
 		List< StateA > lstState = new ArrayList< StateA >();
 		

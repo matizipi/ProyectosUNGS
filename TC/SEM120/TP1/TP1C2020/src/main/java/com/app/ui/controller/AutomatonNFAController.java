@@ -9,12 +9,11 @@ import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 
 import com.app.common.Msg;
-import com.app.common.log.Log;
 import com.app.helper.ObjectConverter;
 import com.app.punto1.automaton.NFA;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Input;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.ui.view.AutomatonNFView;
 import com.app.ui.view.validation.AutomatonNFAValidation;
 
@@ -117,7 +116,7 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		dtm.setColumnCount( 0 );
 		dtm.setColumnIdentifiers( AutomatonNFView.ALPHABET_TITLE );
 		
-		for( Simbol smb: this._a.getAlphabet().getSimbols() ) {
+		for( Symbol smb: this._a.getAlphabet().getSimbols() ) {
 			Object[] fila = { smb.getSimbol() };
 			dtm.addRow( fila );
 		}

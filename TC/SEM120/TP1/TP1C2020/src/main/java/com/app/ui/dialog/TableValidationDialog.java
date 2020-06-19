@@ -13,6 +13,11 @@ import com.app.ui.view.adaptation.CustomTableModel;
 
 public class TableValidationDialog extends CustomDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int _w = 500;
 	private int _h = 400;
 	

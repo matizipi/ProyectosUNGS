@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 
 public abstract class NFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected int _xOsDifference;
 	protected int _yOsDifference;
 	

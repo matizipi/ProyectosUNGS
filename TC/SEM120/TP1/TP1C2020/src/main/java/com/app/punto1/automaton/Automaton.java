@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.app.common.Msg;
-import com.app.helper.LogWriter;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Alphabet;
 import com.app.punto1.automaton.components.alphabet.Input;
@@ -12,16 +11,16 @@ import com.app.punto1.automaton.components.alphabet.Input;
 public abstract class Automaton {
 	
 	protected Alphabet _coAlphabet;
-	protected List<StateA> _coLstState;
+	protected List< StateA > _coLstState;
 	protected StateA _coStartState;
-	protected List<StateA> _coLstFnlState;
+	protected List< StateA > _coLstFnlState;
 	
 	protected boolean _bStartState = false;
 	protected boolean _bFnlStates = false;
 	protected List< Msg > _lstMsg = new ArrayList<Msg>();
 	
 	public Automaton(Alphabet alphabet, List<StateA> states, StateA startState, List<StateA> fnlStates) {
-		this._lstMsg.add( new Msg( Msg.INFO, this, "Comienza creación del automata.") );
+		this._lstMsg.add( new Msg( Msg.INFO, this, "Comienza creaci&0535n del automata.") );
 		this._coAlphabet = alphabet;
 		this._coLstState = states;
 		this._coStartState = startState;
@@ -66,6 +65,7 @@ public abstract class Automaton {
 			boolean existState = false;
 			
 			for( StateA state: this._coLstState ) {
+				System.out.println(fnl.toString() + " -- " + state.toString());
 				if ( fnl.equals( state ) ) {
 					state.FinalState(true);
 					existState = true;
@@ -73,7 +73,7 @@ public abstract class Automaton {
 				}
 			}
 			if ( existState == false ) {
-				this._bStartState = false;
+//				this._bStartState = false;
 				this._lstMsg.add( new Msg( Msg.ERROR, this, fnl.getName() + " no es un estado en el automata" ) ) ;
 				this._bFnlStates = false;
 			}

@@ -7,7 +7,7 @@ import com.app.common.Msg;
 import com.app.common.log.Log;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Input;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 
 public class ThreadNFA extends Thread {
 	
@@ -41,7 +41,7 @@ public class ThreadNFA extends Thread {
 		if( this._coInp.hasNextSymbol() ) {
 			
 			/* Get the symbol to process. */
-			Simbol smbl = this._coInp.readSymbol();
+			Symbol smbl = this._coInp.readSymbol();
 			
 			Log.WriteFileLog( new Msg( Msg.INFO, this, this._threadName + ": Read " + smbl.getSimbol() ) );
 			/* Get list of next states for this state and this symbol. */

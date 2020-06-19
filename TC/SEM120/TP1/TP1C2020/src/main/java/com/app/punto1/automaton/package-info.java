@@ -2,4 +2,4 @@
  * @author NFERNANDEZ
  *
  */
-package com.app.common;
+package com.app.punto1.automaton;

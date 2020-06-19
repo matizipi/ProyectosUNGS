@@ -6,7 +6,7 @@ import com.app.common.Msg;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Alphabet;
 import com.app.punto1.automaton.components.alphabet.Input;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.punto1.automaton.dfn.components.TransactionFunctionDFA;
 
 public class DFA extends Automaton {
@@ -28,7 +28,7 @@ public class DFA extends Automaton {
 		
 		
 		List< StateA > stts = this._coLstState;
-		List< Simbol > smbls = this._coAlphabet.getSimbols(); 
+		List< Symbol > smbls = this._coAlphabet.getSimbols(); 
 		String[][] table = new String[ stts.size() + 1 ]
 				[ smbls.size() + 1 ];
 		
@@ -54,7 +54,7 @@ public class DFA extends Automaton {
 	public boolean acceptInputFrom( StateA state, Input input ) {
 		
 		boolean tfSucces = false;
-		Simbol[] symbolsOfInput = input.getSimbolsOfInput();
+		Symbol[] symbolsOfInput = input.getSimbolsOfInput();
 		StateA stt = state;
 		
 		/* For each symbol of input. */

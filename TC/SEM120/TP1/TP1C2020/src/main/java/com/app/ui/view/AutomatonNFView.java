@@ -16,6 +16,11 @@ import com.app.ui.view.adaptation.LogTableCellRenderer;
 
 public class AutomatonNFView extends AutomatonFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
 	public static String[] STATE_TITLE = new String[] { "Estado", "Inicial", "Final" };
 	public static String[] TF_TITLE = new String[] { "Estado" };

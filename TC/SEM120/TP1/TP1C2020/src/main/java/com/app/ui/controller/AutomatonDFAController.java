@@ -10,7 +10,7 @@ import com.app.punto1.automaton.DFA;
 import com.app.punto1.automaton.components.StateA;
 import com.app.punto1.automaton.components.alphabet.Alphabet;
 import com.app.punto1.automaton.components.alphabet.Input;
-import com.app.punto1.automaton.components.alphabet.Simbol;
+import com.app.punto1.automaton.components.alphabet.Symbol;
 import com.app.ui.view.AutomatonDFView;
 
 public class AutomatonDFAController implements ControllerImpl {
@@ -98,7 +98,7 @@ public class AutomatonDFAController implements ControllerImpl {
 		dtm.setColumnIdentifiers( AutomatonDFView.ALPHABET_TITLE );
 		
 		String[] line;
-		for( Simbol smb: alp.getSimbols() ) {
+		for( Symbol smb: alp.getSimbols() ) {
 			line = new String[] { smb.getSimbol() };
 			dtm.addRow( line );
 		}
