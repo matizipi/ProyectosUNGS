@@ -49,7 +49,8 @@ class Ceros_Unos_Pares_DFATest {
 	}
 	
 	void automatonAccept_11() {
-		boolean condition = _deterministicAutomaton.accept( new Input( "11" ) );
+		Input input = new Input( "11" );
+		boolean condition = _deterministicAutomaton.accept( input );
 		
 		assertTrue( condition );
 	}

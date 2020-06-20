@@ -26,6 +26,7 @@ public class AutomatonDFAController implements ControllerImpl {
 	
 	private void addListener() {
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnEquivalenceTable().addActionListener( this );
 		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnReturnToMainMenu().addActionListener( this );
 	}
@@ -34,7 +35,9 @@ public class AutomatonDFAController implements ControllerImpl {
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.processInput();
-		} else if ( arg0.getSource() == this._frame.getBtnReturn() ) {
+		} else if( arg0.getSource() == this._frame.getBtnEquivalenceTable() ) {
+			this.showEquivalenceTable();
+		} else if( arg0.getSource() == this._frame.getBtnReturn() ) {
 			AutomatonNFAController ctr = new AutomatonNFAController();
 			this.finish();
 			ctr.start();
@@ -65,12 +68,17 @@ public class AutomatonDFAController implements ControllerImpl {
 		
 		if ( this._a.accept( input ) == true ) {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " aceptado [OK].") );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " aceptado.") );
 		} else {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input + " no aceptado [FAIL].") );
+			this.printMessage( new Msg( Msg.ERROR, this, "input: " + input + " no aceptado.") );
 		}
 		
+	}
+	
+	private void showEquivalenceTable() {
+		EquivalenceTableController ctr = new EquivalenceTableController( this._frame, this._a.getEquivalenceTable() );
+		ctr.start();
 	}
 	
 	private void loadAutomatonInView() {
@@ -142,7 +150,6 @@ public class AutomatonDFAController implements ControllerImpl {
 			row = new String[ tableTf[ i ].length ];
 			for( int j = 0; j < tableTf[ i ].length; j++ ) {
 				row[ j ] = tableTf[ i ][ j ];
-				//this.printMessages( new Msg( Msg.INFO, this, i + ":" + j + "-" + tableTf[ i ][ j ] ) );
 			}
 			dtm.addRow( row );
 		}
@@ -165,7 +172,7 @@ public class AutomatonDFAController implements ControllerImpl {
 		String[] row = new String[ 2 ];
 		
 		row[ 0 ] = msg.getType();
-		row[ 1 ] = msg.getDate() + msg.getObject() + " - " + msg.getMsg();
+		row[ 1 ] = msg.getDate() /*+ msg.getObject()*/ + " - " + msg.getMsg();
 		
 		dtm.addRow( row );
 		

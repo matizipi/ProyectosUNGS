@@ -12,6 +12,7 @@ import com.app.punto1.automaton.dfn.components.TransactionFunctionDFA;
 public class DFA extends Automaton {
 	
 	private List< TransactionFunctionDFA > _lstTfs;
+	private String[][] _equivalenceTable = new String[][] {{}};
 	
 	public DFA(Alphabet alphabet, List< StateA > states, List< TransactionFunctionDFA > transactionFunctionList,
 			StateA startState, List< StateA > fnlStates) {
@@ -83,103 +84,16 @@ public class DFA extends Automaton {
 			this._lstMsg.add( new Msg( Msg.INFO, this, "Input aceptado." ) );
 			return true;
 		} else {
-			this._lstMsg.add( new Msg( Msg.INFO, this, "Input no aceptado." ) );
+			this._lstMsg.add( new Msg( Msg.ERROR, this, "Input no aceptado." ) );
 			return false;
 		}
 	}
 	
-////	public DFA(NFA nfa) {
-//		super(nfa.getAlphabet());
-//		
-//		/* States will be create when pass the transaction function. */
-//		/* Transaction function when create with the new functions. */		
-//		
-//		/* Segunda implementación del tranformación. */
-//		//StateA sa01 = nfa.getStartState();
-//		this._coStartState = nfa.getStartState();
-//		this._coStates.add( nfa.getStartState() );
-//		
-//		StateOfSetStates startState = new StateOfSetStates( "0" );
-//		startState.addState( this._coStartState );
-//		
-//		List< StateOfSetStates > lstStatesAux = new ArrayList< StateOfSetStates >();
-//		lstStatesAux.add( startState );
-//		boolean stateWithoutTf = true;
-//		int lstIterator = 0;
-//		StateOfSetStates stateOfList, stateAux;
-//		
-//		while( stateWithoutTf == true ) {
-//			
-//			/* Voy obteniendo cada uno de los estado que se van a ir a gregando. */
-//			stateOfList = lstStatesAux.get( lstIterator );
-//			
-//			for ( Simbol smb: this._coAlphabet.getSimbols() ) {
-//				
-//				/* new state of set of state from tfs */
-//				stateAux = this.newStateFromTfsNfa( stateOfList, smb, nfa );
-//				
-//				/* Comparo contra todos los estados que tengo. si el nuevo estado no existe */
-//				boolean existsStateInAutomaton = false;
-//				for ( StateOfSetStates soss:  lstStatesAux) {
-//					if ( soss.equals( stateAux ) ) {
-//						existsStateInAutomaton = true;
-//						this._coTfs.add( new TransactionFunctionDFA( stateOfList.toStateA(), smb, soss.toStateA() ) );
-//						break;
-//					}
-//				}
-//				
-//				if ( existsStateInAutomaton == false ) {
-//					lstStatesAux.add( stateAux );
-//					this._coStates.add( stateAux.toStateA() );	
-//					this._coTfs.add( new TransactionFunctionDFA( stateOfList.toStateA() , smb, stateAux.toStateA() ) );
-//				}
-//			}
-//			
-//			lstIterator++;
-//			LogWriter.writeLog( this, lstIterator + " | " + lstStatesAux.size());
-//			
-//			if ( lstIterator >= lstStatesAux.size() ) {
-//				stateWithoutTf = false;
-//			}
-//			
-//		}
-//		
-////		this.generateTransactionFunctionsTable( startState, nfa );
-//	}
-//	
-////	private List< StateOfSetStates > generateTransactionFunctionsTable( StateA state, NFA nfa) {
-////		
-////		List< StateOfSetStates > lstState = new ArrayList< StateOfSetStates >();
-////		
-////		/* Al estado le aplico cada uno de los inputs dentro del alfabeto. */
-////		for ( Simbol smb: this._coAlphabet.getSimbols() ) {
-////				
-////			/* Paso estos dos parametros al nfa para que me devuelva un conjunto de estados */
-////			List< StateA > lstAux = nfa.doTransactionFunctionTo( state, smb );
-////				
-////			/* Creo un nuevo estado para el input que es un conjunto de estados resultantes. */
-////			StateOfSetStates stateAux = new StateOfSetStates( String.valueOf( this._coStates.size() ) );
-////			stateAux.addStates( lstAux );
-////			System.out.println( stateAux.getName() );
-////			
-////			/*  */
-////		}
-//////		StateOfSetStates aux = new StateOfSetStates("");
-//////		lstState.addAll( this.segunda(stt.getStates()) );
-////		
-////		return lstState;
-////	}
-//	
-////	private StateOfSetStates newStateFromTfsNfa( StateOfSetStates state, Simbol symbol, NFA nfa) {
-//		
-//		StateOfSetStates stt = new StateOfSetStates( this._coStates.size() );
-//		
-////		pensar parte de que cuando ya esta el vacio no puede volverse a agregar al estado
-//		
-//		for ( StateA st: state.getStates() ) {
-//			stt.addStates( nfa.doTransactionFunctionTo( st, symbol ) );
-//		}
-//		
-//		return stt;
-//	}
+	public void setEquivalenceTable( String[][] equivalenceTable ) {
+		this._equivalenceTable = equivalenceTable;
+	}
+	
+	public String[][] getEquivalenceTable(){
+		return this._equivalenceTable;		
+	}
 }

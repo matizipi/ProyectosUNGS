@@ -149,4 +149,16 @@ public class StateOfSetStates extends StateA {
 	public List< StateA > getStates() {
 		return this._lstState;
 	}
+	
+	/* Get string with the name of all states. */
+	public String getNamesStates() {
+		
+		String str = "";
+		
+		for( StateA state: this.getStates() ) {
+			str += state.getName() + " ";
+		}
+		
+		return str;
+	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import com.app.common.Msg;
+import com.app.common.log.Log;
 import com.app.punto2.parser.components.First;
 import com.app.punto2.parser.components.Follow;
 import com.app.punto2.parser.components.Production;
@@ -16,22 +17,15 @@ import com.app.punto2.parser.components.Variable;
 
 public class ParserTopDownNoRecursive extends Parser {
 
-	private List< Production > _lstProduction;
-	private Terminal _empty;
-	private List< ProductionComponent > _lstTerminal;
-	private List< ProductionComponent > _lstVariable;
+	private static String _parsingTableKey = "%s|%s";
+	
 	private Map< String, First > _mapFirst;
 	private Map< String, Follow > _mapFollow;
 	private Map< String, Production > _mapParsingTable;
 	private List< String[] > _processTable;
 	
-	private List< Msg > _lstMsgs = new ArrayList< Msg >();
-	
-	public ParserTopDownNoRecursive( List<Production> productions, String charEmpty) {
-		this._lstProduction = productions;
-		this._empty = new Terminal( charEmpty );
-		this._lstTerminal = new ArrayList< ProductionComponent >();
-		this._lstVariable = new ArrayList< ProductionComponent >();
+	public ParserTopDownNoRecursive( List< Production > productions, String charEmpty ) {
+		super( productions, charEmpty );
 		/* Create map to firsts. */
 		this._mapFirst = new HashMap< String, First >();
 		/* Create map to follows. */
@@ -39,62 +33,28 @@ public class ParserTopDownNoRecursive extends Parser {
 		/* Create map to parsing table. */
 		this._mapParsingTable = new HashMap< String, Production >();
 		/* Initial process table */
-		this._processTable = new ArrayList< String[] >();
-		
-		/* Load terminals and variables. */
-		this.loadTerminalsAndVariables();
-		this._lstTerminal.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
-		this._lstMsgs.add( new Msg( Msg.INFO, this, "----------" ) );
-		this._lstVariable.forEach( O -> this._lstMsgs.add( new Msg( Msg.INFO, this, O.toString() ) ) );
-		
+		this._processTable = new ArrayList< String[] >();		
 		
 		/* Create firsts. */
-		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de firsts." ) );
+//		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de firsts." ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Empieza contrucción de firsts." ) );
 		this.firsts();
-		this._mapFirst.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+//		this._mapFirst.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+		this._mapFirst.forEach( ( K, V ) -> Log.WriteFileLog( new Msg( Msg.INFO, this, V.toString() ) ) );
 		
 		/* Create follows. */
-		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de follows." ) );
+//		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de follows." ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Empieza contrucción de follows." ) );
 		this.follows();
-		this._mapFollow.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+//		this._mapFollow.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, V.toString() ) ) );
+		this._mapFollow.forEach( ( K, V ) -> Log.WriteFileLog( new Msg( Msg.INFO, this, V.toString() ) ) );
 		
 		/* Create table of parsing. */
-		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de tabla de parsing." ) );
+//		this._lstMsgs.add( new Msg( Msg.INFO, this, "Empieza contrucción de tabla de parsing." ) );
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Empieza contrucción de tabla de parsing." ) );
 		this.parsingTable();
-		this._mapParsingTable.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, K.toString() + ": " + V.toString() ) ) );
-	}
-	
-	private void loadTerminalsAndVariables() {
-		for( Production prd: this._lstProduction ) {
-			if( prd.getLeft().isTerminal() ) {
-				this.addTerminal( prd.getLeft() );
-			} else {
-				this.addVariable( prd.getLeft() );
-			}
-			
-			ProductionComponent[] prdComp = prd.getRigth();
-			
-			for( int i = 0; i < prdComp.length; i++ ) {
-				if( prdComp[i].isTerminal() ) {
-					this.addTerminal( prdComp[i] );
-				} else {
-					this.addVariable( prdComp[i] );
-				}
-			}
-		}
-		
-		this.addTerminal( ProductionComponent.getFinalComponent() );
-	}
-	
-	private void addTerminal( ProductionComponent prdComp ) {
-		if ( this._lstTerminal.contains( prdComp ) == false 
-				&& prdComp.equals( this._empty ) == false )
-			this._lstTerminal.add( prdComp );
-	}
-	
-	private void addVariable( ProductionComponent prdComp ) {
-		if ( this._lstVariable.contains( prdComp ) == false )
-			this._lstVariable.add( prdComp );
+//		this._mapParsingTable.forEach( ( K, V ) -> this._lstMsgs.add( new Msg( Msg.INFO, this, K.toString() + ": " + V.toString() ) ) );
+		this._mapParsingTable.forEach( ( K, V ) -> Log.WriteFileLog( new Msg( Msg.INFO, this, K.toString() + ": " + V.toString() ) ) );
 	}
 	
 	private void firsts() {
@@ -262,14 +222,16 @@ public class ParserTopDownNoRecursive extends Parser {
 			for( ProductionComponent firstPrdComp: firstTerminals ) {
 				if( firstPrdComp.isTerminal() ) {
 					if( firstPrdComp.equals( this._empty ) == false ) {
-						this._mapParsingTable.put( prd.getLeft().toString() + "|" + firstPrdComp.toString() , prd);
+						this.addValueToParsingTable( prd.getLeft(), firstPrdComp, prd );
+//						this._mapParsingTable.put( prd.getLeft().toString() + "|" + firstPrdComp.toString() , prd);
 					} else {
 						Follow follow = this._mapFollow.get( prd.getLeft().toString() );
 						List< ProductionComponent > followComponents = follow.getResults();
 							
 						for( ProductionComponent followProdComp: followComponents ) {
 							if( followProdComp.isTerminal() ) {
-								this._mapParsingTable.put( prd.getLeft().toString() + "|" + followProdComp.toString(), prd );
+								this.addValueToParsingTable( prd.getLeft(), followProdComp, prd );
+//								this._mapParsingTable.put( prd.getLeft().toString() + "|" + followProdComp.toString(), prd );
 							}
 							
 						}
@@ -279,6 +241,21 @@ public class ParserTopDownNoRecursive extends Parser {
 		}
 	}
 	
+	private void addValueToParsingTable( ProductionComponent var, ProductionComponent terminal, Production production ) {
+		
+		String key = String.format( _parsingTableKey, var.toString(), terminal.toString() );
+		Production prd = this._mapParsingTable.get( key );
+		
+		if( prd == null ) {
+			this._mapParsingTable.put( key, production );
+		} else {
+			this._error = true;
+			this._msgError = "Tabla de parsing no soportada.";
+			this._lstMsgs.add( new Msg( Msg.ERROR, this, "Para la celda M[" + var.toString() + "," + terminal.toString() + "] se esta intendo ingresar una nueva producción" ) );
+		}
+	}
+	
+	@Override
 	public boolean AcceptString( String string ) {
 		
 		this._lstMsgs.clear();
@@ -302,7 +279,8 @@ public class ParserTopDownNoRecursive extends Parser {
 		String[] processRow = new String[3];
 		Production production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
 		
-		while( ( stckComp.equals( ProductionComponent.getFinalComponent() ) ) == false ) {
+		while( ( stckComp.equals( ProductionComponent.getFinalComponent() ) ) == false
+				|| w[wIndex].equals( ProductionComponent.getFinalComponent() ) == false ) {
 			
 			String key = stckComp.toString() + "|" + w[ wIndex ].toString();
 			production = this._mapParsingTable.get( key );
@@ -348,10 +326,6 @@ public class ParserTopDownNoRecursive extends Parser {
 	
 	public Follow[] getArrayFollows() {
 		return this._mapFollow.values().toArray( new Follow[0] );
-	}
-	
-	public List<Msg> getMsgs() {
-		return this._lstMsgs;
 	}
 
 	public String[][] getParsingTable() {

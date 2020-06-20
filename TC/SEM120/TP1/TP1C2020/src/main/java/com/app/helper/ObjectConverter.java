@@ -132,10 +132,7 @@ public class ObjectConverter {
 		List< TransactionFunctionDFA > tfs = new ArrayList<TransactionFunctionDFA>();
 		StateA startState;
 		List< StateA > fnlStates = new ArrayList<StateA>();
-		
-		/* States will be create when pass the transaction function. */
-		/* Transaction function when create with the new functions. */		
-		
+				
 		/* Set Start State. */
 		startState = nfa.getStartState();
 		
@@ -150,8 +147,7 @@ public class ObjectConverter {
 		List< StateOfSetStates > lstSetStates = new ArrayList< StateOfSetStates >();
 		lstSetStates.add( initState );
 		
-		/* Change variable name. */
-		boolean stateWithoutTf = true;
+		boolean haveStateWithoutTf = true;
 		
 		/* The states from NFD exists in DFA. */
 		boolean existsStateInAutomaton = false;
@@ -161,9 +157,8 @@ public class ObjectConverter {
 		
 		/* State to add in the list and state to compare with each state in the list. */
 		StateOfSetStates stateInDFA, stateFromNFA;
-		
 
-		while( stateWithoutTf == true ) {
+		while( haveStateWithoutTf == true ) {
 			
 			/* Get each of state in the list. */
 			stateInDFA = lstSetStates.get( lstIterator );
@@ -212,13 +207,22 @@ public class ObjectConverter {
 			
 			/* change stateWithoutTf value, if get a transaction function for each state an symbol. */
 			if ( lstIterator >= lstSetStates.size() ) {
-				stateWithoutTf = false;
+				haveStateWithoutTf = false;
 			}
 			
 		}
 		
 		/* Create the new deterministic finite automaton. */
 		DFA a = new DFA(alphabet, states, tfs, startState, fnlStates);
+		
+		/* Create the table of equivalences. */
+		String[][] table = new String[ lstSetStates.size() ][2];
+		
+		for( int i = 0; i < lstSetStates.size(); i++  ) {
+			table[i] = new String[] { lstSetStates.get( i ).getName(), lstSetStates.get( i ).getNamesStates() };
+		}
+		
+		a.setEquivalenceTable( table );
 		
 		return a;
 	}

@@ -195,10 +195,10 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		
 		if( this._a.accept( input ) ) {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input.toString() + " aceptado [OK].") );
+			this.printMessage( new Msg( Msg.INFO, this, "input: " + input.toString() + " aceptado.") );
 		} else {
 			this.printMessages( this._a.getMsgs() );
-			this.printMessage( new Msg( Msg.INFO, this, "input: " + input.toString() + " no aceptado [FAIL].") );
+			this.printMessage( new Msg( Msg.ERROR, this, "input: " + input.toString() + " no aceptado.") );
 		}
 	}
 	

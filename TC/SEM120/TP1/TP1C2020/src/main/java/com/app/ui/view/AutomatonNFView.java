@@ -24,7 +24,7 @@ public class AutomatonNFView extends AutomatonFrame {
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
 	public static String[] STATE_TITLE = new String[] { "Estado", "Inicial", "Final" };
 	public static String[] TF_TITLE = new String[] { "Estado" };
-	public static String[] LOG_TITLE = new String[] { "Tipo", "DescipciÃ³n" };
+	public static String[] LOG_TITLE = new String[] { "Tipo", "Descipción" };
 	
 	private int _maintablesY = 0;
 	private int _maintablesH = 300;

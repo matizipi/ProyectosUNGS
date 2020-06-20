@@ -42,7 +42,7 @@ public class Alphabet {
 
 	/** Return true if the input have all symbols into the alphabet. **/
 	public boolean accept(Input input) {
-
+ 
 		this._lstMsg.clear();
 
 		boolean inputExists = false;

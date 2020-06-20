@@ -22,13 +22,15 @@ public class AutomatonDFView extends AutomatonFrame {
 	public static String[] ALPHABET_TITLE = new String[] { "Simbol" };
 	public static String[] STATE_TITLE = new String[] { "Estado", "Inicial", "Final" };
 	public static String[] TF_TITLE = new String[] { "Estado" };
-	public static String[] LOG_TITLE = new String[] { "Tipo", "DescipciÃ³n" };
+	public static String[] LOG_TITLE = new String[] { "Tipo", "Descipción" };
 	
 	private int _maintablesY = 0;
 	private int _maintablesH = 300;
 	
 	private JTextField _txtInput;
 	private JButton _btnInput;
+	
+	private JButton _btnEquivalenceTable;
 	
 	private JButton _btnReturn;
 	
@@ -55,6 +57,9 @@ public class AutomatonDFView extends AutomatonFrame {
 	private JTable _tblLog;
 	
 	public AutomatonDFView() {
+		super();
+		
+		this.setTitle( ".: Automata Finito Deterministico :." );
 		
 		/* Input components. */
 		this._txtInput = new JTextField();
@@ -71,18 +76,27 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._contentPanel.add( this._btnInput );
 		
 		
-		this._btnReturnMainMenu = new JButton( "Volver al Menu Principal" );
-		this._btnReturnMainMenu.setBounds( this._frameW - spY - 200
+		this._btnEquivalenceTable = new JButton();
+		this._btnEquivalenceTable.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
 				, this.spY
-				, 200
+				, this.fldH
+				, this.fldH );
+		this._btnEquivalenceTable.setToolTipText( "Muestra trabla de equivalencias de los estados." );
+		this._contentPanel.add( this._btnEquivalenceTable );
+		
+		
+		this._btnReturnMainMenu = new JButton( "Volver al Menú Principal" );
+		this._btnReturnMainMenu.setBounds( this._frameW - spY - 150
+				, this.spY
+				, 150
 				, this.fldH );
 		this._contentPanel.add( this._btnReturnMainMenu );
 		
 		
 		this._btnReturn = new JButton( "Volver" );
-		this._btnReturn.setBounds( this._btnReturnMainMenu.getX() - spY - 50
+		this._btnReturn.setBounds( this._btnReturnMainMenu.getX() - spY - 70
 				, spY
-				, 50
+				, 70
 				, fldH);
 		this._contentPanel.add( this._btnReturn );
 		
@@ -96,6 +110,7 @@ public class AutomatonDFView extends AutomatonFrame {
 				, 80
 				, this._maintablesH );
 		this._spAlphabet.setBorder( BorderFactory.createTitledBorder( null, "Alfabeto", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spAlphabet.setOpaque( false );
 		this._contentPanel.add( this._spAlphabet );
 		
 		
@@ -128,7 +143,7 @@ public class AutomatonDFView extends AutomatonFrame {
 				, this._maintablesY
 				, this._frameW - this._spState.getX() - this._spState.getWidth() - spX
 				, this._maintablesH );
-		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de TransacciÃ³n", TitledBorder.LEFT, TitledBorder.TOP ) );
+		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spTf.setOpaque( false );
 		this._contentPanel.add( this._spTf );
 		
@@ -166,6 +181,10 @@ public class AutomatonDFView extends AutomatonFrame {
 	
 	public JButton getBtnInput() {
 		return this._btnInput;
+	}
+	
+	public JButton getBtnEquivalenceTable() {
+		return this._btnEquivalenceTable;
 	}
 
 	public JButton getBtnReturn() {

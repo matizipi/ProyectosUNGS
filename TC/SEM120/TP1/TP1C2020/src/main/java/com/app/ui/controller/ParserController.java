@@ -101,13 +101,19 @@ public class ParserController extends Controller {
 			/* If exists create a new parser. */
 			this._parser = this._oc.parserTopDownNoRecursiveFromFile( file, charEmpty );
 			/* Print in log parser message. */
-			this.printMessages( this._oc.getMessages() );
+			this.printMessages( this._oc.getMessages() );	
 		} else {
 			/* If file don´t exists write a message in log. */
 			this.printLog( new Msg( Msg.ERROR, this, "Archivo no existente." ) );
 		}
 		
 		this.showParserProperties( true );
+		
+		if( this._parser.isCorrect() == false ) {
+			this._frame.getTxtInput().setVisible( false );
+			this._frame.getBtnInput().setVisible( false );
+			this.printLog( new Msg( Msg.ERROR, this, this._parser.getErrorMssg() ) );
+		}
 	}
 
 	/* Load data in table of first. */
@@ -205,5 +211,15 @@ public class ParserController extends Controller {
 		
 		super.printLog( msg );
 		
+		DefaultTableModel dtm = this._frame.getDtmLog();
+		
+		String[] row = new String[2];
+		
+		row[0] = msg.getType();
+		row[1] = msg.getDate() /* + msg.getObject()*/ + " - " + msg.getMsg();
+		
+		dtm.addRow( row );
+		
+		this._frame.getTblLog().setModel( dtm );
 	}
 }
