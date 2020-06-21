@@ -43,7 +43,11 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 			c.setForeground( Color.RED );
 		}
 		
-		c.setFont( new Font( "Tahoma", Font.PLAIN, 12 ) );
+		if( isSelected ) {
+			c.setFont( new Font( "Tahoma", Font.BOLD, 12 ) );
+		} else {
+			c.setFont( new Font( "Tahoma", Font.PLAIN, 12 ) );
+		}
 		
 		return c;
 	}

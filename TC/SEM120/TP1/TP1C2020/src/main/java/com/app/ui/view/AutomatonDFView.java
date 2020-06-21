@@ -1,6 +1,7 @@
 package com.app.ui.view;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,7 +30,10 @@ public class AutomatonDFView extends AutomatonFrame {
 	
 	private JTextField _txtInput;
 	private JButton _btnInput;
+	private JButton _btnInputFromFile;
 	
+	private static String TABLE_EQUIVALENCE = "src/main/resources/img/btn_tables.png";
+	private ImageIcon _imgiTableEquivalence;
 	private JButton _btnEquivalenceTable;
 	
 	private JButton _btnReturn;
@@ -76,7 +80,17 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._contentPanel.add( this._btnInput );
 		
 		
-		this._btnEquivalenceTable = new JButton();
+		this._btnInputFromFile = new JButton( "Test desde archivo." );
+		this._btnInputFromFile.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+				, this.spY
+				, 100
+				, this.fldH);
+		this._contentPanel.add( this._btnInputFromFile );
+		
+		
+		/* Table of equivalence between NFA and DFA states. */
+		this._imgiTableEquivalence = new ImageIcon( TABLE_EQUIVALENCE );
+		this._btnEquivalenceTable = new JButton( this._imgiTableEquivalence );
 		this._btnEquivalenceTable.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
 				, this.spY
 				, this.fldH
@@ -86,7 +100,7 @@ public class AutomatonDFView extends AutomatonFrame {
 		
 		
 		this._btnReturnMainMenu = new JButton( "Volver al Menú Principal" );
-		this._btnReturnMainMenu.setBounds( this._frameW - spY - 150
+		this._btnReturnMainMenu.setBounds( this._realframeW - spY - 150
 				, this.spY
 				, 150
 				, this.fldH );
@@ -141,7 +155,7 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spTf = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spTf.setBounds( this._spState.getX() + this._spState.getWidth() + spX
 				, this._maintablesY
-				, this._frameW - this._spState.getX() - this._spState.getWidth() - spX
+				, this._realframeW - this._spState.getX() - this._spState.getWidth() - ( 2 * spX )
 				, this._maintablesH );
 		this._spTf.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Funciones de Transacción", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spTf.setOpaque( false );
@@ -159,8 +173,8 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._spLog = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		this._spLog.setBounds( spX
 				, this._maintablesY + this._maintablesH + spY
-				, this._frameW - spX
-				, this._frameH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
+				, this._realframeW - ( 2 * spX )
+				, this._realframeH - this._spAlphabet.getY() - this._spAlphabet.getHeight() - spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla Log", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spLog.setOpaque( false );
 		this._contentPanel.add( this._spLog );
@@ -170,7 +184,7 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.setDefaultRenderer( String.class, new LogTableCellRenderer() );
 		this._tblLog.getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._frameW - spX - 75 - spX );
+		this._tblLog.getColumnModel().getColumn( 1 ).setPreferredWidth( this._spLog.getWidth() - 80 );
 		this._tblLog.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
 		this._spLog.setViewportView( this._tblLog );
 	}

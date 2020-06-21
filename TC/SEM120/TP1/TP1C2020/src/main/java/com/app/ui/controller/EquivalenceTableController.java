@@ -1,14 +1,11 @@
 package com.app.ui.controller;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 import com.app.ui.dialog.TableOfEquivalenceDialog;
-import com.app.ui.dialog.TableValidationDialog;
 
 public class EquivalenceTableController extends Controller {
 

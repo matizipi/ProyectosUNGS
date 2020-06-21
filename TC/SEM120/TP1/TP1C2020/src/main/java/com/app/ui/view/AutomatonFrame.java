@@ -18,18 +18,21 @@ public abstract class AutomatonFrame extends NFrame {
 	protected int _realframeW = 1000;
 	protected int _realframeH = 600;
 	
-	protected int _frameW = this._realframeW - this._xOsDifference;
-	protected int _frameH = this._realframeH - this._yOsDifference;
+	protected int _frameW = this._realframeW + this._xOsDifference;
+	protected int _frameH = this._realframeH + this._yOsDifference;
 	
-	private static String BACKGROUND = "src/main/resources/img/AutomatonBackground.png";
-	
+	/* Background. */
+	private static String BACKGROUND = "src/main/resources/img/Tp_AutomatonBackground.png";
 	private ImageIcon _imgBackground;
 	private JLabel _background;
 	
 	public AutomatonFrame() {
 		this._imgBackground = new ImageIcon(BACKGROUND);
 		
-		this.setBounds( 0, 0, this._realframeW, this._realframeH );
+		this.setBounds( 0
+				, 0
+				, this._frameW
+				, this._frameH );
 		this.setLocationRelativeTo( null );
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
@@ -39,15 +42,13 @@ public abstract class AutomatonFrame extends NFrame {
 		this.setContentPane( this._contentPanel );
 		
 		this._background = new JLabel();
-		this._background.setBounds( 0, 0, this.getWidth(), this.getHeight() );
+		this._background.setBounds( 0
+				, 0
+				, this._realframeW
+				, this._realframeH );
 		this._background.setIcon( this._imgBackground );
 		
-		this.backgroundToBack();
-	}
-	
-	protected void backgroundToBack() {
-		this._contentPanel.remove( this._background );
-		this._contentPanel.add( this._background );
+//		this.backgroundToBack();
 	}
 	
 	@Override
@@ -55,5 +56,10 @@ public abstract class AutomatonFrame extends NFrame {
 		super.setVisible( b );
 		
 		this.backgroundToBack();
+	}
+	
+	protected void backgroundToBack() {
+		this._contentPanel.remove( this._background );
+		this._contentPanel.add( this._background );
 	}
 }

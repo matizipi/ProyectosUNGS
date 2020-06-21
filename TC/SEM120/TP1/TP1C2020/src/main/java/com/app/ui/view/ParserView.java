@@ -26,13 +26,17 @@ public class ParserView extends NFrame {
 
 	private JPanel _contentPanel;
 	
-	private static String IMGPATH = "";
-	
-	private ImageIcon _imgBackground;
-	
 	/* Dimensions. */
-	int w = 1000;
-	int h = 600;
+	int _realframeW = 1000;
+	int _realframeH = 600;
+
+	protected int _frameW = this._realframeW + this._xOsDifference;
+	protected int _frameH = this._realframeH + this._yOsDifference;
+	
+	/* Background. */
+	private static String BACKGROUND = "src/main/resources/img/Tp_Parser.png";
+	private ImageIcon _imgBackground;
+	private JLabel _background;
 	
 	/* Components to import parser from file. */
 	private JLabel _lblFile;
@@ -48,7 +52,9 @@ public class ParserView extends NFrame {
 	private JButton _btnInput;
 	
 	/* Button validation table */
-	private JButton _btnParse;
+	private static String TABLE_VALIDATION_PARSE = "src/main/resources/img/btn_tables.png";
+	private ImageIcon _imgiTableValidationParse;
+	private JButton _btnTableValidationParse;
 	
 	/* Tables first and follow. */
 	public static String[] FIRST_TITLE = new String[] {"First"};
@@ -75,20 +81,20 @@ public class ParserView extends NFrame {
 	
 	public ParserView() {
 		
-		this._imgBackground = new ImageIcon( IMGPATH );
+		this._imgBackground = new ImageIcon( BACKGROUND );
 		
 		this.setTitle( ".: Trabajo Practico - Parser :." );
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-/*
+
+//		this.setBounds( 0
+//				, 0
+//				,  this._imgBackground.getIconWidth() + this._xOsDifference - spX
+//				,  this._imgBackground.getIconHeight() + this._yOsDifference - spY);
+
 		this.setBounds( 0
 				, 0
-				,  this._imgBackground.getIconWidth() + this._xOsDifference - spX
-				,  this._imgBackground.getIconHeight() + this._yOsDifference - spY);
-*/
-		this.setBounds( 0
-				, 0
-				, this.w + this._xOsDifference/*600*/
-				, this.h + this._yOsDifference/*427*/);
+				, this._frameW/*600*/
+				, this._frameH/*427*/ );
 		this._contentPanel = new JPanel();
 		this._contentPanel.setBorder( new EmptyBorder( 0, 0, 0, 0 ) );
 		this._contentPanel.setLayout( null );
@@ -124,7 +130,7 @@ public class ParserView extends NFrame {
 		
 		/* Return button. */
 		this._btnReturn = new JButton( "Volver" );
-		this._btnReturn.setBounds( this.w - 100 - this.spX
+		this._btnReturn.setBounds( this._realframeW - 100 - this.spX
 				, this.spY
 				, 100
 				, this.fldH );
@@ -158,13 +164,13 @@ public class ParserView extends NFrame {
 		
 		
 		/* Button to show table of validation. */
-		this._btnParse = new JButton();
-		this._btnParse.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+		this._imgiTableValidationParse = new ImageIcon( TABLE_VALIDATION_PARSE );
+		this._btnTableValidationParse = new JButton( this._imgiTableValidationParse );
+		this._btnTableValidationParse.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
 				, this._lblFile.getY() + this.fldH + this.spY
 				, this.fldH
 				, this.fldH);
-		this._btnParse.setIcon( null );
-		this._contentPanel.add( this._btnParse );
+		this._contentPanel.add( this._btnTableValidationParse );
 		
 		
 		/* Tables of firsts and follows. */
@@ -172,7 +178,7 @@ public class ParserView extends NFrame {
 		this._spFirst = new JScrollPane();
 		this._spFirst.setBounds( this.spX
 				, this._txtInput.getY() + this._txtInput.getHeight() + this.spY
-				, ( this.w - this.spX * 2 ) * 30 / 100
+				, ( this._realframeW - this.spX * 2 ) * 30 / 100
 				, 170 );
 		this._spFirst.setBorder( BorderFactory.createTitledBorder( null, "Tabla Firt", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spFirst.setOpaque( false );
@@ -188,7 +194,7 @@ public class ParserView extends NFrame {
 		this._spFollow = new JScrollPane();
 		this._spFollow.setBounds( this.spX
 				, this._spFirst.getY() + this._spFirst.getHeight() + this.spY
-				, ( this.w - this.spX * 2 ) * 30 / 100
+				, ( this._realframeW - this.spX * 2 ) * 30 / 100
 				, 170 );
 		this._spFollow.setBorder( BorderFactory.createTitledBorder( null, "Tabla Follow", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spFollow.setOpaque( false );
@@ -204,7 +210,7 @@ public class ParserView extends NFrame {
 		this._spParsingTable = new JScrollPane();
 		this._spParsingTable.setBounds( this._spFirst.getX() + this._spFirst.getWidth() + this.spX
 				, this._spFirst.getY()
-				, (this.w - this.spX * 2 ) * 70 / 100 - ( this.spX * 100 / this.w )
+				, (this._realframeW - this.spX * 3 ) * 70 / 100
 				, this._spFirst.getHeight() * 2 + this.spY );
 		this._spParsingTable.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Parsing.", TitledBorder.LEFT, TitledBorder.TOP ) );
 		this._spParsingTable.setOpaque( false );
@@ -220,8 +226,8 @@ public class ParserView extends NFrame {
 		this._spLog = new JScrollPane();
 		this._spLog.setBounds( this.spX
 				, this._spFollow.getY() + this._spFollow.getHeight() + this.spY
-				, this.w - this.spY * 2
-				, this.h - ( this._spFollow.getY() + this._spFollow.getHeight() ) - 2 * this.spY );
+				, this._realframeW - this.spX * 2
+				, this._realframeH - ( this._spFollow.getY() + this._spFollow.getHeight() ) - 2 * this.spY );
 		this._spLog.setBorder( BorderFactory.createTitledBorder( null, "Tabla de Seguimiento", TitledBorder.LEFT, TitledBorder.TOP )  );
 		this._spLog.setOpaque( false );
 		this._contentPanel.add( this._spLog );
@@ -230,8 +236,29 @@ public class ParserView extends NFrame {
 		this._tblLog = new JTable( this._dtmLog );
 		this._tblLog.setDefaultRenderer( String.class, new LogTableCellRenderer() );
 		this._spLog.setViewportView( this._tblLog );
+
+		
+		/* Background. */
+		this._background = new JLabel();
+		this._background.setBounds( 0
+				, 0
+				, this._realframeW
+				, this._realframeH );
+		this._background.setIcon( this._imgBackground );
 	}
 
+	@Override
+	public void setVisible( boolean b ) {
+		super.setVisible( b );
+		
+		this.backgroundToBack();
+	}
+	
+	protected void backgroundToBack() {
+		this._contentPanel.remove( this._background );
+		this._contentPanel.add( this._background );
+	}
+	
 	public JPanel getContentPanel() {
 		return this._contentPanel;
 	}
@@ -269,7 +296,7 @@ public class ParserView extends NFrame {
 	}
 	
 	public JButton getBtnParse() {
-		return this._btnParse;
+		return this._btnTableValidationParse;
 	}
 	
 	public JScrollPane getSpFirst() {

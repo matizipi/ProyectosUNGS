@@ -35,6 +35,7 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		this._frame.getBtnConvertToDFA().addActionListener( this );
 		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnInputFromFile().addActionListener( this );
 	}
 	
 	@Override
@@ -49,6 +50,9 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 			ctr.start();
 		} else if( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.processInput();
+		} else if( arg0.getSource() == this._frame.getBtnInputFromFile() ) {
+			ExportFileController ctr = new ExportFileController( this._frame, this._a );
+			ctr.start();
 		}
 	}
 
@@ -72,13 +76,19 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		this._frame.getLblInput().setVisible( false );
 		this._frame.getTxtInput().setVisible( false );
 		this._frame.getBtnInput().setVisible( false );
+		this._frame.getBtnInputFromFile().setVisible( false );
 		this._frame.getSpAlphabet().setVisible( false );
 		this._frame.getSpStates().setVisible( false );
 		this._frame.getSpTransactionFunction().setVisible( false );
 		this._frame.getSpLog().setVisible( false );
 	}
 	
-	private void loadFile() {		
+	private void loadFile() {
+		
+		if( this._validation.isFilePathCorrect() == false ) {
+			return;
+		}
+		
 		String sFile = this._frame.getTxtLoadFile().getText();
 		
 		this.printMessage( new Msg( Msg.INFO, this, "Cargado archivo: " + sFile ) );
@@ -171,6 +181,7 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		this._frame.getLblInput().setVisible( true );
 		this._frame.getTxtInput().setVisible( true );
 		this._frame.getBtnInput().setVisible( true );
+		this._frame.getBtnInputFromFile().setVisible( true );
 		this._frame.getSpAlphabet().setVisible( true );
 		this._frame.getSpStates().setVisible( true );
 		this._frame.getSpTransactionFunction().setVisible( true );
@@ -187,7 +198,6 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 	private void processInput() {
 		
 		if( this._validation.isInputCorrect() == false ) {
-			this.printMessage( new Msg( Msg.ERROR, this, "El input no cumple con formato que se espera recibir." ) );
 			return;
 		}
 		
@@ -216,8 +226,8 @@ public class AutomatonNFAController extends Controller implements ControllerImpl
 		
 		this._frame.getTblLog().setModel( dtm );
 
-		this._frame.getTblLog().getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
-		this._frame.getTblLog().getColumnModel().getColumn( 1 ).setPreferredWidth( this._frame.getWidth() - 130 );
+//		this._frame.getTblLog().getColumnModel().getColumn( 0 ).setPreferredWidth( 70 );
+//		this._frame.getTblLog().getColumnModel().getColumn( 1 ).setPreferredWidth( this._frame.getWidth() - 130 );
 		
 		JScrollBar jsb = this._frame.getSpLog().getVerticalScrollBar();
 		this._frame.getSpLog().getVerticalScrollBar().setValue( jsb.getMaximum() + 1 );

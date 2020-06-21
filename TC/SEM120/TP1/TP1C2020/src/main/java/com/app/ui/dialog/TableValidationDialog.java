@@ -19,8 +19,11 @@ public class TableValidationDialog extends CustomDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int _w = 500;
-	private int _h = 400;
+	private int _realframeW = 500;
+	private int _realframeH = 400;
+	
+	private int _frameW = this._realframeW + this._xOsDifference;
+	private int _frameH = this._realframeH + this._yOsDifference;
 	
 	private JPanel _contentPanel;
 	
@@ -37,8 +40,8 @@ public class TableValidationDialog extends CustomDialog {
 		this.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
 		this.setBounds( 0
 				, 0
-				, this._w + this._xOsDifference
-				, this._h + this._yOsDifference );
+				, _frameW
+				, _frameH );
 		this._contentPanel = new JPanel();
 		this._contentPanel.setBorder( new EmptyBorder( 0, 0, 0, 0 ) );
 		this._contentPanel.setLayout( null );
@@ -50,8 +53,8 @@ public class TableValidationDialog extends CustomDialog {
 		this._spValidation = new JScrollPane();
 		this._spValidation.setBounds( this.spX
 				, this.spY
-				, this._w - this.spX
-				, this._h - 3 * this.spY - this.fldH );
+				, this._realframeW - this.spX
+				, this._realframeH - 3 * this.spY - this.fldH );
 		this._contentPanel.add( this._spValidation );
 		
 		this._dtmValidation = new CustomTableModel( null, TABLE_TITLE );
@@ -60,7 +63,7 @@ public class TableValidationDialog extends CustomDialog {
 		this._spValidation.setViewportView( this._tblValidation );
 		
 		this._btnClose = new JButton( "Cerrar" );
-		this._btnClose.setBounds( this._w - 100
+		this._btnClose.setBounds( this._realframeW - 100
 				, this._spValidation.getY() + this._spValidation.getHeight() + this.spY
 				, 100
 				, this.fldH );
