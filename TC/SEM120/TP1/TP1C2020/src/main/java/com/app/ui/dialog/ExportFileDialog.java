@@ -20,7 +20,7 @@ public class ExportFileDialog extends CustomDialog {
 	private JPanel _contentPanel;
 	
 	private int _realframeW = 400;
-	private int _realframeH = 380;
+	private int _realframeH = 350;
 	
 	private int _frameW = this._realframeW + this._xOsDifference;
 	private int _frameH = this._realframeH + this._yOsDifference;
@@ -112,6 +112,14 @@ public class ExportFileDialog extends CustomDialog {
 				, 100
 				, this.fldH);
 		this._contentPanel.add( this._btnExport );
+	}
+	
+	public JLabel getLblFiles() {
+		return this._lblFile;
+	}
+	
+	public JTextField getTxtFile() {
+		return this._txtFile;
 	}
 
 	/**

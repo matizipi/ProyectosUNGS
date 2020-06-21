@@ -26,6 +26,7 @@ public class AutomatonDFAController implements ControllerImpl {
 	
 	private void addListener() {
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnInputFromFile().addActionListener( this );
 		this._frame.getBtnEquivalenceTable().addActionListener( this );
 		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnReturnToMainMenu().addActionListener( this );
@@ -35,6 +36,8 @@ public class AutomatonDFAController implements ControllerImpl {
 	public void actionPerformed(ActionEvent arg0) {
 		if ( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.processInput();
+		} else if( arg0.getSource() == this._frame.getBtnInputFromFile() ) {
+			this.exportFile();
 		} else if( arg0.getSource() == this._frame.getBtnEquivalenceTable() ) {
 			this.showEquivalenceTable();
 		} else if( arg0.getSource() == this._frame.getBtnReturn() ) {
@@ -74,6 +77,11 @@ public class AutomatonDFAController implements ControllerImpl {
 			this.printMessage( new Msg( Msg.ERROR, this, "input: " + input + " no aceptado.") );
 		}
 		
+	}
+	
+	private void exportFile() {
+		ExportFileController ctr = new ExportFileController( this._frame, this._a );
+		ctr.start();
 	}
 	
 	private void showEquivalenceTable() {

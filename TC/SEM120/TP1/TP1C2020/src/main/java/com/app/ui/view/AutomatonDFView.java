@@ -91,7 +91,7 @@ public class AutomatonDFView extends AutomatonFrame {
 		/* Table of equivalence between NFA and DFA states. */
 		this._imgiTableEquivalence = new ImageIcon( TABLE_EQUIVALENCE );
 		this._btnEquivalenceTable = new JButton( this._imgiTableEquivalence );
-		this._btnEquivalenceTable.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+		this._btnEquivalenceTable.setBounds( this._btnInputFromFile.getX() + this._btnInputFromFile.getWidth() + this.spX
 				, this.spY
 				, this.fldH
 				, this.fldH );
@@ -195,6 +195,10 @@ public class AutomatonDFView extends AutomatonFrame {
 	
 	public JButton getBtnInput() {
 		return this._btnInput;
+	}
+	
+	public JButton getBtnInputFromFile() {
+		return this._btnInputFromFile;
 	}
 	
 	public JButton getBtnEquivalenceTable() {

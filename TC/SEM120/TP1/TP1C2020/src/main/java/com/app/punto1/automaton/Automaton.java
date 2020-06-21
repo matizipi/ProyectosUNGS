@@ -122,6 +122,10 @@ public abstract class Automaton {
 		return this._coStartState;
 	}
 	
+	public List< StateA > getFinalStates(){
+		return this._coLstFnlState;
+	}
+	
 	public List< Msg > getMsgs() {
 		return this._lstMsg;
 	}

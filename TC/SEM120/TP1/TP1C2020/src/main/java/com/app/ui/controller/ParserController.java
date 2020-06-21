@@ -30,6 +30,7 @@ public class ParserController extends Controller {
 		this._frame.getBtnFile().addActionListener( this );
 		this._frame.getBtnReturn().addActionListener( this );
 		this._frame.getBtnInput().addActionListener( this );
+		this._frame.getBtnInputFromFile().addActionListener( this );
 		this._frame.getBtnParse().addActionListener( this );
 	}
 
@@ -41,6 +42,8 @@ public class ParserController extends Controller {
 			this.returnMainMenu();
 		} else if( arg0.getSource() == this._frame.getBtnInput() ) {
 			this.testInput();
+		} else if( arg0.getSource() == this._frame.getBtnInputFromFile() ) {
+			this.exportFile();
 		} else if( arg0.getSource() == this._frame.getBtnParse() ) {
 			this.showValidateTable();
 		}
@@ -191,6 +194,11 @@ public class ParserController extends Controller {
 			this._frame.getBtnParse().setVisible( false );
 			this.printMessage( new Msg( Msg.INFO, this, "input no aceptado." ) );
 		}
+	}
+	
+	private void exportFile() {
+		ExportFileController ctr = new ExportFileController( this._frame, this._parser );
+		ctr.start();
 	}
 	
 	private void showValidateTable() {

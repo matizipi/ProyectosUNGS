@@ -50,6 +50,7 @@ public class ParserView extends NFrame {
 	private JLabel _lblInput;
 	private JTextField _txtInput;
 	private JButton _btnInput;
+	private JButton _btnInputFromFile;
 	
 	/* Button validation table */
 	private static String TABLE_VALIDATION_PARSE = "src/main/resources/img/btn_tables.png";
@@ -163,10 +164,18 @@ public class ParserView extends NFrame {
 		this._contentPanel.add( this._btnInput );
 		
 		
+		this._btnInputFromFile = new JButton( "Test desde archivo" );
+		this._btnInputFromFile.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+				, this._lblFile.getY() + this.fldH + this.spY
+				, this.fldH
+				, this.fldH);
+		this._contentPanel.add( this._btnInputFromFile );
+		
+		
 		/* Button to show table of validation. */
 		this._imgiTableValidationParse = new ImageIcon( TABLE_VALIDATION_PARSE );
 		this._btnTableValidationParse = new JButton( this._imgiTableValidationParse );
-		this._btnTableValidationParse.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
+		this._btnTableValidationParse.setBounds( this._btnInputFromFile.getX() + this._btnInputFromFile.getWidth() + this.spX
 				, this._lblFile.getY() + this.fldH + this.spY
 				, this.fldH
 				, this.fldH);
@@ -293,6 +302,10 @@ public class ParserView extends NFrame {
 
 	public JButton getBtnInput() {
 		return this._btnInput;
+	}
+	
+	public JButton getBtnInputFromFile() {
+		return this._btnInputFromFile;
 	}
 	
 	public JButton getBtnParse() {
