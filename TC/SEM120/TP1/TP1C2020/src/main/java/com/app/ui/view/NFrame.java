@@ -26,8 +26,8 @@ public abstract class NFrame extends JFrame {
 		String str = System.getProperty("os.name").toString().toUpperCase();
 		
 		if ( str.contains("WINDOWS 10")/*( "Windows 10" )*/ ) {
-			this._xOsDifference = 15;
-			this._yOsDifference = 39;
+			this._xOsDifference = 6;
+			this._yOsDifference = 29;
 		} else if( str.contains("WINDOWS 7") ) {
 			this._xOsDifference = 7;
 			this._yOsDifference = 29;

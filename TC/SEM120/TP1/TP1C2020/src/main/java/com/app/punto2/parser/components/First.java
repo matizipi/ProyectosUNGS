@@ -14,11 +14,16 @@ public class First {
 	}
 	
 	public void addTerminal( ProductionComponent PrdC ) {
-		this._lstFirst.add( PrdC );
+		if( this._lstFirst.contains( PrdC ) == false ) {
+			this._lstFirst.add( PrdC );
+		}
 	}
 
 	public void addTerminals( List< ProductionComponent > terminals) {
-		this._lstFirst.addAll( terminals );
+		
+		for( ProductionComponent terminal: terminals ) {
+			this.addTerminal( terminal );
+		}
 	}
 	
 	@Override

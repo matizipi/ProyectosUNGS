@@ -27,9 +27,29 @@ public class Terminal extends ProductionComponent {
 	public boolean equals(Object obj) {
 		if( obj == null )
 			return false;
-		if( this.getClass() != obj.getClass() )
+		
+		if( Terminal.class.isAssignableFrom( obj.getClass() ) == false )
 			return false;
 		
-		return this._value.equals( obj.toString() )?true:false;
+		Terminal terminal = ( Terminal ) obj;
+		if( this.sameValue( terminal ) == false ) {
+			return false;
+		}
+		
+		//return this._value.equals( obj.toString() )?true:false;
+		return true;
+	}
+	
+	private boolean sameValue( Terminal terminal ) {
+		
+		if( this.getValue().equals( terminal.getValue() ) ) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public String getValue() {
+		return this._value;
 	}
 }
