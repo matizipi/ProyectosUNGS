@@ -57,147 +57,147 @@ class ParserTest {
 	
 	@Test
 	void accept_string01_Test() {
-		boolean condition = _parser.AcceptString( _str01 );
+		boolean condition = _parser.acceptString( _str01 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string02_Test() {
-		boolean condition = _parser.AcceptString( _str02 );
+		boolean condition = _parser.acceptString( _str02 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string03_Test() {
-		boolean condition = _parser.AcceptString( _str03 );
+		boolean condition = _parser.acceptString( _str03 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string04_Test() {
-		boolean condition = _parser.AcceptString( _str04 );
+		boolean condition = _parser.acceptString( _str04 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string05_Test() {
-		boolean condition = _parser.AcceptString( _str05 );
+		boolean condition = _parser.acceptString( _str05 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string06_Test() {
-		boolean condition = _parser.AcceptString( _str06 );
+		boolean condition = _parser.acceptString( _str06 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string07_Test() {
-		boolean condition = _parser.AcceptString( _str07 );
+		boolean condition = _parser.acceptString( _str07 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string08_Test() {
-		boolean condition = _parser.AcceptString( _str08 );
+		boolean condition = _parser.acceptString( _str08 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string09_Test() {
-		boolean condition = _parser.AcceptString( _str09 );
+		boolean condition = _parser.acceptString( _str09 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string10_Test() {
-		boolean condition = _parser.AcceptString( _str10 );
+		boolean condition = _parser.acceptString( _str10 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string11_Test() {
-		boolean condition = _parser.AcceptString( _str11 );
+		boolean condition = _parser.acceptString( _str11 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string12_Test() {
-		boolean condition = _parser.AcceptString( _str12 );
+		boolean condition = _parser.acceptString( _str12 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string13_Test() {
-		boolean condition = _parser.AcceptString( _str13 );
+		boolean condition = _parser.acceptString( _str13 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string14_Test() {
-		boolean condition = _parser.AcceptString( _str14 );
+		boolean condition = _parser.acceptString( _str14 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string15_Test() {
-		boolean condition = _parser.AcceptString( _str15 );
+		boolean condition = _parser.acceptString( _str15 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string16_Test() {
-		boolean condition = _parser.AcceptString( _str16 );
+		boolean condition = _parser.acceptString( _str16 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string17_Test() {
-		boolean condition = _parser.AcceptString( _str17 );
+		boolean condition = _parser.acceptString( _str17 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string18_Test() {
-		boolean condition = _parser.AcceptString( _str18 );
+		boolean condition = _parser.acceptString( _str18 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string19_Test() {
-		boolean condition = _parser.AcceptString( _str19 );
+		boolean condition = _parser.acceptString( _str19 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string20_Test() {
-		boolean condition = _parser.AcceptString( _str20 );
+		boolean condition = _parser.acceptString( _str20 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string21_Test() {
-		boolean condition = _parser.AcceptString( _str21 );
+		boolean condition = _parser.acceptString( _str21 );
 		
 		assertTrue( condition );
 	}

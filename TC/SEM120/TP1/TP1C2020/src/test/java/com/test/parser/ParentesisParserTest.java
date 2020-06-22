@@ -45,56 +45,56 @@ class ParentesisParserTest {
 	
 	@Test
 	void accept_string01_Test() {
-		boolean condition = _parser.AcceptString( _str01 );
+		boolean condition = _parser.acceptString( _str01 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string02_Test() {
-		boolean condition = _parser.AcceptString( _str02 );
+		boolean condition = _parser.acceptString( _str02 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string03_Test() {
-		boolean condition = _parser.AcceptString( _str03 );
+		boolean condition = _parser.acceptString( _str03 );
 		
 		assertFalse( condition );
 	}
 	
 	@Test
 	void accept_string04_Test() {
-		boolean condition = _parser.AcceptString( _str04 );
+		boolean condition = _parser.acceptString( _str04 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string05_Test() {
-		boolean condition = _parser.AcceptString( _str05 );
+		boolean condition = _parser.acceptString( _str05 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string06_Test() {
-		boolean condition = _parser.AcceptString( _str06 );
+		boolean condition = _parser.acceptString( _str06 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string07_Test() {
-		boolean condition = _parser.AcceptString( _str07 );
+		boolean condition = _parser.acceptString( _str07 );
 		
 		assertTrue( condition );
 	}
 	
 	@Test
 	void accept_string08_Test() {
-		boolean condition = _parser.AcceptString( _str08 );
+		boolean condition = _parser.acceptString( _str08 );
 		
 		assertTrue( condition );
 	}

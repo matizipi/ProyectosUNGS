@@ -13,15 +13,18 @@ import com.app.punto2.parser.ParserTopDownNoRecursive;
 import com.app.punto2.parser.components.First;
 import com.app.punto2.parser.components.Follow;
 import com.app.ui.view.ParserView;
+import com.app.ui.view.validation.ParserValidation;
 
 public class ParserController extends Controller {
 	
 	private ParserView _frame;
+	private ParserValidation _validation;
 	private ObjectConverter _oc = new ObjectConverter();
 	private ParserTopDownNoRecursive _parser;
 	
 	public ParserController() {
 		this._frame = new ParserView();
+		this._validation = new ParserValidation( this._frame );
 		
 		this.addListeners();
 	}
@@ -70,6 +73,7 @@ public class ParserController extends Controller {
 		this._frame.getLblInput().setVisible( b );
 		this._frame.getTxtInput().setVisible( b );
 		this._frame.getBtnInput().setVisible( b );
+		this._frame.getBtnInputFromFile().setVisible( b );
 		this._frame.getBtnParse().setVisible( false );
 		this._frame.getSpFirst().setVisible( b );
 		this._frame.getSpFollow().setVisible( b );
@@ -89,9 +93,20 @@ public class ParserController extends Controller {
 	}
 	
 	public void importFile() {
+		
+		if( this._validation.fileToImportOK() == false ) {
+			return;
+		}
+		
 		/* Get string from field. */
 		String filePath = this._frame.getTxtFile().getText();
-		String charEmpty = "@";
+		String charEmpty;
+		
+		if( this._frame.getTxtEmptySymbol().getText().isEmpty() ) {
+			charEmpty = "@";
+		} else {
+			charEmpty = this._frame.getTxtEmptySymbol().getText();
+		}
 		
 		/* Print file path in log. */
 		this.printLog( new Msg( Msg.INFO, this, "Cargarndo archivo: " + filePath ) );
@@ -185,7 +200,7 @@ public class ParserController extends Controller {
 		
 		String input = this._frame.getTxtInput().getText();
 		
-		if( this._parser.AcceptString( input ) ) {
+		if( this._parser.acceptString( input ) ) {
 			this.printMessages( this._parser.getMsgs() );
 			this._frame.getBtnParse().setVisible( true );
 			this.printMessage( new Msg( Msg.INFO, this, "input aceptado." ) );

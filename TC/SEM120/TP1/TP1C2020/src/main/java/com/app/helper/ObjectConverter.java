@@ -22,7 +22,6 @@ import com.app.punto2.parser.components.Variable;
 
 public class ObjectConverter {
 	
-//	private ConverterSummary _cs;
 	List< Msg > _lstMsg;
 	
 	public ObjectConverter() {

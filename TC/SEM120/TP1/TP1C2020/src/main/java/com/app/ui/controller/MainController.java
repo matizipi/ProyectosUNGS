@@ -18,6 +18,7 @@ public class MainController implements ControllerImpl {
 	private void addListeners() {
 		this._frame.getBtnAutomatonSolution().addActionListener( this );
 		this._frame.getBtnParser().addActionListener( this );
+		this._frame.getBtnConfiguration().addActionListener( this );
 	}
 
 	@Override
@@ -26,6 +27,8 @@ public class MainController implements ControllerImpl {
 			this.transferAutomatonActions();
 		} else if( arg0.getSource() == this._frame.getBtnParser() ) {
 			this.transferParsersActions();
+		} else if( arg0.getSource() == this._frame.getBtnConfiguration() ) {
+			this.transferConfiguration();
 		}
 	}
 
@@ -51,5 +54,12 @@ public class MainController implements ControllerImpl {
 		this.finish();
 		pCtr.start();
 		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a menú de parsers." ) );
+	}
+	
+	private void transferConfiguration() {
+		ConfigurationController ctr = new ConfigurationController();
+		this.finish();
+		ctr.start();
+		Log.WriteFileLog( new Msg( Msg.INFO, this, "Ingresó a configuraciones." ) );
 	}
 }

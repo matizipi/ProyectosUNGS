@@ -80,10 +80,10 @@ public class AutomatonDFView extends AutomatonFrame {
 		this._contentPanel.add( this._btnInput );
 		
 		
-		this._btnInputFromFile = new JButton( "Test desde archivo." );
+		this._btnInputFromFile = new JButton( "Test desde archivo" );
 		this._btnInputFromFile.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
 				, this.spY
-				, 100
+				, 130
 				, this.fldH);
 		this._contentPanel.add( this._btnInputFromFile );
 		

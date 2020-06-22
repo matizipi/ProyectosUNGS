@@ -2,14 +2,12 @@ package com.app.ui.view.validation;
 
 import java.awt.Color;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import com.app.ui.view.AutomatonNFView;
 
-public class AutomatonNFAValidation extends CmtomValidation {
+public class AutomatonNFAValidation extends Validation {
 	
 	private AutomatonNFView _frame;
 	

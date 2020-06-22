@@ -129,6 +129,8 @@ public class NFA extends Automaton {
 		
 		String[][] table = new String[ this._coLstState.size() + 1 ][ this._coAlphabet.getSimbols().size() + 1 ];
 		
+		table[0][0] = "";
+		
 		for ( int i = 0; i < this.getAlphabet().getSimbols().size(); i++ ) {
 			table[0][ i +1 ] = this.getAlphabet().getSimbols().get( i ).getSimbol();
 		}

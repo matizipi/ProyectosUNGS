@@ -112,4 +112,8 @@ public class MainFrame extends NFrame {
 	public JButton getBtnParser() {
 		return this._btnParser;
 	}
+	
+	public JButton getBtnConfiguration() {
+	return this._btnConfiguration;
+	}
 }

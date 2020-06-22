@@ -22,11 +22,15 @@ public abstract class NFrame extends JFrame {
 	protected int fldH = 27;
 	
 	public NFrame() {
+		this.setResizable( false );
 		String str = System.getProperty("os.name").toString().toUpperCase();
 		
-		if ( str.contains("WINDOWS")/*( "Windows 10" )*/ ) {
+		if ( str.contains("WINDOWS 10")/*( "Windows 10" )*/ ) {
 			this._xOsDifference = 15;
 			this._yOsDifference = 39;
+		} else if( str.contains("WINDOWS 7") ) {
+			this._xOsDifference = 7;
+			this._yOsDifference = 29;
 		} else {
 			this._xOsDifference = 8;
 			this._yOsDifference = 45;

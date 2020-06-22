@@ -27,11 +27,12 @@ public class DFA extends Automaton {
 	@Override
 	public String[][] getTfTable() {
 		
-		
 		List< StateA > stts = this._coLstState;
 		List< Symbol > smbls = this._coAlphabet.getSimbols(); 
 		String[][] table = new String[ stts.size() + 1 ]
 				[ smbls.size() + 1 ];
+		
+		table[0][0] = "";
 		
 		for( int i = 0; i < smbls.size(); i++ ) {
 			table[0][ i +1 ] = smbls.get( i ).getSimbol();

@@ -256,9 +256,10 @@ public class ParserTopDownNoRecursive extends Parser {
 	}
 	
 	@Override
-	public boolean AcceptString( String string ) {
+	public boolean acceptString( String string ) {
 		
 		this._lstMsgs.clear();
+		this._processTable.clear();
 		
 		Stack< ProductionComponent > stack = new Stack< ProductionComponent >();
 		stack.push( ProductionComponent.getFinalComponent() );
@@ -277,17 +278,18 @@ public class ParserTopDownNoRecursive extends Parser {
 		int wIndex = 0;
 		
 		String[] processRow = new String[3];
-		Production production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
+		Production production = new Production( new Variable("Avanzar"), new ProductionComponent[0]);
 		
 		while( ( stckComp.equals( ProductionComponent.getFinalComponent() ) ) == false
 				|| w[wIndex].equals( ProductionComponent.getFinalComponent() ) == false ) {
 			
-			String key = stckComp.toString() + "|" + w[ wIndex ].toString();
+//			String key = stckComp.toString() + "|" + w[ wIndex ].toString();
+			String key = String.format( _parsingTableKey, stckComp.toString(), w[ wIndex ].toString() );
 			production = this._mapParsingTable.get( key );
 			
 			if( w[ wIndex ].equals( stckComp ) ) {
-				production = new Production( new Variable("avanzar"), new ProductionComponent[0]);
-				processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() };
+				production = new Production( new Variable("Avanzar"), new ProductionComponent[0]);
+				processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString().replace( "->", "") };
 				stack.pop();
 				stckComp = stack.lastElement();
 				wIndex++;
@@ -316,6 +318,8 @@ public class ParserTopDownNoRecursive extends Parser {
 		
 		processRow = new String[] { stack.toString().substring( 1, stack.toString().length() - 1 ), withFinalSymbol.substring( wIndex, withFinalSymbol.length() ), production.toString() };
 		this._processTable.add( processRow );
+		
+		this._lstMsgs.add( new Msg( Msg.INFO, this, "w aceptado" ) );
 		
 		return true;
 	}
@@ -347,7 +351,8 @@ public class ParserTopDownNoRecursive extends Parser {
 			prdTbl[ index ][0] = this._lstVariable.get( i ).toString();
 			
 			for( int j = 0; j < this._lstTerminal.size(); j++ ) {
-				prd = this._mapParsingTable.get( prdTbl[ index ][0] + "|" + prdTbl[0][ j + 1 ] );
+//				prd = this._mapParsingTable.get( prdTbl[ index ][0] + "|" + prdTbl[0][ j + 1 ] );
+				prd = this._mapParsingTable.get( String.format( _parsingTableKey, prdTbl[ index ][0], prdTbl[0][ j + 1 ] ) );
 				if( prd == null ) {
 					value = "";
 				} else {

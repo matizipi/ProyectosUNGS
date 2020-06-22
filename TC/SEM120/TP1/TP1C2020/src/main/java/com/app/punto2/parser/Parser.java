@@ -66,9 +66,13 @@ public abstract class Parser {
 	
 	protected List< Msg > _lstMsgs = new ArrayList< Msg >();
 	
-	abstract public boolean AcceptString( String string );
+	abstract public boolean acceptString( String string );
 	
-	public List<Msg> getMsgs() {
+	public List< Production > getProductions(){
+		return this._lstProduction;
+	}
+	
+	public List< Msg > getMsgs() {
 		return this._lstMsgs;
 	}
 	

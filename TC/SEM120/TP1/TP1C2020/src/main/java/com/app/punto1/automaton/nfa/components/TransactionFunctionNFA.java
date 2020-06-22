@@ -61,7 +61,7 @@ public class TransactionFunctionNFA extends TransactionFunction {
 			states += stt.getName() + ", ";
 		}
 		
-		return "\u0394(" + this._stateParameter.getName() + "," + this._symbol.getSimbol() + ") = {" + states.substring( states.length() - 2 ) + "}";
+		return "\u0394(" + this._stateParameter.getName() + "," + this._symbol.getSimbol() + ") = {" + states.substring( 0, states.length() - 2 ) + "}";
 	}
 
 	public String nextStringStates() {

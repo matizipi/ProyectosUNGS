@@ -41,6 +41,8 @@ public class ParserView extends NFrame {
 	/* Components to import parser from file. */
 	private JLabel _lblFile;
 	private JTextField _txtFile;
+	private JLabel _lblEmptySymbol;
+	private JTextField _txtEmptyField;
 	private JButton _btnFile;
 
 	/* Return */
@@ -104,7 +106,7 @@ public class ParserView extends NFrame {
 		
 		
 		/* Load File. */
-		this._lblFile = new JLabel( "File:" );
+		this._lblFile = new JLabel( "Archivo:" );
 		this._lblFile.setBounds( this.spX
 				, this.spY
 				, 50
@@ -116,13 +118,30 @@ public class ParserView extends NFrame {
 		this._txtFile.setColumns( 10 );
 		this._txtFile.setBounds( this._lblFile.getX() + this._lblFile.getWidth() + this.spX
 				, this.spY
-				, 650
+				, 600
 				, this.fldH );
 		this._contentPanel.add( this._txtFile );
 		
 		
+		this._lblEmptySymbol = new JLabel( "Vacio:" );
+		this._lblEmptySymbol.setBounds( this._txtFile.getX() + this._txtFile.getWidth() + this.spX
+				, this.spY
+				, 40
+				, this.fldH );
+		this._contentPanel.add( this._lblEmptySymbol );
+		
+		
+		this._txtEmptyField = new JTextField();
+		this._txtEmptyField.setColumns( 10 );
+		this._txtEmptyField.setBounds( this._lblEmptySymbol.getX() + this._lblEmptySymbol.getWidth() + this.spX
+				, this.spY
+				, this.fldH
+				, this.fldH );
+		this._contentPanel.add( this._txtEmptyField );
+		
+		
 		this._btnFile = new JButton( " Importar " );
-		this._btnFile.setBounds( this._txtFile.getX() + this._txtFile.getWidth() + this.spX
+		this._btnFile.setBounds( this._txtEmptyField.getX() + this._txtEmptyField.getWidth() + this.spX
 				, this.spY
 				, 90
 				, this.fldH );
@@ -167,7 +186,7 @@ public class ParserView extends NFrame {
 		this._btnInputFromFile = new JButton( "Test desde archivo" );
 		this._btnInputFromFile.setBounds( this._btnInput.getX() + this._btnInput.getWidth() + this.spX
 				, this._lblFile.getY() + this.fldH + this.spY
-				, this.fldH
+				, 130
 				, this.fldH);
 		this._contentPanel.add( this._btnInputFromFile );
 		
@@ -284,6 +303,10 @@ public class ParserView extends NFrame {
 		return this._txtFile;
 	}
 
+	public JTextField getTxtEmptySymbol() {
+		return this._txtEmptyField;
+	}
+	
 	public JButton getBtnFile() {
 		return this._btnFile;
 	}

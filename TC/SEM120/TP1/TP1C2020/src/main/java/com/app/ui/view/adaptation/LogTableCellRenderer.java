@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.app.common.Msg;
+import com.app.helper.TpConfiguration;
 
 public class LogTableCellRenderer extends DefaultTableCellRenderer {
 	
@@ -24,7 +25,9 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		
 		String type;
 		
-		c.setBackground( row % 2 == 0 ? Color.WHITE/*getBackground()*/ : new Color( 220, 220, 220 ) );
+		TpConfiguration tc = TpConfiguration.getInstance();
+		
+		c.setBackground( row % 2 == 0 ? tc.getColorTo( TpConfiguration.LOG_PAR_ROW )/*new Color( 255, 255, 255)*/ : tc.getColorTo( TpConfiguration.LOG_INPAR_ROW )/*new Color( 220, 220, 220 )*/ );
 		
 		int columnCheck = column;
 		
@@ -44,6 +47,9 @@ public class LogTableCellRenderer extends DefaultTableCellRenderer {
 		}
 		
 		if( isSelected ) {
+			if ( tc.isActiva( TpConfiguration.LOG_SELECTED ) == true ){
+				c.setBackground( tc.getColorTo( TpConfiguration.LOG_SELECTED ) );
+			}
 			c.setFont( new Font( "Tahoma", Font.BOLD, 12 ) );
 		} else {
 			c.setFont( new Font( "Tahoma", Font.PLAIN, 12 ) );
