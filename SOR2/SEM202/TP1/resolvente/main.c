@@ -17,11 +17,5 @@ void main()
     printf("Ingrese el valor para \"c\":\n");
     scanf("%f", &c);
 
-    /*if( a == 0 ){
-        printf( "Math Error: parametro a=0\n"  );
-    } else if( b*b >= 4*a*c ) {*/
-        resolvente( a, b, c);
-/*    } else {
-        printf("Las raices pertenecen al conjunto del los imaginario.\n");
-    }*/
+    resolvente( a, b, c);
 }
