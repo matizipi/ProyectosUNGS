@@ -21,7 +21,22 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
     - [resolvente.s](https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/resolvente/resolvente.s)
     - [main.c](https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/resolvente/main.c)
     - [exe.sh](https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/resolvente/exe.sh)
-- Un
+
+- Una vez descargado los archivos, por consola ingresar en la carpeta en donde se alojaron los archivos.
+
+- Una vez en la ubicación de la carpeta ejecutar el siguiente comando:
+
+    ```sh
+    $ sh ./exe.sh
+    ```
+
+    Esto nos generará un arhivo nombrado "executable".
+
+- Para ejecutar nuestro programa usaremos el siguiente comando:
+
+    ```sh
+    $ ./executable
+    ```
 
 ### ¿Como funciona?
 
