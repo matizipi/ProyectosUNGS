@@ -2,10 +2,10 @@
 
 
 ## Resolvente en ASM
-Se creará un programa para la arquitectura IA32 que calcule las raíces de una funcion cuadratica ( a.x<sup>2</sup> + b.x + c = 0 ) a través de la formula [resolvente][square-root-wiki-link].
+Se creará un programa para la arquitectura IA32 que calcule las raíces de una funcion cuadratica ( a&xscr;<sup>2</sup> + b&xscr; + c = 0 ) a través de la formula [resolvente][square-root-wiki-link].
 
 
-> ![equation](http://latex.codecogs.com/svg.latex?\frac{&space;&space;-b&space;\pm&space;\sqrt{b^{2}&space;-&space;4&space;\times&space;a&space;\times&space;c}}{2&space;\times&space;a})
+![equation](http://latex.codecogs.com/svg.latex?\frac{&space;&space;-b&space;\pm&space;\sqrt{b^{2}&space;-&space;4&space;\times&space;a&space;\times&space;c}}{2&space;\times&space;a})
 
 
 Teniendo en cuenta las siguientes condiciones:
