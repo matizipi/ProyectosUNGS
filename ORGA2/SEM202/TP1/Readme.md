@@ -34,7 +34,7 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Una vez descargado los archivos, por consola ingresar en la carpeta en donde se alojaron los mismos.
 
 
-[instalacion_01][instalacion_01]
+![instalacion_01][instalacion_01]
 
 
 - Una vez en la ubicación de la carpeta ejecutar el siguiente comando:
@@ -46,7 +46,7 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
     Esto nos generará un archivo nombrado "executable" más los archivos objeto de los programas.
 
 
-[instalacion_02][instalacion_02]
+![instalacion_02][instalacion_02]
 
 
 - Para ejecutar nuestro programa usaremos el siguiente comando:
@@ -62,7 +62,7 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Primero abrimos una consola y mediante ella nos ubicamos dentro de la carpeta en la que alojamos el archivo que generamos ( "executable" ).
 
 
-[ejecucion_01][ejecucion_01]
+![ejecucion_01][ejecucion_01]
 
 
 - Una vez ya dentro de la carpeta, ejecutamos el siguiente comando desde consola.
@@ -71,7 +71,7 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
     $ ./executable
     ```
 
-[ejecucion_02][ejecucion_02]
+![ejecucion_02][ejecucion_02]
 
 - Como veremos, por consola nos pedidará que ingresemos cada uno de las constantes de la funcion cuadratica.
     - "a" &rightarrow; para la constante que acompaña la x elevada al cuadrado.
@@ -87,16 +87,16 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Una vez ya ingresadas las tres constantes se mostrará por consola el resultado de las raices.
 
 
-[ejecucion_03][ejecucion_03]
+![ejecucion_03][ejecucion_03]
 
 
 - En caso de que el parametro "a" ( parametro cuadrado ) sea igual a "0" o que las raices pertenezcan al conjunto de los &Im;( Conjunto imaginario &ImaginaryI; ), se mostrará un mensaje por consola informandolo.
 
 
-[error_no_cuadratic][error_no_cuadratic]
+![error_no_cuadratic][error_no_cuadratic]
 
 
-[error_no_cuadratic][error_no_cuadratic]
+![error_no_cuadratic][error_no_cuadratic]
 
 
 ## Entregas obligatorias
