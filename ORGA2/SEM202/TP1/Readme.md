@@ -34,6 +34,9 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Una vez descargado los archivos, por consola ingresar en la carpeta en donde se alojaron los mismos.
 
 
+[instalacion_01][instalacion_01]
+
+
 - Una vez en la ubicación de la carpeta ejecutar el siguiente comando:
 
     ```sh
@@ -41,6 +44,9 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
     ```
 
     Esto nos generará un archivo nombrado "executable" más los archivos objeto de los programas.
+
+
+[instalacion_02][instalacion_02]
 
 
 - Para ejecutar nuestro programa usaremos el siguiente comando:
@@ -56,12 +62,16 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Primero abrimos una consola y mediante ella nos ubicamos dentro de la carpeta en la que alojamos el archivo que generamos ( "executable" ).
 
 
+[ejecucion_01][ejecucion_01]
+
+
 - Una vez ya dentro de la carpeta, ejecutamos el siguiente comando desde consola.
 
     ```sh
     $ ./executable
     ```
 
+[ejecucion_02][ejecucion_02]
 
 - Como veremos, por consola nos pedidará que ingresemos cada uno de las constantes de la funcion cuadratica.
     - "a" &rightarrow; para la constante que acompaña la x elevada al cuadrado.
@@ -77,28 +87,45 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 - Una vez ya ingresadas las tres constantes se mostrará por consola el resultado de las raices.
 
 
+[ejecucion_03][ejecucion_03]
+
+
 - En caso de que el parametro "a" ( parametro cuadrado ) sea igual a "0" o que las raices pertenezcan al conjunto de los &Im;( Conjunto imaginario &ImaginaryI; ), se mostrará un mensaje por consola informandolo.
+
+
+[error_no_cuadratic][error_no_cuadratic]
+
+
+[error_no_cuadratic][error_no_cuadratic]
 
 
 ## Entregas obligatorias
 
 
-También se contará para el TP con las siguientes entregas obligatorias:
+También se contará para el TP con las siguientes [entregas obligatorias][entregas_obligatorias]:
 
 
-- [Ejercicio 4 - Gestión de memoria][ejercicio04-gestion-memoria]
-- [Ejercicio 6 - Gestión de memoria][ejercicio06-gestion-memoria]
-- [Ejercicio 7 - Gestión de memoria][ejercicio07-gestion-memoria]
-- [Ejercicio 4 - FPU][ejercicio04-FPU]
+- [Ejercicio 4 - Gestión de memoria]
+- [Ejercicio 6 - Gestión de memoria]
+- [Ejercicio 7 - Gestión de memoria]
+- [Ejercicio 4 - FPU]
 
 
 
 [square-root-wiki-link]: https://es.wikipedia.org/wiki/Ecuaci%C3%B3n_de_segundo_grado
 
-[ejercicio04-gestion-memoria]: #
+[entregas_obligatorias]: #
 
-[ejercicio06-gestion-memoria]: #
+[instalacion_01]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/instalacion_01.png
 
-[ejercicio07-gestion-memoria]: #
+[instalacion_02]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/instalacion_02.png
 
-[ejercicio04-FPU]: #
+[ejecucion_01]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/ejecucion_01.png
+
+[ejecucion_02]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/ejecucion_02.png
+
+[ejecucion_03]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/ejecucion_03.png
+
+[error_no_cuadratic]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/error_no_cuadratic.png
+
+[error_imaginary]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/error_imaginary.png
