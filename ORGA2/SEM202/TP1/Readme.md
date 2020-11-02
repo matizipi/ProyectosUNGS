@@ -105,10 +105,10 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 También se contará para el TP con las siguientes [entregas obligatorias][entregas_obligatorias]:
 
 
-- [Ejercicio 4 - Gestión de memoria]
-- [Ejercicio 6 - Gestión de memoria]
-- [Ejercicio 7 - Gestión de memoria]
-- [Ejercicio 4 - FPU]
+- Ejercicio 4 - Gestión de memoria
+- Ejercicio 6 - Gestión de memoria
+- Ejercicio 7 - Gestión de memoria
+- Ejercicio 4 - FPU
 
 
 
