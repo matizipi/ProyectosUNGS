@@ -114,7 +114,7 @@ También se contará para el TP con las siguientes [entregas obligatorias][entre
 
 [square-root-wiki-link]: https://es.wikipedia.org/wiki/Ecuaci%C3%B3n_de_segundo_grado
 
-[entregas_obligatorias]: #
+[entregas_obligatorias]: https://github.com/NFER179/ProyectosUNGS/tree/master/ORGA2/SEM202/TP1/entrgas_obligatorias
 
 [instalacion_01]: https://github.com/NFER179/ProyectosUNGS/blob/master/ORGA2/SEM202/TP1/img/instalacion_01.png
 
