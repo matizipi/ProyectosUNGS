@@ -96,7 +96,7 @@ Por último se compilará y linkearán los archivos objetos de ambos programas d
 ![error_no_cuadratic][error_no_cuadratic]
 
 
-![error_no_cuadratic][error_no_cuadratic]
+![error_no_cuadratic][error_imaginary]
 
 
 ## Entregas obligatorias
